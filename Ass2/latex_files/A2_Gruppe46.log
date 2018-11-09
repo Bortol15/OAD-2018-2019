@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2018.10.11)  9 NOV 2018 22:55
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2018.10.11)  9 NOV 2018 23:08
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -686,6 +686,55 @@ Overfull \hbox (15.0pt too wide) in paragraph at lines 101--102
 [9 </home/zdenek/Documents/studium/sem3/OO_Analyse_Design/Project/OAD-2018-2019
 /Ass2/A2/Use-Case-Bild.png> </home/zdenek/Documents/studium/sem3/OO_Analyse_Des
 ign/Project/OAD-2018-2019/Ass2/temp/prio.jpg>]
+Underfull \hbox (badness 10000) in paragraph at lines 108--130
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 108--130
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 108--130
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 108--130
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 108--130
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 108--130
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 108--130
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 108--130
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 108--130
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 108--130
+
+ []
+
 </home/zdenek/Documents/studium/sem3/OO_Analyse_Design/Project/OAD-2018-2019/As
 s2/A2/Ui-Screenshots/Selection_007.png, id=50, 311.1625pt x 305.14pt>
 File: /home/zdenek/Documents/studium/sem3/OO_Analyse_Design/Project/OAD-2018-20
@@ -694,8 +743,11 @@ File: /home/zdenek/Documents/studium/sem3/OO_Analyse_Design/Project/OAD-2018-20
 9/Ass2/A2/Ui-Screenshots/Selection_007.png>
 Package pdftex.def Info: /home/zdenek/Documents/studium/sem3/OO_Analyse_Design/
 Project/OAD-2018-2019/Ass2/A2/Ui-Screenshots/Selection_007.png  used on input l
-ine 113.
+ine 134.
 (pdftex.def)             Requested size: 172.5pt x 169.16379pt.
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
 </home/zdenek/Documents/studium/sem3/OO_Analyse_Design/Project/OAD-2018-2019/As
 s2/A2/Ui-Screenshots/Selection_008.png, id=51, 467.7475pt x 466.74374pt>
 File: /home/zdenek/Documents/studium/sem3/OO_Analyse_Design/Project/OAD-2018-20
@@ -704,8 +756,11 @@ File: /home/zdenek/Documents/studium/sem3/OO_Analyse_Design/Project/OAD-2018-20
 9/Ass2/A2/Ui-Screenshots/Selection_008.png>
 Package pdftex.def Info: /home/zdenek/Documents/studium/sem3/OO_Analyse_Design/
 Project/OAD-2018-2019/Ass2/A2/Ui-Screenshots/Selection_008.png  used on input l
-ine 119.
+ine 140.
 (pdftex.def)             Requested size: 172.5pt x 172.12984pt.
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
 </home/zdenek/Documents/studium/sem3/OO_Analyse_Design/Project/OAD-2018-2019/As
 s2/A2/Ui-Screenshots/Selection_009.png, id=52, 509.905pt x 386.44376pt>
 File: /home/zdenek/Documents/studium/sem3/OO_Analyse_Design/Project/OAD-2018-20
@@ -714,9 +769,8 @@ File: /home/zdenek/Documents/studium/sem3/OO_Analyse_Design/Project/OAD-2018-20
 9/Ass2/A2/Ui-Screenshots/Selection_009.png>
 Package pdftex.def Info: /home/zdenek/Documents/studium/sem3/OO_Analyse_Design/
 Project/OAD-2018-2019/Ass2/A2/Ui-Screenshots/Selection_009.png  used on input l
-ine 125.
+ine 146.
 (pdftex.def)             Requested size: 172.5pt x 130.7346pt.
-
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
@@ -728,7 +782,7 @@ File: /home/zdenek/Documents/studium/sem3/OO_Analyse_Design/Project/OAD-2018-20
 9/Ass2/A2/Ui-Screenshots/Selection_010.png>
 Package pdftex.def Info: /home/zdenek/Documents/studium/sem3/OO_Analyse_Design/
 Project/OAD-2018-2019/Ass2/A2/Ui-Screenshots/Selection_010.png  used on input l
-ine 131.
+ine 152.
 (pdftex.def)             Requested size: 172.5pt x 116.01492pt.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
@@ -741,7 +795,7 @@ File: /home/zdenek/Documents/studium/sem3/OO_Analyse_Design/Project/OAD-2018-20
 9/Ass2/A2/Ui-Screenshots/Selection_011.png>
 Package pdftex.def Info: /home/zdenek/Documents/studium/sem3/OO_Analyse_Design/
 Project/OAD-2018-2019/Ass2/A2/Ui-Screenshots/Selection_011.png  used on input l
-ine 137.
+ine 158.
 (pdftex.def)             Requested size: 172.5pt x 106.31535pt.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
@@ -754,7 +808,7 @@ File: /home/zdenek/Documents/studium/sem3/OO_Analyse_Design/Project/OAD-2018-20
 9/Ass2/A2/Ui-Screenshots/Selection_012.png>
 Package pdftex.def Info: /home/zdenek/Documents/studium/sem3/OO_Analyse_Design/
 Project/OAD-2018-2019/Ass2/A2/Ui-Screenshots/Selection_012.png  used on input l
-ine 143.
+ine 164.
 (pdftex.def)             Requested size: 172.5pt x 150.34547pt.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
@@ -767,7 +821,7 @@ File: /home/zdenek/Documents/studium/sem3/OO_Analyse_Design/Project/OAD-2018-20
 9/Ass2/A2/Ui-Screenshots/Selection_014.png>
 Package pdftex.def Info: /home/zdenek/Documents/studium/sem3/OO_Analyse_Design/
 Project/OAD-2018-2019/Ass2/A2/Ui-Screenshots/Selection_014.png  used on input l
-ine 149.
+ine 170.
 (pdftex.def)             Requested size: 172.5pt x 138.85368pt.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
@@ -780,7 +834,7 @@ File: /home/zdenek/Documents/studium/sem3/OO_Analyse_Design/Project/OAD-2018-20
 9/Ass2/A2/Ui-Screenshots/Selection_015.png>
 Package pdftex.def Info: /home/zdenek/Documents/studium/sem3/OO_Analyse_Design/
 Project/OAD-2018-2019/Ass2/A2/Ui-Screenshots/Selection_015.png  used on input l
-ine 155.
+ine 176.
 (pdftex.def)             Requested size: 172.5pt x 137.00447pt.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
@@ -793,7 +847,7 @@ File: /home/zdenek/Documents/studium/sem3/OO_Analyse_Design/Project/OAD-2018-20
 9/Ass2/A2/Ui-Screenshots/Selection_016.png>
 Package pdftex.def Info: /home/zdenek/Documents/studium/sem3/OO_Analyse_Design/
 Project/OAD-2018-2019/Ass2/A2/Ui-Screenshots/Selection_016.png  used on input l
-ine 161.
+ine 182.
 (pdftex.def)             Requested size: 172.5pt x 223.24005pt.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
@@ -806,46 +860,46 @@ File: /home/zdenek/Documents/studium/sem3/OO_Analyse_Design/Project/OAD-2018-20
 9/Ass2/A2/Ui-Screenshots/Selection_017.png>
 Package pdftex.def Info: /home/zdenek/Documents/studium/sem3/OO_Analyse_Design/
 Project/OAD-2018-2019/Ass2/A2/Ui-Screenshots/Selection_017.png  used on input l
-ine 167.
+ine 188.
 (pdftex.def)             Requested size: 172.5pt x 98.01927pt.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[10 </home/zdenek/Documents/studium/sem3/OO_Analyse_Design/Project/OAD-2018-201
-9/Ass2/A2/Ui-Screenshots/Selection_007.png> </home/zdenek/Documents/studium/sem
-3/OO_Analyse_Design/Project/OAD-2018-2019/Ass2/A2/Ui-Screenshots/Selection_008.
-png>] [11 </home/zdenek/Documents/studium/sem3/OO_Analyse_Design/Project/OAD-20
-18-2019/Ass2/A2/Ui-Screenshots/Selection_009.png> </home/zdenek/Documents/studi
-um/sem3/OO_Analyse_Design/Project/OAD-2018-2019/Ass2/A2/Ui-Screenshots/Selectio
-n_010.png> </home/zdenek/Documents/studium/sem3/OO_Analyse_Design/Project/OAD-2
-018-2019/Ass2/A2/Ui-Screenshots/Selection_011.png>] [12 </home/zdenek/Documents
+[10] [11 </home/zdenek/Documents/studium/sem3/OO_Analyse_Design/Project/OAD-201
+8-2019/Ass2/A2/Ui-Screenshots/Selection_007.png> </home/zdenek/Documents/studiu
+m/sem3/OO_Analyse_Design/Project/OAD-2018-2019/Ass2/A2/Ui-Screenshots/Selection
+_008.png> </home/zdenek/Documents/studium/sem3/OO_Analyse_Design/Project/OAD-20
+18-2019/Ass2/A2/Ui-Screenshots/Selection_009.png>] [12 </home/zdenek/Documents/
+studium/sem3/OO_Analyse_Design/Project/OAD-2018-2019/Ass2/A2/Ui-Screenshots/Sel
+ection_010.png> </home/zdenek/Documents/studium/sem3/OO_Analyse_Design/Project/
+OAD-2018-2019/Ass2/A2/Ui-Screenshots/Selection_011.png> </home/zdenek/Documents
 /studium/sem3/OO_Analyse_Design/Project/OAD-2018-2019/Ass2/A2/Ui-Screenshots/Se
-lection_012.png> </home/zdenek/Documents/studium/sem3/OO_Analyse_Design/Project
-/OAD-2018-2019/Ass2/A2/Ui-Screenshots/Selection_014.png> </home/zdenek/Document
-s/studium/sem3/OO_Analyse_Design/Project/OAD-2018-2019/Ass2/A2/Ui-Screenshots/S
-election_015.png>] [13 </home/zdenek/Documents/studium/sem3/OO_Analyse_Design/P
-roject/OAD-2018-2019/Ass2/A2/Ui-Screenshots/Selection_016.png> </home/zdenek/Do
-cuments/studium/sem3/OO_Analyse_Design/Project/OAD-2018-2019/Ass2/A2/Ui-Screens
-hots/Selection_017.png>] (./A2_Gruppe46.aux) ) 
+lection_012.png>] [13 </home/zdenek/Documents/studium/sem3/OO_Analyse_Design/Pr
+oject/OAD-2018-2019/Ass2/A2/Ui-Screenshots/Selection_014.png> </home/zdenek/Doc
+uments/studium/sem3/OO_Analyse_Design/Project/OAD-2018-2019/Ass2/A2/Ui-Screensh
+ots/Selection_015.png> </home/zdenek/Documents/studium/sem3/OO_Analyse_Design/P
+roject/OAD-2018-2019/Ass2/A2/Ui-Screenshots/Selection_016.png>] [14 </home/zden
+ek/Documents/studium/sem3/OO_Analyse_Design/Project/OAD-2018-2019/Ass2/A2/Ui-Sc
+reenshots/Selection_017.png>] (./A2_Gruppe46.aux) ) 
 Here is how much of TeX's memory you used:
  3722 strings out of 492982
  59138 string characters out of 6134895
- 123977 words of memory out of 5000000
+ 125977 words of memory out of 5000000
  7196 multiletter control sequences out of 15000+600000
  7895 words of font info for 28 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  41i,6n,39p,297b,239s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/share/texlive/texmf-dist/fo
-nts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/ty
-pe1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/pu
-blic/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/am
-sfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/
-cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy
-10.pfb>
-Output written on A2_Gruppe46.pdf (13 pages, 5104938 bytes).
+</usr/share/texlive/texmf-di
+st/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fon
+ts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/typ
+e1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/publ
+ic/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsf
+onts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm
+/cmsy10.pfb>
+Output written on A2_Gruppe46.pdf (14 pages, 5107416 bytes).
 PDF statistics:
- 94 PDF objects out of 1000 (max. 8388607)
- 50 compressed objects within 1 object stream
+ 97 PDF objects out of 1000 (max. 8388607)
+ 52 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  96 words of extra memory for PDF output out of 10000 (max. 10000000)
 
