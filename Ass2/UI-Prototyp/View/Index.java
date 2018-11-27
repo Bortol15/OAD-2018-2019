@@ -27,6 +27,7 @@ public class Index extends JFrame {
 	JButton btn_aktivitaeten = new JButton("Aktivitäten festlegen");
 	JButton btnEmpfehlungenErhalten = new JButton("Empfehlungen erhalten");
 	private JTextField txtSuche;
+	UserController userController = new UserController();
 
 	public Index() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -138,7 +139,7 @@ public class Index extends JFrame {
 		btn_interessen.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				UserController.Interests();
+				userController.ShowInterests();
 			}
 		});
 		btn_interessen.setBounds(12, 56, 180, 25);
@@ -148,7 +149,7 @@ public class Index extends JFrame {
 		btn_aktivitaeten.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				new Activities().setVisible(true);
+				userController.ShowActivities();
 			}
 		});
 		btn_aktivitaeten.setBounds(12, 96, 180, 25);

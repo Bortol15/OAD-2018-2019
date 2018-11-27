@@ -7,7 +7,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import Model.Hotel;
-import Model.Activity;
+import Model.Category;
 
 import javax.swing.JLabel;
 import java.awt.Font;
@@ -62,7 +62,7 @@ public class ShowHotel extends JFrame {
 		
 		for(int i = 0; i < hotel1.Activities.size(); i++)
 		{
-			Activity temp_activity = hotel1.Activities.get(i);
+			Category temp_activity = hotel1.Activities.get(i);
 			JLabel temp_label = new JLabel(temp_activity.name + ": " + temp_activity.value);
 			panel.add(temp_label);
 		}

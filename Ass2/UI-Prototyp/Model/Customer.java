@@ -4,12 +4,12 @@ import java.util.List;
 
 public class Customer {
 
-	public List<Activity> Activities;
-	public List<Activity> Interests;
+	public List<Category> Activities;
+	public List<Category> Interests;	
 	
 	public Customer()
 	{
-		Activities = new ArrayList<Activity>();
-		Interests = new ArrayList<Activity>();
+		Activities = new ArrayList<Category>();
+		Interests = new ArrayList<Category>();
 	}
 }
