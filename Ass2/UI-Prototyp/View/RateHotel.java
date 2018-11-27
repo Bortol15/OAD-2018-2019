@@ -21,7 +21,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.JSlider;
 import javax.swing.event.ChangeListener;
 
-import Model.Activity;
+import Model.Category;
 
 import javax.swing.event.ChangeEvent;
 import java.awt.Font;
@@ -33,7 +33,7 @@ public class RateHotel extends JFrame {
 	private JPanel contentPane;
 	private JTextField textField;
 	private JButton btn_submit;
-	List<Activity> Activities = new ArrayList();
+	List<Category> Activities = new ArrayList();
 	Map<String,JSlider> Sliders = new HashMap<String,JSlider>();
 	Map<String,JLabel>Labels = new HashMap<String,JLabel>();
 	private JSlider slider;
@@ -98,10 +98,10 @@ public class RateHotel extends JFrame {
 	}
 	public void fillList()
 	{
-		Activities.add(new Activity("Schwimmen"));
-		Activities.add(new Activity("Tennis"));
-		Activities.add(new Activity("Geschichte"));
-		Activities.add(new Activity("Volleyball"));
+		Activities.add(new Category("Schwimmen"));
+		Activities.add(new Category("Tennis"));
+		Activities.add(new Category("Geschichte"));
+		Activities.add(new Category("Volleyball"));
 		
 	}
 	public void listActivities()

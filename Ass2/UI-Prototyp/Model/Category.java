@@ -1,16 +1,16 @@
 package Model;
 
-public class Activity {
+public class Category {
 	public String name;
 	public int value;
 	
-	public Activity(String name)
+	public Category(String name)
 	{
 		this.name = name;
 		this.value = 5;
 	}
 	
-	public Activity(String name, int value)
+	public Category(String name, int value)
 	{
 		this.name = name;
 		this.value = value;

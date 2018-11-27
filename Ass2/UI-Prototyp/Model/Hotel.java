@@ -4,10 +4,10 @@ import java.util.List;
 
 public class Hotel {
 
-	public List<Activity> Activities;
+	public List<Category> Activities;
 	
 	public Hotel()
 	{
-		Activities = new ArrayList<Activity>();
+		Activities = new ArrayList<Category>();
 	}
 }
