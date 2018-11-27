@@ -1,3 +1,4 @@
+package View;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.util.ArrayList;
@@ -19,12 +20,15 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JSlider;
 import javax.swing.event.ChangeListener;
+
+import Model.Activity;
+
 import javax.swing.event.ChangeEvent;
 import java.awt.Font;
 
 
 
-public class BewertungAbgeben extends JFrame {
+public class RateHotel extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField textField;
@@ -38,28 +42,7 @@ public class BewertungAbgeben extends JFrame {
 	private JLabel lblKommentar;
 	private JLabel lblNewLabel;
 	
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) 
-	{
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-
-					BewertungAbgeben frame = new BewertungAbgeben();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
-	public BewertungAbgeben() {
+	public RateHotel() {
 		fillList();
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 355, 452);
@@ -95,7 +78,7 @@ public class BewertungAbgeben extends JFrame {
 					text += pair.getKey() + ": " + String.valueOf(temp.getValue() +"\n");
 				}
 				JOptionPane.showMessageDialog(null, text);
-				BewertungAbgeben.this.dispose();
+				RateHotel.this.dispose();
 			}
 		});
 		btn_submit.setBounds(12, 385, 114, 25);

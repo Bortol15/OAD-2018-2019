@@ -1,3 +1,4 @@
+package View;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
@@ -14,31 +15,13 @@ import java.awt.event.ItemEvent;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
-public class Statistik extends JFrame {
+public class Statistics extends JFrame {
 
 	private JPanel contentPane;
 	private JTable tbl_statistic;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Statistik frame = new Statistik();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
-	public Statistik() {
+	
+	public Statistics() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 490, 300);
 		contentPane = new JPanel();

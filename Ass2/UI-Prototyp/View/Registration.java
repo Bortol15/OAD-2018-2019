@@ -1,3 +1,4 @@
+package View;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
@@ -18,7 +19,7 @@ import javax.swing.JLabel;
 import javax.swing.JRadioButton;
 import java.awt.Font;
 
-public class Registrierung extends JFrame {
+public class Registration extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField textField_1;
@@ -33,26 +34,8 @@ public class Registrierung extends JFrame {
 	private JTextField textField_8;
 	private JTextField textField_9;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Registrierung frame = new Registrierung();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
-	/**
-	 * Create the frame.
-	 */
-	public Registrierung() {
+	public Registration() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 466, 466);
 		contentPane = new JPanel();
@@ -90,7 +73,7 @@ public class Registrierung extends JFrame {
 		JButton btnNewButton = new JButton("Registrierung abschicken");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				Registrierung.this.dispose();
+				Registration.this.dispose();
 			}
 		});
 		btnNewButton.setBounds(12, 399, 216, 25);

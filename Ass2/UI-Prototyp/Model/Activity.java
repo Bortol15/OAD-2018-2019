@@ -1,7 +1,8 @@
+package Model;
 
 public class Activity {
-	String name;
-	int value;
+	public String name;
+	public int value;
 	
 	public Activity(String name)
 	{

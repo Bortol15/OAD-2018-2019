@@ -1,9 +1,13 @@
+package View;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import Controller.HotelController;
+
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
@@ -16,7 +20,7 @@ import java.util.Map;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class EmpfehlungenKunde extends JFrame {
+public class RecommodationsCustomer extends JFrame {
 
 	private JPanel contentPane;
 	List<String> recommendet_destinations = new ArrayList();
@@ -25,21 +29,8 @@ public class EmpfehlungenKunde extends JFrame {
 	Map<String,JLabel> destination_labels_map = new HashMap();
 	Map<String,List<String>> destination_map = new HashMap();
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					EmpfehlungenKunde frame = new EmpfehlungenKunde();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+
+	
 	public void fillList()
 	{
 		recommendet_destinations.add("Pula");
@@ -59,7 +50,7 @@ public class EmpfehlungenKunde extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public EmpfehlungenKunde() {
+	public RecommodationsCustomer() {
 		fillList();
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -96,7 +87,7 @@ public class EmpfehlungenKunde extends JFrame {
 						lbl_hotels.addMouseListener(new MouseAdapter()
 						{
 							public void mouseClicked(MouseEvent e) {
-								new HotelAnzeigen().setVisible(true);
+								HotelController.showHotel();
 							}
 						});
 						lbl_hotels.setBounds(12, 57+i*20, 180, 15);

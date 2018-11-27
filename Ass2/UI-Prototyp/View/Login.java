@@ -1,3 +1,4 @@
+package View;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
@@ -14,32 +15,14 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.Font;
 
-public class Anmeldung extends JFrame {
+public class Login extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField textField;
 	private JTextField textField_1;
-	
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Anmeldung frame = new Anmeldung();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
-	/**
-	 * Create the frame.
-	 */
-	public Anmeldung() {
+
+	public Login() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 309, 301);
 		contentPane = new JPanel();
@@ -77,7 +60,7 @@ public class Anmeldung extends JFrame {
 		lblRegistrieren.addMouseListener(new MouseAdapter() {
 
 			public void mouseClicked(MouseEvent e) {			
-				new Registrierung().setVisible(true);
+				new Registration().setVisible(true);
 				closeFrame();
 			}
 			
