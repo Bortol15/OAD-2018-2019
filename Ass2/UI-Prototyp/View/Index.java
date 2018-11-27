@@ -1,9 +1,14 @@
+package View;
 import java.awt.BorderLayout;
+
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import Controller.UserController;
+
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
@@ -22,24 +27,7 @@ public class Index extends JFrame {
 	JButton btn_aktivitaeten = new JButton("Aktivitäten festlegen");
 	JButton btnEmpfehlungenErhalten = new JButton("Empfehlungen erhalten");
 	private JTextField txtSuche;
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Index frame = new Index();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-	/**
-	 * Create the frame.
-	 */
+
 	public Index() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 531, 299);
@@ -54,7 +42,7 @@ public class Index extends JFrame {
 		btn_Login.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				new Anmeldung().setVisible(true);
+				new Login().setVisible(true);
 				btn_Login.setVisible(false);
 				btn_Logout.setVisible(true);
 			}
@@ -103,7 +91,7 @@ public class Index extends JFrame {
 		btnNewButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				new Suche().setVisible(true);
+				new Search().setVisible(true);
 			}
 		});
 		btnNewButton.setBounds(387, 56, 124, 25);
@@ -127,9 +115,9 @@ public class Index extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				
 				if(admin == true)
-					new EmpfehlungenKunde().setVisible(true);
+					new RecommodationsCustomer().setVisible(true);
 				else
-					new EmpfehlungenKunde().setVisible(true);
+					new RecommodationsCustomer().setVisible(true);
 			}
 		});
 		btnEmpfehlungenErhalten.setBounds(12, 232, 196, 25);
@@ -139,7 +127,7 @@ public class Index extends JFrame {
 		btnNewButton_1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				new Statistik().setVisible(true);
+				new Statistics().setVisible(true);
 			}
 		});
 
@@ -150,7 +138,7 @@ public class Index extends JFrame {
 		btn_interessen.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				new Interessen().setVisible(true);
+				UserController.Interests();
 			}
 		});
 		btn_interessen.setBounds(12, 56, 180, 25);
@@ -160,7 +148,7 @@ public class Index extends JFrame {
 		btn_aktivitaeten.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				new Aktivitaeten().setVisible(true);
+				new Activities().setVisible(true);
 			}
 		});
 		btn_aktivitaeten.setBounds(12, 96, 180, 25);

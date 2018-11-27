@@ -1,3 +1,4 @@
+package View;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
@@ -10,6 +11,9 @@ import javax.swing.JSlider;
 import javax.swing.JButton;
 import javax.swing.JTextPane;
 import javax.swing.event.ChangeListener;
+
+import Model.Activity;
+
 import javax.swing.event.ChangeEvent;
 import java.awt.Font;
 import java.util.ArrayList;
@@ -19,7 +23,7 @@ import java.util.Map;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class Aktivitaeten extends JFrame {
+public class Activities extends JFrame {
 
 	private JPanel contentPane;
 	private JButton btn_submit;
@@ -29,26 +33,8 @@ public class Aktivitaeten extends JFrame {
 	private JSlider slider;
 	private JLabel lblNewLabel_1;
 	private JLabel label;
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Aktivitaeten frame = new Aktivitaeten();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
-	/**
-	 * Create the frame.
-	 */
-	public Aktivitaeten() {
+	public Activities() {
 		fillThemes();
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(10, -13, 325, 285);
@@ -61,7 +47,7 @@ public class Aktivitaeten extends JFrame {
 		btnNewButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				Aktivitaeten.this.dispose();
+				Activities.this.dispose();
 			}
 		});
 		btnNewButton.setBounds(12, 218, 114, 25);

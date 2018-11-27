@@ -1,9 +1,14 @@
+package View;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import Model.Hotel;
+import Model.Activity;
+
 import javax.swing.JLabel;
 import java.awt.Font;
 import java.util.ArrayList;
@@ -15,38 +20,11 @@ import java.awt.event.MouseEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class HotelAnzeigen extends JFrame {
+public class ShowHotel extends JFrame {
 
 	private JPanel contentPane;
-	List<Activity> Activities = new ArrayList();
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					HotelAnzeigen frame = new HotelAnzeigen();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-	
-	public void fillActivities()
-	{
-		Activities.add(new Activity("Volleyball", 10));
-		Activities.add(new Activity("Tennis", 7));
-		Activities.add(new Activity("Schwimmen", 10));
-		Activities.add(new Activity("Geschichte", 8));
-	}
 
-	/**
-	 * Create the frame.
-	 */
-	public HotelAnzeigen() {
+	public ShowHotel(Hotel hotel1) {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 354);
 		contentPane = new JPanel();
@@ -81,25 +59,13 @@ public class HotelAnzeigen extends JFrame {
 		panel.setBounds(12, 147, 158, 165);
 		contentPane.add(panel);
 		
-		fillActivities();
 		
-		for(int i = 0; i < Activities.size(); i++)
+		for(int i = 0; i < hotel1.Activities.size(); i++)
 		{
-			Activity temp_activity = Activities.get(i);
+			Activity temp_activity = hotel1.Activities.get(i);
 			JLabel temp_label = new JLabel(temp_activity.name + ": " + temp_activity.value);
 			panel.add(temp_label);
 		}
-//		JLabel label = new JLabel("Schwimmen: 7");
-//		panel.add(label);
-//		
-//		JLabel lblNewLabel_2 = new JLabel("Tennis: 10");
-//		panel.add(lblNewLabel_2);
-//		
-//		JLabel lblVolleyball = new JLabel("Volleyball: 8");
-//		panel.add(lblVolleyball);
-//		
-//		JLabel lblGeschichte = new JLabel("Geschichte: 9");
-//		panel.add(lblGeschichte);
 		
 		JLabel lblAktivitten = new JLabel("Aktivitäten:");
 		lblAktivitten.setFont(new Font("Dialog", Font.ITALIC, 14));
@@ -110,8 +76,8 @@ public class HotelAnzeigen extends JFrame {
 		btnBewertungAbgeben.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				new BewertungAbgeben().setVisible(true);
-				HotelAnzeigen.this.dispose();
+				new RateHotel().setVisible(true);
+				ShowHotel.this.dispose();
 			}
 		});
 		btnBewertungAbgeben.setBounds(231, 287, 197, 25);

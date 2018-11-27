@@ -1,3 +1,4 @@
+package View;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
@@ -6,6 +7,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableCellRenderer;
+
+import Controller.HotelController;
+
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JTable;
@@ -13,31 +17,13 @@ import javax.swing.JScrollPane;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class Suche extends JFrame {
+public class Search extends JFrame {
 
 	private JPanel contentPane;
 	private JTable tbl_search_results;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Suche frame = new Suche();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
-	/**
-	 * Create the frame.
-	 */
-	public Suche() {
+	public Search() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 665, 478);
 		contentPane = new JPanel();
@@ -67,7 +53,7 @@ public class Suche extends JFrame {
 		tbl_search_results.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				new HotelAnzeigen().setVisible(true);
+				HotelController.showHotel();
 			}
 		});
 		JScrollPane scrollPane = new JScrollPane(tbl_search_results);
