@@ -5,149 +5,206 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import Controller.AuthenticationController;
+import Model.User;
+
 import java.awt.GridBagLayout;
 import javax.swing.JTextField;
 import java.awt.GridBagConstraints;
 import javax.swing.JCheckBox;
 import java.awt.Insets;
+
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Date;
+
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import java.awt.Font;
+import com.toedter.components.JLocaleChooser;
+import com.toedter.calendar.JDateChooser;
+import com.toedter.calendar.JCalendar;
 
 public class Registration extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField textField_1;
+	private JTextField txt_Password;
 	private JLabel lblPasswortWiederholen;
-	private JTextField textField_2;
+	private JTextField txt_repeatPassword;
 	private JLabel lblEmail;
-	private JTextField textField_3;
-	private JTextField textField_4;
-	private JTextField textField;
-	private JTextField textField_6;
-	private JTextField textField_7;
-	private JTextField textField_8;
-	private JTextField textField_9;
-
+	private JTextField txt_EMail;
+	private JTextField txt_Birthdate;
+	private JTextField txt_Firstname;
+	private JTextField txt_Lastname;
+	private JTextField txt_Adress;
+	private JTextField txt_ZIP;
+	private JTextField txt_Country;
+	private JRadioButton rbtn_admin;
+	private JRadioButton rbtn_customer;
+	private JRadioButton rbtn_female;
+	private JRadioButton rbtn_male;
 
 	public Registration() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 466, 466);
+		setBounds(100, 100, 445, 481);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblPasswort = new JLabel("Passwort:");
-		lblPasswort.setBounds(12, 331, 124, 15);
+		JLabel lblPasswort = new JLabel("Password *");
+		lblPasswort.setBounds(22, 305, 124, 15);
 		contentPane.add(lblPasswort);
 		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		textField_1.setBounds(12, 352, 182, 19);
-		contentPane.add(textField_1);
+		txt_Password = new JTextField();
+		txt_Password.setColumns(10);
+		txt_Password.setBounds(22, 325, 182, 19);
+		contentPane.add(txt_Password);
 		
-		lblPasswortWiederholen = new JLabel("Passwort wiederholen:");
-		lblPasswortWiederholen.setBounds(223, 331, 202, 15);
+		lblPasswortWiederholen = new JLabel("Repeat password *");
+		lblPasswortWiederholen.setBounds(233, 306, 202, 15);
 		contentPane.add(lblPasswortWiederholen);
 		
-		textField_2 = new JTextField();
-		textField_2.setColumns(10);
-		textField_2.setBounds(223, 352, 182, 19);
-		contentPane.add(textField_2);
+		txt_repeatPassword = new JTextField();
+		txt_repeatPassword.setColumns(10);
+		txt_repeatPassword.setBounds(233, 327, 182, 19);
+		contentPane.add(txt_repeatPassword);
 		
-		lblEmail = new JLabel("E-Mail:");
-		lblEmail.setBounds(12, 281, 124, 15);
+		lblEmail = new JLabel("E-Mail *");
+		lblEmail.setBounds(22, 255, 124, 15);
 		contentPane.add(lblEmail);
 		
-		textField_3 = new JTextField();
-		textField_3.setColumns(10);
-		textField_3.setBounds(12, 302, 182, 19);
-		contentPane.add(textField_3);
+		txt_EMail = new JTextField();
+		txt_EMail.setColumns(10);
+		txt_EMail.setBounds(22, 275, 182, 19);
+		contentPane.add(txt_EMail);
 		
-		JButton btnNewButton = new JButton("Registrierung abschicken");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				Registration.this.dispose();
-			}
-		});
-		btnNewButton.setBounds(12, 399, 216, 25);
-		contentPane.add(btnNewButton);
+		txt_Birthdate = new JTextField();
+		txt_Birthdate.setColumns(10);
+		txt_Birthdate.setBounds(233, 125, 182, 19);
+		contentPane.add(txt_Birthdate);
 		
-		textField_4 = new JTextField();
-		textField_4.setColumns(10);
-		textField_4.setBounds(223, 135, 182, 19);
-		contentPane.add(textField_4);
-		
-		JLabel lblGeburtsdatum = new JLabel("Geburtsdatum:");
-		lblGeburtsdatum.setBounds(223, 114, 124, 15);
+		JLabel lblGeburtsdatum = new JLabel("Birthdate (TT.MM.YYYY)");
+		lblGeburtsdatum.setBounds(233, 105, 165, 15);
 		contentPane.add(lblGeburtsdatum);
 		
-		JLabel lblGeschlecht = new JLabel("Geschlecht:");
-		lblGeschlecht.setBounds(12, 114, 124, 15);
+		JLabel lblGeschlecht = new JLabel("Gender");
+		lblGeschlecht.setBounds(22, 105, 124, 15);
 		contentPane.add(lblGeschlecht);
 		
-		textField = new JTextField();
-		textField.setColumns(10);
-		textField.setBounds(12, 79, 182, 19);
-		contentPane.add(textField);
+		txt_Firstname = new JTextField();
+		txt_Firstname.setColumns(10);
+		txt_Firstname.setBounds(22, 75, 182, 19);
+		contentPane.add(txt_Firstname);
 		
-		JLabel lblVorname = new JLabel("Vorname:");
-		lblVorname.setBounds(12, 55, 124, 15);
-		contentPane.add(lblVorname);
+		JLabel lblFirstname = new JLabel("Firstname");
+		lblFirstname.setBounds(22, 55, 124, 15);
+		contentPane.add(lblFirstname);
 		
-		JLabel lblNachname = new JLabel("Nachname:");
-		lblNachname.setBounds(223, 55, 124, 15);
-		contentPane.add(lblNachname);
+		JLabel lblLastname = new JLabel("Lastname");
+		lblLastname.setBounds(233, 55, 124, 15);
+		contentPane.add(lblLastname);
 		
-		textField_6 = new JTextField();
-		textField_6.setColumns(10);
-		textField_6.setBounds(223, 79, 182, 19);
-		contentPane.add(textField_6);
+		txt_Lastname = new JTextField();
+		txt_Lastname.setColumns(10);
+		txt_Lastname.setBounds(233, 75, 182, 19);
+		contentPane.add(txt_Lastname);
 		
-		textField_7 = new JTextField();
-		textField_7.setColumns(10);
-		textField_7.setBounds(12, 195, 182, 19);
-		contentPane.add(textField_7);
+		txt_Adress = new JTextField();
+		txt_Adress.setColumns(10);
+		txt_Adress.setBounds(22, 175, 182, 19);
+		contentPane.add(txt_Adress);
 		
-		JLabel lblAdresse = new JLabel("Adresse:");
-		lblAdresse.setBounds(12, 171, 124, 15);
-		contentPane.add(lblAdresse);
+		JLabel lblAdress = new JLabel("Adress");
+		lblAdress.setBounds(22, 155, 124, 15);
+		contentPane.add(lblAdress);
 		
-		JLabel lblPlz = new JLabel("PLZ:");
-		lblPlz.setBounds(223, 171, 124, 15);
+		JLabel lblPlz = new JLabel("PLZ");
+		lblPlz.setBounds(233, 156, 124, 15);
 		contentPane.add(lblPlz);
 		
-		textField_8 = new JTextField();
-		textField_8.setColumns(10);
-		textField_8.setBounds(223, 195, 57, 19);
-		contentPane.add(textField_8);
+		txt_ZIP = new JTextField();
+		txt_ZIP.setColumns(10);
+		txt_ZIP.setBounds(233, 175, 57, 19);
+		contentPane.add(txt_ZIP);
 		
-		textField_9 = new JTextField();
-		textField_9.setColumns(10);
-		textField_9.setBounds(12, 250, 182, 19);
-		contentPane.add(textField_9);
+		txt_Country = new JTextField();
+		txt_Country.setColumns(10);
+		txt_Country.setBounds(22, 225, 182, 19);
+		contentPane.add(txt_Country);
 		
-		JLabel lblLand = new JLabel("Land");
-		lblLand.setBounds(12, 226, 124, 15);
-		contentPane.add(lblLand);
+		JLabel lblCountry = new JLabel("Country");
+		lblCountry.setBounds(22, 205, 124, 15);
+		contentPane.add(lblCountry);
 		
-		JRadioButton rdbtnNewRadioButton = new JRadioButton("Männlich");
-		rdbtnNewRadioButton.setBounds(12, 133, 102, 23);
-		contentPane.add(rdbtnNewRadioButton);
+		JRadioButton rbtn_male = new JRadioButton("male");
+		rbtn_male.setBounds(22, 125, 102, 23);
+		contentPane.add(rbtn_male);
 		
-		JRadioButton rdbtnW = new JRadioButton("Weiblich");
-		rdbtnW.setBounds(118, 133, 89, 23);
-		contentPane.add(rdbtnW);
+		JRadioButton rbtn_female = new JRadioButton("femal");
+		rbtn_female.setBounds(128, 125, 89, 23);
+		contentPane.add(rbtn_female);
 		
-		JLabel lblRegistrierung = new JLabel("Registrierung");
+		JLabel lblRegistrierung = new JLabel("Registration");
 		lblRegistrierung.setFont(new Font("Dialog", Font.BOLD, 16));
-		lblRegistrierung.setBounds(12, 12, 132, 31);
+		lblRegistrierung.setBounds(22, 12, 132, 31);
 		contentPane.add(lblRegistrierung);
+		
+		JRadioButton rbtn_customer = new JRadioButton("customer");
+		rbtn_customer.setBounds(22, 375, 102, 23);
+		contentPane.add(rbtn_customer);
+		
+		JRadioButton rbtn_admin = new JRadioButton(" admin");
+		rbtn_admin.setBounds(128, 375, 89, 23);
+		contentPane.add(rbtn_admin);
+		
+		JLabel lblRegisterAs = new JLabel("Register as *");
+		lblRegisterAs.setBounds(22, 355, 124, 15);
+		contentPane.add(lblRegisterAs);
+		
+		ButtonGroup groupAdminCustomer = new ButtonGroup();
+		groupAdminCustomer.add(rbtn_customer);
+		groupAdminCustomer.add(rbtn_admin);
+		
+		ButtonGroup groupGender = new ButtonGroup();
+		groupGender.add(rbtn_female);
+		groupGender.add(rbtn_male);
+		
+		JButton submitRegistration = new JButton("Registrierung abschicken");
+		submitRegistration.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				String gender = "";
+				String user_type = "";
+				if(rbtn_female.isSelected())
+					gender = "female";
+				if(rbtn_male.isSelected())
+					gender = "male";
+				if(rbtn_admin.isSelected())
+					user_type = "admin";
+				if(rbtn_customer.isSelected())
+					user_type = "customer";
+					
+				if(!AuthenticationController.checkValidity(txt_EMail.getText(), txt_Password.getText(), txt_repeatPassword.getText(), user_type))
+				{
+					JOptionPane.showMessageDialog(null, "Input not valid!");
+					return;
+				}
+
+				AuthenticationController.register(new User(txt_Firstname.getText(), txt_Lastname.getText(), txt_EMail.getText(),
+												  txt_Password.getText(), gender, txt_Birthdate.getText(), txt_Adress.getText(),
+												  txt_ZIP.getText(), txt_Country.getText()));
+				
+			}
+		});
+		
+		submitRegistration.setBounds(22, 415, 216, 25);
+		contentPane.add(submitRegistration);
 	}
 }

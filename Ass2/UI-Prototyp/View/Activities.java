@@ -1,5 +1,4 @@
 package View;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -56,4 +55,5 @@ public class Activities extends JFrame {
 			contentPane.add(model.ValueLabels.get(name));
 		}
 	}
+	public Activities() {}
 }

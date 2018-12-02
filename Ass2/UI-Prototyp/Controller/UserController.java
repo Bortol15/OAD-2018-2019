@@ -1,5 +1,6 @@
 package Controller;
 import Model.Customer;
+import Model.TREC;
 import ViewModels.CategoriesViewModel;
 import java.util.List;
 
@@ -33,7 +34,10 @@ public class UserController {
 		customer1.Interests.add(new Category("Kultur", 8));
 		
 		createCategoriesList(customer1.Interests,categoriesViewModel);
-		new Interests(categoriesViewModel).setVisible(true);
+		
+		Interests newInterests = new Interests(categoriesViewModel);
+		newInterests.setVisible(true);
+		TREC.getInstance().Frames.put("Interests", newInterests);
 	}
 	
 	public void saveInterests(CategoriesViewModel model)
@@ -58,16 +62,19 @@ public class UserController {
 		customer1.Activities.add(new Category("Massage", 8));
 		
 		createCategoriesList(customer1.Activities,categoriesViewModel);
-		new Activities(categoriesViewModel).setVisible(true);
+		
+		Activities newActivities = new Activities(categoriesViewModel);
+		newActivities.setVisible(true);
+		TREC.getInstance().Frames.put("Interests", newActivities);
 	}
 	
 	public void createCategoriesList(List<Category> list, CategoriesViewModel model)
 	{
 		for(int i = 0; i < list.size(); i++)
 		{
-			String activity_name = list.get(i).name;
+			String activity_name = list.get(i).Name;
 			
-			lbl_name = new JLabel(list.get(i).name);
+			lbl_name = new JLabel(list.get(i).Name);
 			lbl_name.setBounds(12, 53+i*20, 150, 15);
 			model.NameLabels.put(activity_name, lbl_name);
 			slider = new JSlider();
@@ -75,7 +82,7 @@ public class UserController {
 			slider.setMaximum(10);
 			slider.setMinimum(0);
 			slider.setBounds(160, 53+i*20, 114, 16);
-			slider.setValue(list.get(i).value);
+			slider.setValue(list.get(i).Value);
 			slider.addChangeListener(new ChangeListener() {
 				public void stateChanged(ChangeEvent arg0) {
 					JLabel temp_label = model.ValueLabels.get(activity_name);
@@ -87,7 +94,7 @@ public class UserController {
 			
 			lbl_value = new JLabel(String.valueOf(slider.getValue()));
 			lbl_value.setBounds(300, 53+i*20, 80, 15);
-			model.ValueLabels.put(list.get(i).name, lbl_value);
+			model.ValueLabels.put(list.get(i).Name, lbl_value);
 		}	
 	}
 }

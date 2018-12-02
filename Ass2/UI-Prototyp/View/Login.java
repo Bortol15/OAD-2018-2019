@@ -5,6 +5,11 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import Controller.AuthenticationController;
+import Model.TREC;
+import Model.User;
+
 import java.awt.FlowLayout;
 import javax.swing.JTextField;
 import javax.swing.JCheckBox;
@@ -18,8 +23,8 @@ import java.awt.Font;
 public class Login extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField textField;
-	private JTextField textField_1;
+	private JTextField txt_EMail;
+	private JTextField txt_Password;
 
 
 	public Login() {
@@ -30,45 +35,50 @@ public class Login extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		textField = new JTextField();
-		textField.setBounds(12, 76, 176, 19);
-		contentPane.add(textField);
-		textField.setColumns(10);
+		txt_EMail = new JTextField();
+		txt_EMail.setBounds(12, 76, 176, 19);
+		contentPane.add(txt_EMail);
+		txt_EMail.setColumns(10);
 		
 		JLabel lblBenutzername = new JLabel("E-Mail:");
 		lblBenutzername.setBounds(12, 55, 115, 15);
 		contentPane.add(lblBenutzername);
 		
-		JLabel lblPasswort = new JLabel("Passwort:");
+		JLabel lblPasswort = new JLabel("Password:");
 		lblPasswort.setBounds(12, 107, 115, 15);
 		contentPane.add(lblPasswort);
 		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		textField_1.setBounds(12, 133, 176, 19);
-		contentPane.add(textField_1);
+		txt_Password = new JTextField();
+		txt_Password.setColumns(10);
+		txt_Password.setBounds(12, 133, 176, 19);
+		contentPane.add(txt_Password);
 		
-		JButton btnNewButton = new JButton("Anmelden");
-		btnNewButton.setBounds(12, 164, 114, 25);
-		contentPane.add(btnNewButton);
+		JButton btn_login = new JButton("Login");
+		btn_login.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				AuthenticationController.checkLogin(txt_EMail.getText(), txt_Password.getText());
+			}
+		});
+		btn_login.setBounds(12, 164, 114, 25);
+		contentPane.add(btn_login);
 		
-		JLabel label = new JLabel("Passwort vergessen?");
-		label.setBounds(12, 204, 159, 19);
-		contentPane.add(label);
+		JLabel lblForgotPassword = new JLabel("Forgot Password?");
+		lblForgotPassword.setBounds(12, 204, 159, 19);
+		contentPane.add(lblForgotPassword);
 		
-		JLabel lblRegistrieren = new JLabel("Registrieren");
+		JLabel lblRegistrieren = new JLabel("Register");
 		lblRegistrieren.addMouseListener(new MouseAdapter() {
 
 			public void mouseClicked(MouseEvent e) {			
-				new Registration().setVisible(true);
-				closeFrame();
+				AuthenticationController.showRegistration();
 			}
 			
 		});
 		lblRegistrieren.setBounds(12, 235, 159, 19);
 		contentPane.add(lblRegistrieren);
 		
-		JLabel lblNewLabel = new JLabel("Anmeldung");
+		JLabel lblNewLabel = new JLabel("Login");
 		lblNewLabel.setFont(new Font("Dialog", Font.BOLD, 16));
 		lblNewLabel.setBounds(12, 12, 115, 31);
 		contentPane.add(lblNewLabel);
