@@ -108,9 +108,9 @@ public class RateHotel extends JFrame {
 	{
 		for(int i = 0; i < Activities.size(); i++)
 		{
-			String activity_name = Activities.get(i).name;
+			String activity_name = Activities.get(i).Name;
 			
-			lblNewLabel_1 = new JLabel(Activities.get(i).name);
+			lblNewLabel_1 = new JLabel(Activities.get(i).Name);
 			lblNewLabel_1.setBounds(12, 53+i*20, 150, 15);
 			contentPane.add(lblNewLabel_1);
 					
@@ -119,7 +119,7 @@ public class RateHotel extends JFrame {
 			slider.setMaximum(10);
 			slider.setMinimum(0);
 			slider.setBounds(160, 53+i*20, 114, 16);
-			slider.setValue(Activities.get(i).value);
+			slider.setValue(Activities.get(i).Value);
 			slider.addChangeListener(new ChangeListener() {
 				public void stateChanged(ChangeEvent arg0) {
 					JLabel temp_label = Labels.get(activity_name);
@@ -133,7 +133,7 @@ public class RateHotel extends JFrame {
 			label = new JLabel(String.valueOf(slider.getValue()));
 			label.setBounds(300, 53+i*20, 80, 15);
 			contentPane.add(label);
-			Labels.put(Activities.get(i).name, label);
+			Labels.put(Activities.get(i).Name, label);
 		}	
 	}
 }

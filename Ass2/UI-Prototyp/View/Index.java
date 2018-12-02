@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import Controller.AuthenticationController;
 import Controller.UserController;
 
 import javax.swing.JTextField;
@@ -26,6 +27,7 @@ public class Index extends JFrame {
 	JButton btn_interessen = new JButton("Interessen festlegen");
 	JButton btn_aktivitaeten = new JButton("Aktivitäten festlegen");
 	JButton btnEmpfehlungenErhalten = new JButton("Empfehlungen erhalten");
+	public JButton btn_Login = new JButton("Login");
 	private JTextField txtSuche;
 	UserController userController = new UserController();
 
@@ -36,30 +38,17 @@ public class Index extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
-		JButton btn_Login = new JButton("Login");
 
-		JButton btn_Logout = new JButton("Logout");
+		
+		
 		btn_Login.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent e) {
-				new Login().setVisible(true);
-				btn_Login.setVisible(false);
-				btn_Logout.setVisible(true);
+			public void mouseClicked(MouseEvent e) {	
+				AuthenticationController.login();
 			}
 		});
 		btn_Login.setBounds(387, 12, 124, 25);
 		contentPane.add(btn_Login);
-		
-		btn_Logout.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {	
-				btn_Logout.setVisible(false);
-				btn_Login.setVisible(true);
-			}
-		});
-		btn_Logout.setBounds(387, 12, 124, 25);
-		contentPane.add(btn_Logout);
 		
 		
 		JButton btn_switch_role = new JButton("Zu Admin wechseln");
@@ -116,9 +105,9 @@ public class Index extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				
 				if(admin == true)
-					new RecommodationsCustomer().setVisible(true);
+					new RecommendationsCustomer().setVisible(true);
 				else
-					new RecommodationsCustomer().setVisible(true);
+					new RecommendationsCustomer().setVisible(true);
 			}
 		});
 		btnEmpfehlungenErhalten.setBounds(12, 232, 196, 25);

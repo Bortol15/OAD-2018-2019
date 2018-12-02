@@ -63,7 +63,7 @@ public class ShowHotel extends JFrame {
 		for(int i = 0; i < hotel1.Activities.size(); i++)
 		{
 			Category temp_activity = hotel1.Activities.get(i);
-			JLabel temp_label = new JLabel(temp_activity.name + ": " + temp_activity.value);
+			JLabel temp_label = new JLabel(temp_activity.Name + ": " + temp_activity.Value);
 			panel.add(temp_label);
 		}
 		
@@ -83,4 +83,5 @@ public class ShowHotel extends JFrame {
 		btnBewertungAbgeben.setBounds(231, 287, 197, 25);
 		contentPane.add(btnBewertungAbgeben);
 	}
+	public ShowHotel() {}
 }

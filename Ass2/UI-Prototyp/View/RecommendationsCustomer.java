@@ -20,7 +20,7 @@ import java.util.Map;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class RecommodationsCustomer extends JFrame {
+public class RecommendationsCustomer extends JFrame {
 
 	private JPanel contentPane;
 	List<String> recommendet_destinations = new ArrayList();
@@ -50,7 +50,7 @@ public class RecommodationsCustomer extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public RecommodationsCustomer() {
+	public RecommendationsCustomer() {
 		fillList();
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
