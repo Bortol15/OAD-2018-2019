@@ -1,14 +1,13 @@
-package Controller;
-
-import View.Index;
-import View.Login;
+package Controllers;
 
 import java.util.Objects;
 
 import javax.swing.JOptionPane;
 
-import Model.TREC;
-import Model.User;
+import Models.TREC;
+import Models.User;
+import Views.Index;
+import Views.Login;
 
 public class AuthenticationController {
 

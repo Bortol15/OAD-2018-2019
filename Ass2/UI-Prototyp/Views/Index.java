@@ -1,4 +1,4 @@
-package View;
+package Views;
 import java.awt.BorderLayout;
 
 import java.awt.EventQueue;
@@ -7,8 +7,10 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import Controller.AuthenticationController;
-import Controller.UserController;
+import Controllers.AuthenticationController;
+import Controllers.HotelController;
+import Controllers.UserController;
+import Models.TREC;
 
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -24,11 +26,11 @@ public class Index extends JFrame {
 	private JPanel contentPane;
 	public boolean admin = false;
 	public boolean logged_in = false;
-	JButton btn_interessen = new JButton("Interessen festlegen");
-	JButton btn_aktivitaeten = new JButton("Aktivitäten festlegen");
-	JButton btnEmpfehlungenErhalten = new JButton("Empfehlungen erhalten");
+	JButton btn_interests = new JButton("Set Interests");
+	JButton btn_aktivities = new JButton("Set Activities");
+	JButton btn_Recommendations = new JButton("Get Recommendations");
 	public JButton btn_Login = new JButton("Login");
-	private JTextField txtSuche;
+	private JTextField txt_Search;
 	UserController userController = new UserController();
 
 	public Index() {
@@ -59,48 +61,48 @@ public class Index extends JFrame {
 				{
 					admin = false;
 					btn_switch_role.setText("Zu Admin wechseln");
-					btn_interessen.setVisible(true);
-					btn_aktivitaeten.setVisible(true);
-					btnEmpfehlungenErhalten.setVisible(true);
+					btn_interests.setVisible(true);
+					btn_aktivities.setVisible(true);
+					btn_Recommendations.setVisible(true);
 					
 				}
 				else
 				{
 					admin = true;
 					btn_switch_role.setText("Zu Kunde wechseln");
-					btn_interessen.setVisible(false);
-					btn_aktivitaeten.setVisible(false);
-					btnEmpfehlungenErhalten.setVisible(false);
+					btn_interests.setVisible(false);
+					btn_aktivities.setVisible(false);
+					btn_Recommendations.setVisible(false);
 				}				
 			}
 		});
 		btn_switch_role.setBounds(309, 232, 202, 25);
 		contentPane.add(btn_switch_role);
 		
-		JButton btnNewButton = new JButton("Suche");
-		btnNewButton.addMouseListener(new MouseAdapter() {
+		JButton btn_Search = new JButton("Search");
+		btn_Search.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				new Search().setVisible(true);
+				HotelController.searchHotels(txt_Search.getText());
 			}
 		});
-		btnNewButton.setBounds(387, 56, 124, 25);
-		contentPane.add(btnNewButton);
+		btn_Search.setBounds(387, 56, 124, 25);
+		contentPane.add(btn_Search);
 		
-		txtSuche = new JTextField();
-		txtSuche.addMouseListener(new MouseAdapter() {
+		txt_Search = new JTextField();
+		txt_Search.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				txtSuche.setText("");
+				txt_Search.setText("");
 			}
 		});
-		txtSuche.setText("Suche ...");
-		txtSuche.setBounds(387, 87, 124, 19);
-		contentPane.add(txtSuche);
-		txtSuche.setColumns(10);
+		txt_Search.setText("Search ...");
+		txt_Search.setBounds(387, 87, 124, 19);
+		contentPane.add(txt_Search);
+		txt_Search.setColumns(10);
 
 
-		btnEmpfehlungenErhalten.addMouseListener(new MouseAdapter() {
+		btn_Recommendations.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				
@@ -110,39 +112,39 @@ public class Index extends JFrame {
 					new RecommendationsCustomer().setVisible(true);
 			}
 		});
-		btnEmpfehlungenErhalten.setBounds(12, 232, 196, 25);
-		contentPane.add(btnEmpfehlungenErhalten);
+		btn_Recommendations.setBounds(12, 232, 196, 25);
+		contentPane.add(btn_Recommendations);
 		
-		JButton btnNewButton_1 = new JButton("Statistik anzeigen");
-		btnNewButton_1.addMouseListener(new MouseAdapter() {
+		JButton btn_Statistics = new JButton("Show Statistics");
+		btn_Statistics.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				new Statistics().setVisible(true);
 			}
 		});
 
-		btnNewButton_1.setBounds(12, 196, 158, 25);
-		contentPane.add(btnNewButton_1);
+		btn_Statistics.setBounds(12, 196, 158, 25);
+		contentPane.add(btn_Statistics);
 		
 
-		btn_interessen.addMouseListener(new MouseAdapter() {
+		btn_interests.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				userController.ShowInterests();
 			}
 		});
-		btn_interessen.setBounds(12, 56, 180, 25);
-		contentPane.add(btn_interessen);
+		btn_interests.setBounds(12, 56, 180, 25);
+		contentPane.add(btn_interests);
 		
 
-		btn_aktivitaeten.addMouseListener(new MouseAdapter() {
+		btn_aktivities.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				userController.ShowActivities();
 			}
 		});
-		btn_aktivitaeten.setBounds(12, 96, 180, 25);
-		contentPane.add(btn_aktivitaeten);
+		btn_aktivities.setBounds(12, 96, 180, 25);
+		contentPane.add(btn_aktivities);
 		
 		JLabel lblNewLabel = new JLabel("T-REC");
 		lblNewLabel.setFont(new Font("DejaVu Math TeX Gyre", Font.BOLD, 22));

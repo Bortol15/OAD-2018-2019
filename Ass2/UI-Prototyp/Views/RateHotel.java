@@ -1,4 +1,4 @@
-package View;
+package Views;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.util.ArrayList;
@@ -21,7 +21,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.JSlider;
 import javax.swing.event.ChangeListener;
 
-import Model.Category;
+import Models.Category;
 
 import javax.swing.event.ChangeEvent;
 import java.awt.Font;

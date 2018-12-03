@@ -1,4 +1,4 @@
-package View;
+package Views;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
@@ -6,7 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import Controller.HotelController;
+import Controllers.HotelController;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;

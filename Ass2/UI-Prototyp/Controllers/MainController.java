@@ -1,6 +1,6 @@
-package Controller;
-import Model.TREC;
-import View.*;
+package Controllers;
+import Models.TREC;
+import Views.*;
 
 public class MainController {
 

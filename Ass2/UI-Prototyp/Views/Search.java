@@ -1,4 +1,4 @@
-package View;
+package Views;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
@@ -6,9 +6,11 @@ import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableCellRenderer;
 
-import Controller.HotelController;
+import Controllers.HotelController;
 
 import javax.swing.JLabel;
 import java.awt.Font;
@@ -23,7 +25,7 @@ public class Search extends JFrame {
 	private JTable tbl_search_results;
 
 
-	public Search() {
+	public Search(Object[][] data) {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 665, 478);
 		contentPane = new JPanel();
@@ -31,31 +33,32 @@ public class Search extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("Suchergebnisse");
+		JLabel lblNewLabel = new JLabel("Search Results");
 		lblNewLabel.setFont(new Font("Dialog", Font.BOLD, 16));
 		lblNewLabel.setBounds(12, 12, 165, 15);
 		contentPane.add(lblNewLabel);
 		
-		String[] columnNames = {"Hotel",
-                "Reiseziel",
-                "Land"
-                };
+		if(data == null)
+			return;
 		
-		Object[][] data = {
-				{"Schlossberg Hotel","Graz","Österreich"},
-				{"Hotel Alpina","Breil-Brigels","Schweiz"},
-				{"Hôtel Lavaux","Genfer-See","Schweiz"},
-				{"Apartment Sole di Pola","Pula","Kroatien"},
-			    {"Palacio Ca Sa Galesa","Palma de Mallorca","Spanien"},
-			};
+		String[] columnNames = {"Hotel", "Destination", "Country"};
 		
 		tbl_search_results = new JTable(data,columnNames);
-		tbl_search_results.addMouseListener(new MouseAdapter() {
+		tbl_search_results.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+			
 			@Override
-			public void mouseClicked(MouseEvent e) {
-				HotelController.showHotel();
+			public void valueChanged(ListSelectionEvent arg0) {
+				if(arg0.getValueIsAdjusting()) // otherwise showHotel() is called twice!
+					HotelController.showHotel(tbl_search_results.getValueAt(tbl_search_results.getSelectedRow(), 0).toString());				
 			}
 		});
+//		tbl_search_results.addMouseListener(new MouseAdapter() {
+//			@Override
+//			public void mouseClicked(MouseEvent e) {
+//				HotelController.showHotel();
+//			}
+//		});
+		
 		JScrollPane scrollPane = new JScrollPane(tbl_search_results);
 		scrollPane.setBorder(BorderFactory.createEmptyBorder());
 		scrollPane.setBounds(12, 39, 450, 301);
@@ -69,7 +72,6 @@ public class Search extends JFrame {
 		tbl_search_results.getColumnModel().getColumn(0).setCellRenderer(rightRenderer);
 		tbl_search_results.getColumnModel().getColumn(1).setCellRenderer(rightRenderer);
         tbl_search_results.getColumnModel().getColumn(2).setCellRenderer(rightRenderer);*/
-
-
 	}
+	public Search() {}
 }

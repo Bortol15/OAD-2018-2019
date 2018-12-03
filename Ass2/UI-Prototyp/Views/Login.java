@@ -1,4 +1,4 @@
-package View;
+package Views;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
@@ -6,9 +6,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import Controller.AuthenticationController;
-import Model.TREC;
-import Model.User;
+import Controllers.AuthenticationController;
+import Models.TREC;
+import Models.User;
 
 import java.awt.FlowLayout;
 import javax.swing.JTextField;

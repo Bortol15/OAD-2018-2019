@@ -1,4 +1,4 @@
-package Controller;
+package Controllers;
 public class TRECController {
 
     public static void main(String[] args) {

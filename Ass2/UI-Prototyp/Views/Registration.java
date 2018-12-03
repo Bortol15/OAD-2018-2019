@@ -1,13 +1,10 @@
-package View;
+package Views;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-
-import Controller.AuthenticationController;
-import Model.User;
 
 import java.awt.GridBagLayout;
 import javax.swing.JTextField;
@@ -28,6 +25,10 @@ import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import java.awt.Font;
 import com.toedter.components.JLocaleChooser;
+
+import Controllers.AuthenticationController;
+import Models.User;
+
 import com.toedter.calendar.JDateChooser;
 import com.toedter.calendar.JCalendar;
 

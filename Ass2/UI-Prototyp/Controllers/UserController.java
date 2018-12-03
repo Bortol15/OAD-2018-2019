@@ -1,7 +1,8 @@
-package Controller;
-import Model.Customer;
-import Model.TREC;
+package Controllers;
 import ViewModels.CategoriesViewModel;
+import Views.Activities;
+import Views.Interests;
+
 import java.util.List;
 
 import javax.swing.JLabel;
@@ -9,10 +10,9 @@ import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-
-import Model.Category;
-import View.Activities;
-import View.Interests;
+import Models.Category;
+import Models.Customer;
+import Models.TREC;
 
 public class UserController {
 	

@@ -1,11 +1,12 @@
-package View;
+package Views;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import Controllers.UserController;
+
 import javax.swing.JLabel;
 import javax.swing.JButton;
-
-import Controller.UserController;
 
 import java.awt.Font;
 import java.util.Iterator;
