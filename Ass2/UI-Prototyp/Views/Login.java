@@ -25,8 +25,10 @@ public class Login extends JFrame {
 	private JPanel contentPane;
 	private JTextField txt_EMail;
 	private JTextField txt_Password;
-
-
+	
+	public JTextField getEmail() {return txt_EMail;}
+	public JTextField getPassword() {return txt_Password;}
+	
 	public Login() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 309, 301);

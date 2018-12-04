@@ -50,6 +50,18 @@ public class Registration extends JFrame {
 	private JRadioButton rbtn_customer;
 	private JRadioButton rbtn_female;
 	private JRadioButton rbtn_male;
+	
+	public JTextField getEmail() {return txt_EMail;}
+	public JTextField getBirthdate() {return txt_Birthdate;}
+	public JTextField getFirstname() {return txt_Firstname;}
+	public JTextField getLastname() {return txt_Lastname;}
+	public JTextField getAdress() {return txt_Adress;}
+	public JTextField getZIP() {return txt_ZIP;}
+	public JTextField getCountry() {return txt_Country;}
+	public JRadioButton getAdmin() {return rbtn_admin;}
+	public JRadioButton getCustomer() {return rbtn_customer;}
+	public JRadioButton getFemale() {return rbtn_female;}
+	public JRadioButton getMale() {return rbtn_male;}
 
 	public Registration() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

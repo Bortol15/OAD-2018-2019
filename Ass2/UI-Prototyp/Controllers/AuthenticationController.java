@@ -8,6 +8,7 @@ import Models.TREC;
 import Models.User;
 import Views.Index;
 import Views.Login;
+import Views.Registration;
 
 public class AuthenticationController {
 
@@ -19,14 +20,17 @@ public class AuthenticationController {
 		if(trec.currentLoggedInUser != null)
 		{
 			trec.currentLoggedInUser = null;
-			index.btn_Login.setText("Login");
+			index.getLogin().setText("Login");
 			index.invalidate();
 		    index.validate();
 			index.repaint();
 		}
 		else
 		{
-			trec.Frames.get("Login").setVisible(true);
+			Login login = (Login) trec.Frames.get("Login");
+			login.getEmail().setText("");
+			login.getPassword().setText("");
+			login.setVisible(true);
 		}
 	}
 	
@@ -46,7 +50,7 @@ public class AuthenticationController {
 		if(user_in_db)
 		{
 			trec.currentLoggedInUser = user;
-			index.btn_Login.setText("Logout");
+			index.getLogin().setText("Logout");
 			
 			index.invalidate();
 		    index.validate();
@@ -63,8 +67,15 @@ public class AuthenticationController {
 	public static void showRegistration()
 	{
 		TREC trec = TREC.getInstance();
-
-		trec.Frames.get("Registration").setVisible(true);
+		Registration registration = (Registration) trec.Frames.get("Registration");
+		registration.getEmail().setText("");
+		registration.getFirstname().setText("");
+		registration.getLastname().setText("");
+		registration.getBirthdate().setText("");
+		registration.getAdress().setText("");
+		registration.getCountry().setText("");
+		registration.getZIP().setText("");
+		registration.setVisible(true);
 		trec.Frames.get("Login").setVisible(false);
 	}
 	

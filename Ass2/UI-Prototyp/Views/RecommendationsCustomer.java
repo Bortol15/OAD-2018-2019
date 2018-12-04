@@ -87,7 +87,7 @@ public class RecommendationsCustomer extends JFrame {
 						lbl_hotels.addMouseListener(new MouseAdapter()
 						{
 							public void mouseClicked(MouseEvent e) {
-								HotelController.showHotel();
+								HotelController.showHotel(null);
 							}
 						});
 						lbl_hotels.setBounds(12, 57+i*20, 180, 15);

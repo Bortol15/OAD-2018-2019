@@ -26,12 +26,14 @@ public class Index extends JFrame {
 	private JPanel contentPane;
 	public boolean admin = false;
 	public boolean logged_in = false;
-	JButton btn_interests = new JButton("Set Interests");
-	JButton btn_aktivities = new JButton("Set Activities");
-	JButton btn_Recommendations = new JButton("Get Recommendations");
-	public JButton btn_Login = new JButton("Login");
+	private JButton btn_interests = new JButton("Set Interests");
+	private JButton btn_aktivities = new JButton("Set Activities");
+	private JButton btn_Recommendations = new JButton("Get Recommendations");
+	private JButton btn_Login = new JButton("Login");
 	private JTextField txt_Search;
 	UserController userController = new UserController();
+	
+	public JButton getLogin() {return btn_Login;};
 
 	public Index() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
