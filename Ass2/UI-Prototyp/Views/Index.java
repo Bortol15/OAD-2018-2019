@@ -42,8 +42,6 @@ public class Index extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-
-		
 		
 		btn_Login.addMouseListener(new MouseAdapter() {
 			@Override
@@ -53,33 +51,6 @@ public class Index extends JFrame {
 		});
 		btn_Login.setBounds(387, 12, 124, 25);
 		contentPane.add(btn_Login);
-		
-		
-		JButton btn_switch_role = new JButton("Zu Admin wechseln");
-		btn_switch_role.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				if(admin == true)
-				{
-					admin = false;
-					btn_switch_role.setText("Zu Admin wechseln");
-					btn_interests.setVisible(true);
-					btn_aktivities.setVisible(true);
-					btn_Recommendations.setVisible(true);
-					
-				}
-				else
-				{
-					admin = true;
-					btn_switch_role.setText("Zu Kunde wechseln");
-					btn_interests.setVisible(false);
-					btn_aktivities.setVisible(false);
-					btn_Recommendations.setVisible(false);
-				}				
-			}
-		});
-		btn_switch_role.setBounds(309, 232, 202, 25);
-		contentPane.add(btn_switch_role);
 		
 		JButton btn_Search = new JButton("Search");
 		btn_Search.addMouseListener(new MouseAdapter() {
@@ -103,6 +74,8 @@ public class Index extends JFrame {
 		contentPane.add(txt_Search);
 		txt_Search.setColumns(10);
 
+		if(TREC.getInstance().getCurrentLoggedInUser() == null)
+			return;
 
 		btn_Recommendations.addMouseListener(new MouseAdapter() {
 			@Override

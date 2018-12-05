@@ -45,19 +45,20 @@ public class Search extends JFrame {
 		
 		tbl_search_results = new JTable(data,columnNames);
 		tbl_search_results.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-			
+		String whichHotel;
 			@Override
 			public void valueChanged(ListSelectionEvent arg0) {
 				if(arg0.getValueIsAdjusting()) // otherwise showHotel() is called twice!
-					HotelController.showHotel(tbl_search_results.getValueAt(tbl_search_results.getSelectedRow(), 0).toString());				
+				{
+					whichHotel = tbl_search_results.getValueAt(tbl_search_results.getSelectedRow(), 0).toString();
+					HotelController.showHotel(whichHotel);
+				}
+				else
+				{
+					tbl_search_results.clearSelection();
+				}
 			}
 		});
-//		tbl_search_results.addMouseListener(new MouseAdapter() {
-//			@Override
-//			public void mouseClicked(MouseEvent e) {
-//				HotelController.showHotel();
-//			}
-//		});
 		
 		JScrollPane scrollPane = new JScrollPane(tbl_search_results);
 		scrollPane.setBorder(BorderFactory.createEmptyBorder());
@@ -66,12 +67,6 @@ public class Search extends JFrame {
 		
 		scrollPane.setViewportView(tbl_search_results);
 
-		/* Rechtsbündig */
-		/*DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
-		rightRenderer.setHorizontalAlignment(JLabel.RIGHT);
-		tbl_search_results.getColumnModel().getColumn(0).setCellRenderer(rightRenderer);
-		tbl_search_results.getColumnModel().getColumn(1).setCellRenderer(rightRenderer);
-        tbl_search_results.getColumnModel().getColumn(2).setCellRenderer(rightRenderer);*/
 	}
 	public Search() {}
 }

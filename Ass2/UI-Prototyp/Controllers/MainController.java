@@ -1,5 +1,15 @@
 package Controllers;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.swing.JLabel;
+import javax.swing.JSlider;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+
+import Models.Category;
 import Models.TREC;
+import ViewModels.CategorySlider;
 import Views.*;
 
 public class MainController {
@@ -12,7 +22,7 @@ public class MainController {
 		Activities activities = new Activities();
 		Interests interests = new Interests();
 		Login login = new Login();
-		RateHotel rateHotel = new RateHotel();
+		RateHotel rateHotel = new RateHotel(null);
 		RecommendationsAdmin recommendationsAdmin = new RecommendationsAdmin();
 		RecommendationsCustomer recommendationsCustomer = new RecommendationsCustomer();
 		Registration registration = new Registration();
@@ -36,5 +46,30 @@ public class MainController {
 	public static void showIndex()
 	{
 		TREC.getInstance().Frames.get("Index").setVisible(true);
+	}
+	
+	public static void createCategorySlider(List<Category> list, List<CategorySlider> CategorySliders)
+	{
+		int i = 0;
+		for(Category cat: list)
+		{
+			JLabel name = new JLabel(cat.Name);
+			name.setBounds(12, 53+i*20, 150, 15);
+			JSlider slider = new JSlider();
+			slider.setMaximum(10);
+			slider.setMinimum(0);
+			slider.setBounds(110, 53+i*20, 114, 16);
+			slider.setValue(cat.Value);
+			JLabel value_label = new JLabel(String.valueOf(slider.getValue()));
+			value_label.setBounds(240, 53+i*20, 80, 15);
+			
+			slider.addChangeListener(new ChangeListener() {
+				public void stateChanged(ChangeEvent arg0) {
+					value_label.setText(String.valueOf(slider.getValue()));
+				}
+			});
+			i++;
+			CategorySliders.add(new CategorySlider(name, slider, value_label));
+		}
 	}
 }

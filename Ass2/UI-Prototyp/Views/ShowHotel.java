@@ -5,6 +5,7 @@ import javax.swing.JScrollPane;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 
+import Controllers.HotelController;
 import Models.Category;
 import Models.Evaluation;
 import Models.Hotel;
@@ -35,13 +36,13 @@ public class ShowHotel extends JFrame {
 		setBounds(100, 100, 450, 354);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-        contentPane.setPreferredSize(new Dimension(600, 600));
+        contentPane.setPreferredSize(new Dimension(500, 600));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		JLabel lbl_Name = new JLabel(hotel.getName());
 		lbl_Name.setFont(new Font("Dialog", Font.BOLD, 18));
-		lbl_Name.setBounds(12, 12, 234, 15);
+		lbl_Name.setBounds(12, 12, 234, 25);
 		contentPane.add(lbl_Name);
 		
 		JLabel lblDestination = new JLabel("Destination:");
@@ -74,27 +75,24 @@ public class ShowHotel extends JFrame {
 		flowLayout.setAlignment(FlowLayout.LEFT);
 		panel_activities.setLayout(new GridLayout(5,4));
 		panel_activities.setBounds(12, 147, 500, 100);
-		contentPane.add(panel_activities);
-		JPanel container = new JPanel();
-		JScrollPane scrPane = new JScrollPane(container);
-		getContentPane().add(scrPane);
 		
-		for(int i = 0; i < hotel.Activities.size(); i++)
+		for(int i = 0; i < hotel.getActivities().size(); i++)
 		{
 			JPanel activity = new JPanel();
 			activity.setBorder(BorderFactory.createEmptyBorder(5, 1, 5, 5));
 			
-			Category temp_activity = hotel.Activities.get(i);
+			Category temp_activity = hotel.getActivities().get(i);
 			JLabel temp_label = new JLabel(temp_activity.Name + ": " + temp_activity.Value);
 			activity.add(temp_label);
 			panel_activities.add(temp_label);
 		}
-		
+		contentPane.add(panel_activities);
+				
 		JButton btnRate = new JButton("Rate Hotel");
 		btnRate.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				new RateHotel().setVisible(true);
+				HotelController.rateHotel(hotel);
 				ShowHotel.this.dispose();
 			}
 		});

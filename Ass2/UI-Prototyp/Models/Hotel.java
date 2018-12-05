@@ -4,7 +4,7 @@ import java.util.List;
 
 public class Hotel {
 
-	public List<Category> Activities;
+	private List<Category> Activities;
 	private String Name;
 	private String Destination;
 	private String Country;
@@ -15,13 +15,13 @@ public class Hotel {
 		setName(name);
 		setDestination(destination);
 		setCountry(country);
-		Activities = new ArrayList<Category>();
+		setActivities(new ArrayList<Category>());
 		Evaluations = new ArrayList<Evaluation>();
 	}
 	
 	public Hotel()
 	{
-		Activities = new ArrayList<Category>();
+		setActivities(new ArrayList<Category>());
 	}
 
 	public String getName()
@@ -62,5 +62,13 @@ public class Hotel {
 	public void setEvaluations(List<Evaluation> evaluations)
 	{
 		Evaluations = evaluations;
+	}
+
+	public List<Category> getActivities() {
+		return Activities;
+	}
+
+	public void setActivities(List<Category> activities) {
+		Activities = activities;
 	}
 }

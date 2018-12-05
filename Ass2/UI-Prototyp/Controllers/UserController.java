@@ -1,8 +1,9 @@
 package Controllers;
-import ViewModels.CategoriesViewModel;
+import ViewModels.CategorySlider;
 import Views.Activities;
 import Views.Interests;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JLabel;
@@ -17,14 +18,10 @@ import Models.TREC;
 public class UserController {
 	
 	Customer customer1 = new Customer();
-	private static JSlider slider;
-	private static JLabel lbl_name;
-	private static JLabel lbl_value;
-
 	
 	public void ShowInterests()
 	{	 	
-		CategoriesViewModel categoriesViewModel = new CategoriesViewModel();
+		List<CategorySlider> catSlider = new ArrayList<CategorySlider>();
 		customer1.Interests.clear();
 		//load from DB
 		customer1.Interests.add(new Category("Lifestyle",5));
@@ -33,26 +30,26 @@ public class UserController {
 		customer1.Interests.add(new Category("Familie", 7));
 		customer1.Interests.add(new Category("Kultur", 8));
 		
-		createCategoriesList(customer1.Interests,categoriesViewModel);
+		MainController.createCategorySlider(customer1.Interests,catSlider);
 		
-		Interests newInterests = new Interests(categoriesViewModel);
+		Interests newInterests = new Interests(catSlider);
 		newInterests.setVisible(true);
 		TREC.getInstance().Frames.put("Interests", newInterests);
 	}
 	
-	public void saveInterests(CategoriesViewModel model)
+	public void saveInterests(List<CategorySlider> catSlider)
 	{
 		//save into DB
 	}
 	
-	public void saveActivities(CategoriesViewModel model)
+	public void saveActivities(List<CategorySlider> catSlider)
 	{
 		//save into DB
 	}
 	
 	public void ShowActivities()
 	{	
-		CategoriesViewModel categoriesViewModel = new CategoriesViewModel();
+		List<CategorySlider> catSlider = new ArrayList<CategorySlider>();
 		customer1.Activities.clear();
 		//load from DB
 		customer1.Activities.add(new Category("Tennis",5));
@@ -61,40 +58,10 @@ public class UserController {
 		customer1.Activities.add(new Category("Museum", 7));
 		customer1.Activities.add(new Category("Massage", 8));
 		
-		createCategoriesList(customer1.Activities,categoriesViewModel);
+		MainController.createCategorySlider(customer1.Activities,catSlider);
 		
-		Activities newActivities = new Activities(categoriesViewModel);
+		Activities newActivities = new Activities(catSlider);
 		newActivities.setVisible(true);
 		TREC.getInstance().Frames.put("Interests", newActivities);
-	}
-	
-	public void createCategoriesList(List<Category> list, CategoriesViewModel model)
-	{
-		for(int i = 0; i < list.size(); i++)
-		{
-			String activity_name = list.get(i).Name;
-			
-			lbl_name = new JLabel(list.get(i).Name);
-			lbl_name.setBounds(12, 53+i*20, 150, 15);
-			model.NameLabels.put(activity_name, lbl_name);
-			slider = new JSlider();
-			slider.setName("slider_" + activity_name);
-			slider.setMaximum(10);
-			slider.setMinimum(0);
-			slider.setBounds(160, 53+i*20, 114, 16);
-			slider.setValue(list.get(i).Value);
-			slider.addChangeListener(new ChangeListener() {
-				public void stateChanged(ChangeEvent arg0) {
-					JLabel temp_label = model.ValueLabels.get(activity_name);
-					JSlider temp_slider = model.Sliders.get(activity_name);
-					temp_label.setText(String.valueOf(temp_slider.getValue()));
-				}
-			});
-			model.Sliders.put(activity_name, slider);
-			
-			lbl_value = new JLabel(String.valueOf(slider.getValue()));
-			lbl_value.setBounds(300, 53+i*20, 80, 15);
-			model.ValueLabels.put(list.get(i).Name, lbl_value);
-		}	
 	}
 }

@@ -15,15 +15,15 @@ public class AuthenticationController {
 	public static void login()
 	{
 		TREC trec = TREC.getInstance();
-		Index index = (Index) trec.Frames.get("Index");
 		
-		if(trec.currentLoggedInUser != null)
+		if(trec.getCurrentLoggedInUser() != null)
 		{
-			trec.currentLoggedInUser = null;
+			trec.setCurrentLoggedInUser(null);
+			trec.Frames.get("Index").dispose();
+			Index index = new Index();
 			index.getLogin().setText("Login");
-			index.invalidate();
-		    index.validate();
-			index.repaint();
+			trec.Frames.put("Index", index);
+			index.setVisible(true);
 		}
 		else
 		{
@@ -37,24 +37,23 @@ public class AuthenticationController {
 	public static boolean checkLogin(String email, String password) {
 
 		TREC trec = TREC.getInstance();
-		Index index = (Index) trec.Frames.get("Index");
 		
 
 		// check if user.email exist in DB
 		// if yes, check if user.password is identically with the entry in the DB
 		// then load user from DB
-		User user = new User();
+		User user = new User("chriiz","christoph.pross@gmx.at", "asdf");
 		
 		boolean user_in_db = true;
 		
 		if(user_in_db)
 		{
-			trec.currentLoggedInUser = user;
+			trec.setCurrentLoggedInUser(user);
+			trec.Frames.get("Index").dispose();
+			Index index = new Index();
 			index.getLogin().setText("Logout");
-			
-			index.invalidate();
-		    index.validate();
-			index.repaint();
+			trec.Frames.put("Index", index);
+			index.setVisible(true);
 			trec.Frames.get("Login").dispose();
 			return true;
 		}

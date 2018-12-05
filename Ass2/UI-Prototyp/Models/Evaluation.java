@@ -5,10 +5,10 @@ import java.util.*;
 
 public class Evaluation {
 
-	private List<Category> Activities;
-	private String CustomerName;
-	private int NightsSpend;
-	private String Comment;
+	private List<Category> Activities = new ArrayList<Category>();
+	private String CustomerName = "";
+	private int NightsSpend = 0;
+	private String Comment = "";
 	private Date Date;
 	
 	public Date getDate()

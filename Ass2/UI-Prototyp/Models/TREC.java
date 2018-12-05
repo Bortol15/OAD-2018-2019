@@ -10,7 +10,7 @@ public class TREC {
 	
 	private static TREC instance;
 	
-	public  User currentLoggedInUser;
+	private  User currentLoggedInUser;
 	
 	public  Map<String, JFrame> Frames = new HashMap<String,JFrame>();
 	
@@ -23,5 +23,13 @@ public class TREC {
 			TREC.instance = new TREC();
 		}
 		return TREC.instance;
+	}
+
+	public User getCurrentLoggedInUser() {
+		return currentLoggedInUser;
+	}
+
+	public void setCurrentLoggedInUser(User currentLoggedInUser) {
+		this.currentLoggedInUser = currentLoggedInUser;
 	}
 }
