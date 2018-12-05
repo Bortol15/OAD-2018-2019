@@ -1,25 +1,27 @@
-package View;
+package Views;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import Controllers.UserController;
+
 import javax.swing.JLabel;
 import javax.swing.JButton;
 
-import Controller.UserController;
-
 import java.awt.Font;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import ViewModels.*;
 
-public class Activities extends JFrame {
+public class Interests extends JFrame {
 
 	private JPanel contentPane;
 	UserController userController = new UserController();
 
-	public Activities(CategoriesViewModel model) {
+	public Interests(List<CategorySlider> catSliders) {
 
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(10, -13, 320, 258);
@@ -32,28 +34,24 @@ public class Activities extends JFrame {
 		btnSave.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				userController.saveActivities(model);
+				userController.saveInterests(catSliders);
 			}
 		});
 		btnSave.setBounds(12, 191, 114, 25);
 		contentPane.add(btnSave);
 		
 		
-		JLabel lblNewLabel = new JLabel("Set Activities");
+		JLabel lblNewLabel = new JLabel("Set Interests");
 		lblNewLabel.setFont(new Font("Dialog", Font.BOLD, 16));
 		lblNewLabel.setBounds(12, 12, 257, 22);
 		contentPane.add(lblNewLabel);
 		
-		Iterator it = model.NameLabels.entrySet().iterator();
-		
-		while(it.hasNext())
+		for(CategorySlider catSlider : catSliders)
 		{
-			Map.Entry pair = (Map.Entry) it.next();
-			String name = pair.getKey().toString();
-			contentPane.add(model.NameLabels.get(name));
-			contentPane.add(model.Sliders.get(name));
-			contentPane.add(model.ValueLabels.get(name));
-		}
+			contentPane.add(catSlider.Name);
+			contentPane.add(catSlider.Slider);
+			contentPane.add(catSlider.Value);
+		}	
 	}
-	public Activities() {}
+	public Interests() {}
 }

@@ -1,4 +1,4 @@
-package Model;
+package Models;
 
 import java.util.Date;
 
@@ -29,8 +29,12 @@ public class User {
 		Password = password;
 	}
 	
-	public User() 
+	public User(String firstname, String email, String password) 
 	{
-
+		Firstname = firstname;
+		EMail = email;
+		Password = password;
 	}
+	
+	public User() {}
 }

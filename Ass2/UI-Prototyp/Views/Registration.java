@@ -1,13 +1,10 @@
-package View;
+package Views;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-
-import Controller.AuthenticationController;
-import Model.User;
 
 import java.awt.GridBagLayout;
 import javax.swing.JTextField;
@@ -28,6 +25,10 @@ import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import java.awt.Font;
 import com.toedter.components.JLocaleChooser;
+
+import Controllers.AuthenticationController;
+import Models.User;
+
 import com.toedter.calendar.JDateChooser;
 import com.toedter.calendar.JCalendar;
 
@@ -49,6 +50,18 @@ public class Registration extends JFrame {
 	private JRadioButton rbtn_customer;
 	private JRadioButton rbtn_female;
 	private JRadioButton rbtn_male;
+	
+	public JTextField getEmail() {return txt_EMail;}
+	public JTextField getBirthdate() {return txt_Birthdate;}
+	public JTextField getFirstname() {return txt_Firstname;}
+	public JTextField getLastname() {return txt_Lastname;}
+	public JTextField getAdress() {return txt_Adress;}
+	public JTextField getZIP() {return txt_ZIP;}
+	public JTextField getCountry() {return txt_Country;}
+	public JRadioButton getAdmin() {return rbtn_admin;}
+	public JRadioButton getCustomer() {return rbtn_customer;}
+	public JRadioButton getFemale() {return rbtn_female;}
+	public JRadioButton getMale() {return rbtn_male;}
 
 	public Registration() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

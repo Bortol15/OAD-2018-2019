@@ -1,4 +1,4 @@
-package View;
+package Views;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
@@ -6,9 +6,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import Controller.AuthenticationController;
-import Model.TREC;
-import Model.User;
+import Controllers.AuthenticationController;
+import Models.TREC;
+import Models.User;
 
 import java.awt.FlowLayout;
 import javax.swing.JTextField;
@@ -25,8 +25,10 @@ public class Login extends JFrame {
 	private JPanel contentPane;
 	private JTextField txt_EMail;
 	private JTextField txt_Password;
-
-
+	
+	public JTextField getEmail() {return txt_EMail;}
+	public JTextField getPassword() {return txt_Password;}
+	
 	public Login() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 309, 301);

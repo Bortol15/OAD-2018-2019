@@ -1,57 +1,59 @@
-package Controller;
-
-import View.Index;
-import View.Login;
+package Controllers;
 
 import java.util.Objects;
 
 import javax.swing.JOptionPane;
 
-import Model.TREC;
-import Model.User;
+import Models.TREC;
+import Models.User;
+import Views.Index;
+import Views.Login;
+import Views.Registration;
 
 public class AuthenticationController {
 
 	public static void login()
 	{
 		TREC trec = TREC.getInstance();
-		Index index = (Index) trec.Frames.get("Index");
 		
-		if(trec.currentLoggedInUser != null)
+		if(trec.getCurrentLoggedInUser() != null)
 		{
-			trec.currentLoggedInUser = null;
-			index.btn_Login.setText("Login");
-			index.invalidate();
-		    index.validate();
-			index.repaint();
+			trec.setCurrentLoggedInUser(null);
+			trec.Frames.get("Index").dispose();
+			Index index = new Index();
+			index.getLogin().setText("Login");
+			trec.Frames.put("Index", index);
+			index.setVisible(true);
 		}
 		else
 		{
-			trec.Frames.get("Login").setVisible(true);
+			Login login = (Login) trec.Frames.get("Login");
+			login.getEmail().setText("");
+			login.getPassword().setText("");
+			login.setVisible(true);
 		}
 	}
 	
 	public static boolean checkLogin(String email, String password) {
 
 		TREC trec = TREC.getInstance();
-		Index index = (Index) trec.Frames.get("Index");
 		
 
 		// check if user.email exist in DB
 		// if yes, check if user.password is identically with the entry in the DB
 		// then load user from DB
-		User user = new User();
+		User user = new User("chriiz","christoph.pross@gmx.at", "asdf");
 		
 		boolean user_in_db = true;
 		
 		if(user_in_db)
 		{
-			trec.currentLoggedInUser = user;
-			index.btn_Login.setText("Logout");
-			
-			index.invalidate();
-		    index.validate();
-			index.repaint();
+			trec.setCurrentLoggedInUser(user);
+			trec.Frames.get("Index").dispose();
+			Index index = new Index();
+			index.getLogin().setText("Logout");
+			trec.Frames.put("Index", index);
+			index.setVisible(true);
 			trec.Frames.get("Login").dispose();
 			return true;
 		}
@@ -64,8 +66,15 @@ public class AuthenticationController {
 	public static void showRegistration()
 	{
 		TREC trec = TREC.getInstance();
-
-		trec.Frames.get("Registration").setVisible(true);
+		Registration registration = (Registration) trec.Frames.get("Registration");
+		registration.getEmail().setText("");
+		registration.getFirstname().setText("");
+		registration.getLastname().setText("");
+		registration.getBirthdate().setText("");
+		registration.getAdress().setText("");
+		registration.getCountry().setText("");
+		registration.getZIP().setText("");
+		registration.setVisible(true);
 		trec.Frames.get("Login").setVisible(false);
 	}
 	
