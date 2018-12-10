@@ -148,4 +148,9 @@ public class HotelController {
 		search.setVisible(true);
 		TREC.getInstance().Frames.put("Search", search);
 	}
+	
+	public static void maintainHotel(String hotelName)
+	{
+		TREC.getInstance().Frames.get("MaintainHotel").setVisible(true);
+	}
 }

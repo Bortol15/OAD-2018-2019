@@ -20,6 +20,7 @@ import javax.swing.JLabel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
+import javax.swing.JComboBox;
 
 public class Index extends JFrame {
 
@@ -125,5 +126,22 @@ public class Index extends JFrame {
 		lblNewLabel.setFont(new Font("DejaVu Math TeX Gyre", Font.BOLD, 22));
 		lblNewLabel.setBounds(236, 12, 101, 38);
 		contentPane.add(lblNewLabel);
+		
+		JComboBox cbx_MaintainHotel = new JComboBox();
+		cbx_MaintainHotel.setBounds(297, 196, 151, 24);
+		contentPane.add(cbx_MaintainHotel);
+		cbx_MaintainHotel.addItem("Hotel1");
+		cbx_MaintainHotel.addItem("Hotel2");
+		
+		JButton btn_MaintainHotel = new JButton("Maintain Hotel");
+		btn_MaintainHotel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				HotelController.maintainHotel(cbx_MaintainHotel.getSelectedItem().toString());
+			}
+		});
+		btn_MaintainHotel.setBounds(297, 232, 151, 25);
+		contentPane.add(btn_MaintainHotel);
+
 	}
 }
