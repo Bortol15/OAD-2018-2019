@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.border.EmptyBorder;
 
 import Controllers.AuthenticationController;
@@ -50,7 +51,8 @@ public class Login extends JFrame {
 		lblPasswort.setBounds(12, 107, 115, 15);
 		contentPane.add(lblPasswort);
 		
-		txt_Password = new JTextField();
+		
+		txt_Password = new JPasswordField();
 		txt_Password.setColumns(10);
 		txt_Password.setBounds(12, 133, 176, 19);
 		contentPane.add(txt_Password);

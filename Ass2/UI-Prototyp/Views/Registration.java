@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.border.EmptyBorder;
 
 import java.awt.GridBagLayout;
@@ -24,13 +25,10 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import java.awt.Font;
-import com.toedter.components.JLocaleChooser;
 
 import Controllers.AuthenticationController;
 import Models.User;
 
-import com.toedter.calendar.JDateChooser;
-import com.toedter.calendar.JCalendar;
 
 public class Registration extends JFrame {
 
@@ -75,7 +73,7 @@ public class Registration extends JFrame {
 		lblPasswort.setBounds(22, 305, 124, 15);
 		contentPane.add(lblPasswort);
 		
-		txt_Password = new JTextField();
+		txt_Password = new JPasswordField();
 		txt_Password.setColumns(10);
 		txt_Password.setBounds(22, 325, 182, 19);
 		contentPane.add(txt_Password);
@@ -84,7 +82,7 @@ public class Registration extends JFrame {
 		lblPasswortWiederholen.setBounds(233, 306, 202, 15);
 		contentPane.add(lblPasswortWiederholen);
 		
-		txt_repeatPassword = new JTextField();
+		txt_repeatPassword = new JPasswordField();
 		txt_repeatPassword.setColumns(10);
 		txt_repeatPassword.setBounds(233, 327, 182, 19);
 		contentPane.add(txt_repeatPassword);

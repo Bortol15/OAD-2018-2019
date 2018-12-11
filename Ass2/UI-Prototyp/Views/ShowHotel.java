@@ -36,7 +36,7 @@ public class ShowHotel extends JFrame {
 		setBounds(100, 100, 450, 354);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-        contentPane.setPreferredSize(new Dimension(500, 600));
+        contentPane.setPreferredSize(new Dimension(500, 620));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
@@ -65,16 +65,41 @@ public class ShowHotel extends JFrame {
 		lbl_Country.setBounds(120, 66, 150, 15);
 		contentPane.add(lbl_Country);
 		
+		JLabel lblAdddress = new JLabel("Address:");
+		lblAdddress.setFont(new Font("Dialog", Font.BOLD, 14));
+		lblAdddress.setBounds(12, 87, 86, 15);
+		contentPane.add(lblAdddress);
+		
+		JLabel lbl_Adddress = new JLabel(hotel.getAddress());
+		lbl_Adddress.setFont(new Font("Dialog", Font.BOLD, 14));
+		lbl_Adddress.setBounds(120, 87, 350, 15);
+		contentPane.add(lbl_Adddress);
+		
+		JLabel lblStars = new JLabel("Stars:");
+		lblStars.setFont(new Font("Dialog", Font.BOLD, 14));
+		lblStars.setBounds(12, 108, 86, 15);
+		contentPane.add(lblStars);
+		
+		String stars = "";
+		for(int i = 0; i < hotel.getStars();i++)
+			stars += "★";
+		
+		JLabel lbl_Stars = new JLabel(stars);
+		lbl_Stars.setFont(new Font("Dialog", Font.BOLD, 14));
+		lbl_Stars.setBounds(120, 108, 150, 15);
+		contentPane.add(lbl_Stars);
+		
+		
 		JLabel lblActivities = new JLabel("Activities:");
 		lblActivities.setFont(new Font("Dialog", Font.ITALIC, 14));
-		lblActivities.setBounds(12, 129, 101, 15);
+		lblActivities.setBounds(12, 149, 101, 15);
 		contentPane.add(lblActivities);
 		
 		JPanel panel_activities = new JPanel();
 		FlowLayout flowLayout = (FlowLayout) panel_activities.getLayout();
 		flowLayout.setAlignment(FlowLayout.LEFT);
 		panel_activities.setLayout(new GridLayout(5,4));
-		panel_activities.setBounds(12, 147, 500, 100);
+		panel_activities.setBounds(12, 167, 500, 100);
 		
 		for(int i = 0; i < hotel.getActivities().size(); i++)
 		{
@@ -96,12 +121,12 @@ public class ShowHotel extends JFrame {
 				ShowHotel.this.dispose();
 			}
 		});
-		btnRate.setBounds(290, 250, 120, 25);
+		btnRate.setBounds(290, 270, 120, 25);
 		contentPane.add(btnRate);
 		
 		JLabel lblComments = new JLabel("Comments:");
 		lblComments.setFont(new Font("Dialog", Font.BOLD, 16));
-		lblComments.setBounds(12, 250, 234, 15);
+		lblComments.setBounds(12, 270, 234, 15);
 		contentPane.add(lblComments);
 		
         JPanel comment_pane = new JPanel();
@@ -116,6 +141,7 @@ public class ShowHotel extends JFrame {
     		evaluation.add(Box.createRigidArea(new Dimension(0, 15)));
     		String rating = "<html><u>Rating:</u> </br>";
     		int k = 0;
+    		
     		for(int j = 0; j < currentEval.getActivities().size(); j++)
     		{	
     			Category currentActivity = currentEval.getActivities().get(j);
@@ -129,8 +155,8 @@ public class ShowHotel extends JFrame {
     				rating += "<br/>";
     				k = 0;
     			}
-    			
     		}
+    		
     		rating += "</html>";
     		evaluation.add(new JLabel(rating));
     		evaluation.add(Box.createRigidArea(new Dimension(0, 15)));
@@ -148,7 +174,7 @@ public class ShowHotel extends JFrame {
         }
         
         JScrollPane scrollPane = new JScrollPane(comment_pane);
-        scrollPane.setBounds(12, 280, 400, 300);
+        scrollPane.setBounds(12, 300, 400, 300);
         
         contentPane.add(scrollPane);
         pack();

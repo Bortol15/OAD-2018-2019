@@ -9,19 +9,33 @@ public class Hotel {
 	private String Destination;
 	private String Country;
 	private List<Evaluation> Evaluations;
+	private int Stars;
+	private String Address;
 	
 	public Hotel(String name, String destination, String country)
 	{
-		setName(name);
-		setDestination(destination);
-		setCountry(country);
-		setActivities(new ArrayList<Category>());
+		Name = name;
+		Destination = destination;
+		Country = country;
+		Activities = new ArrayList<Category>();
 		Evaluations = new ArrayList<Evaluation>();
+	}
+	
+	public Hotel(String name, String destination, String country, String adress, int stars)
+	{
+		Name = name;
+		Destination = destination;
+		Country = country;
+		Activities = new ArrayList<Category>();
+		Evaluations = new ArrayList<Evaluation>();
+		Address = adress;
+		Stars = stars;
 	}
 	
 	public Hotel()
 	{
-		setActivities(new ArrayList<Category>());
+		Activities = new ArrayList<Category>();
+		Evaluations = new ArrayList<Evaluation>();
 	}
 
 	public String getName()
@@ -70,5 +84,26 @@ public class Hotel {
 
 	public void setActivities(List<Category> activities) {
 		Activities = activities;
+	}
+	
+	public String toString()
+	{
+		return this.Name;
+	}
+
+	public int getStars() {
+		return Stars;
+	}
+
+	public void setStars(int stars) {
+		Stars = stars;
+	}
+
+	public String getAddress() {
+		return Address;
+	}
+
+	public void setAddress(String address) {
+		Address = address;
 	}
 }

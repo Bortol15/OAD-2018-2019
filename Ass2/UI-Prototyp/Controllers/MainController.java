@@ -8,6 +8,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import Models.Category;
+import Models.Hotel;
 import Models.TREC;
 import ViewModels.CategorySlider;
 import Views.*;
@@ -29,6 +30,7 @@ public class MainController {
 		Search search = new Search();
 		ShowHotel showHotel = new ShowHotel();
 		Statistics statistics = new Statistics();
+		MaintainHotel maintainHotel = new MaintainHotel();
 		
 		TREC.getInstance().Frames.put("Activities", activities);
 		TREC.getInstance().Frames.put("Index", index);
@@ -41,6 +43,7 @@ public class MainController {
 		TREC.getInstance().Frames.put("Search", search);
 		TREC.getInstance().Frames.put("ShowHotel", showHotel);
 		TREC.getInstance().Frames.put("Statistics", statistics);
+		TREC.getInstance().Frames.put("MaintainHotel", maintainHotel);
 	}
 	
 	public static void showIndex()
