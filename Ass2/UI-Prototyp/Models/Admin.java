@@ -14,5 +14,4 @@ public class Admin extends User {
 	public void setManagedHotels(List<Hotel> managedHotels) {
 		ManagedHotels = managedHotels;
 	}
-
 }

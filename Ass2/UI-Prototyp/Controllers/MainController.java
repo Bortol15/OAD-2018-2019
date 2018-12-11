@@ -8,6 +8,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import Models.Category;
+import Models.Hotel;
 import Models.TREC;
 import ViewModels.CategorySlider;
 import Views.*;

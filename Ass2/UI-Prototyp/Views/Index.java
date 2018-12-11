@@ -10,6 +10,7 @@ import javax.swing.border.EmptyBorder;
 import Controllers.AuthenticationController;
 import Controllers.HotelController;
 import Controllers.UserController;
+import Models.Hotel;
 import Models.TREC;
 
 import javax.swing.JTextField;
@@ -74,7 +75,12 @@ public class Index extends JFrame {
 		txt_Search.setBounds(387, 87, 124, 19);
 		contentPane.add(txt_Search);
 		txt_Search.setColumns(10);
-
+		
+		JLabel lblNewLabel = new JLabel("T-REC");
+		lblNewLabel.setFont(new Font("DejaVu Math TeX Gyre", Font.BOLD, 22));
+		lblNewLabel.setBounds(236, 12, 101, 38);
+		contentPane.add(lblNewLabel);
+		
 		if(TREC.getInstance().getCurrentLoggedInUser() == null)
 			return;
 
@@ -122,22 +128,23 @@ public class Index extends JFrame {
 		btn_aktivities.setBounds(12, 96, 180, 25);
 		contentPane.add(btn_aktivities);
 		
-		JLabel lblNewLabel = new JLabel("T-REC");
-		lblNewLabel.setFont(new Font("DejaVu Math TeX Gyre", Font.BOLD, 22));
-		lblNewLabel.setBounds(236, 12, 101, 38);
-		contentPane.add(lblNewLabel);
+
 		
-		JComboBox cbx_MaintainHotel = new JComboBox();
+		JComboBox<Hotel> cbx_MaintainHotel = new JComboBox<Hotel>();
 		cbx_MaintainHotel.setBounds(297, 196, 151, 24);
 		contentPane.add(cbx_MaintainHotel);
-		cbx_MaintainHotel.addItem("Hotel1");
-		cbx_MaintainHotel.addItem("Hotel2");
+		Hotel hotel1 = new Hotel("Schlossberg Hotel", "Graz", "Österreich", "Kaiser-Franz-Josef-Kai 30, 8010 Graz", 4);
+		Hotel hotel2 = new Hotel("Schlossberg Hotel", "Graz", "Österreich", "Kaiser-Franz-Josef-Kai 30, 8010 Graz", 4);
+		HotelController.fillHotelWithDummyData(hotel1);
+		HotelController.fillHotelWithDummyData(hotel2);
+		cbx_MaintainHotel.addItem(hotel1);
+		cbx_MaintainHotel.addItem(hotel2);
 		
 		JButton btn_MaintainHotel = new JButton("Maintain Hotel");
 		btn_MaintainHotel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				HotelController.maintainHotel(cbx_MaintainHotel.getSelectedItem().toString());
+				HotelController.maintainHotel((Hotel)cbx_MaintainHotel.getSelectedItem());
 			}
 		});
 		btn_MaintainHotel.setBounds(297, 232, 151, 25);
