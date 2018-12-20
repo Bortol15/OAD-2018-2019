@@ -96,7 +96,7 @@ public class RateHotel extends JFrame {
 				model.evaluation.setComment(comment.getText());
 				int nights_spend = txt_NightsSpend.getText().isEmpty() ? 0 : Integer.parseInt(txt_NightsSpend.getText());
 				model.evaluation.setNightsSpend(nights_spend);
-				model.evaluation.setCustomerName(TREC.getInstance().getCurrentLoggedInUser().Firstname);
+				model.evaluation.setCustomerName(TREC.getInstance().getCurrentLoggedInUser().getFirstname());
 				for(CategorySlider cat : model.CategorySliders)
 					model.evaluation.getActivities().add(new Category(cat.Name.getText(), cat.Slider.getValue()));
 				HotelController.submitEvaluation(model);

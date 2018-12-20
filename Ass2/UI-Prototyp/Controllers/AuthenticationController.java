@@ -9,6 +9,7 @@ import Models.User;
 import Views.Index;
 import Views.Login;
 import Views.Registration;
+import database.Database;
 
 public class AuthenticationController {
 
@@ -86,7 +87,10 @@ public class AuthenticationController {
 	
 	public static void register(User user)
 	{
-		//save User in DB
+		org.hibernate.Session sess = Database.getSession();
+		sess.save(user);
+		sess.close();
+		
 		JOptionPane.showMessageDialog(null, "Registration successfull!");
 		TREC.getInstance().Frames.get("Registration").setVisible(false);
 	}
