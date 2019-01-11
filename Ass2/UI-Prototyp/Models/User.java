@@ -21,10 +21,10 @@ public class User {
 	private int id;
 	
 	@ElementCollection(targetClass = Category.class)
-	private List<Category> activities;
+	public List<Category> activities;
 	
 	@ElementCollection(targetClass = Category.class)
-	private List<Category> interests;
+	public List<Category> interests;
 	
 	@Column(name = "email")
 	private String EMail;
@@ -32,12 +32,25 @@ public class User {
 	@Column(name = "password")
 	private String Password;
 	
+	@Column(name = "firstname")
 	private String Firstname;
+	
+	@Column(name = "lastname")
 	private String LastName;
+	
+	@Column(name = "gender")
 	private String Gender;
+	
+	@Column(name = "birthdate")
 	private String Birthdate;
+	
+	@Column(name = "adress")
 	private String Adress;
+	
+	@Column(name = "zip")
 	private String ZIP;
+	
+	@Column(name = "country")
 	private String Country;
 	
 	public User(String firstname, String lastname, String email, String password,
@@ -64,7 +77,7 @@ public class User {
 	
 	public User() {}
 	
-	@Transient
+	//@Transient
 	public List<Category> getActivities() {
 		return activities;
 	}
@@ -153,7 +166,7 @@ public class User {
 		this.activities = activities;
 	}
 
-	@Transient
+	//@Transient
 	public List<Category> getInterests() {
 		return interests;
 	}

@@ -2,7 +2,11 @@ package Controllers;
 
 import java.util.Objects;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
 import javax.swing.JOptionPane;
+
+import org.hibernate.criterion.Restrictions;
 
 import Models.TREC;
 import Models.User;
@@ -14,7 +18,11 @@ import database.Database;
 public class AuthenticationController {
 
 	public static void login()
-	{
+	{	
+		Login login = (Login) TREC.getInstance().Frames.get("Login");
+
+		
+		
 		TREC trec = TREC.getInstance();
 		
 		if(trec.getCurrentLoggedInUser() != null)
@@ -28,7 +36,6 @@ public class AuthenticationController {
 		}
 		else
 		{
-			Login login = (Login) trec.Frames.get("Login");
 			login.getEmail().setText("");
 			login.getPassword().setText("");
 			login.setVisible(true);
@@ -38,12 +45,16 @@ public class AuthenticationController {
 	public static boolean checkLogin(String email, String password) {
 
 		TREC trec = TREC.getInstance();
+		Login login = (Login) trec.Frames.get("Login");
+				
+		User user = (User) Database.getSession().createCriteria(User.class)
+				.add(Restrictions.eq("email", login.getEmail().getText())).uniqueResult();
+		if (user != null && user.getPassword().equals(login.getPassword().getText())) {
+			Database.setLoggedIn(true);
+		} else {
+			System.out.println("Something wrong");
+		}
 		
-
-		// check if user.email exist in DB
-		// if yes, check if user.password is identically with the entry in the DB
-		// then load user from DB
-		User user = new User("chriiz","christoph.pross@gmx.at", "asdf");
 		
 		boolean user_in_db = true;
 		

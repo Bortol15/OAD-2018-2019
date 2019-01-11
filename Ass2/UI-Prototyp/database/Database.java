@@ -6,7 +6,9 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
+import Models.Category;
 import Models.Customer;
+import Models.User;
 
 public class Database {
 
@@ -16,11 +18,11 @@ public class Database {
 	private static Database singelton = new Database();
 	
 	private Database(){
-		Configuration cfg = new Configuration();
-    	File cfgFile = new File("hibernate.cfg.xml");
-    	cfg.configure(cfgFile);
-    	cfg.addAnnotatedClass(Customer.class);
-    	Database.sf = cfg.configure().buildSessionFactory();
+    	Configuration conf = new Configuration();
+    	conf.configure("/src/main/resources/hibernate.cfg.xml");
+    	conf.addAnnotatedClass(User.class);
+    	conf.addAnnotatedClass(Category.class);
+    	Database.sf = conf.buildSessionFactory();
 	}
 	
 	public static Session getSession() {
