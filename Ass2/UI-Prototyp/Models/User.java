@@ -1,6 +1,5 @@
 package Models;
 
-import java.beans.Transient;
 import java.util.Date;
 import java.util.List;
 
@@ -11,20 +10,29 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "user")
 public class User {
+	
+	private int userId;
+	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")
-	private int id;
+	@GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY )
+	@Column(name = "USER_ID")
+
+	public int getUserId() {
+	return this.userId;
+	}
 	
-	@ElementCollection(targetClass = Category.class)
-	public List<Category> activities;
-	
-	@ElementCollection(targetClass = Category.class)
-	public List<Category> interests;
+	//@Column
+    //@ElementCollection(targetClass=Category.class)
+	private List<Category> activities;
+
+	//@Column
+	//@ElementCollection(targetClass = Category.class)
+	private List<Category> interests;
 	
 	@Column(name = "email")
 	private String EMail;
@@ -77,17 +85,12 @@ public class User {
 	
 	public User() {}
 	
-	//@Transient
+	@Transient
 	public List<Category> getActivities() {
 		return activities;
 	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
+	public void setUserId(int id) {
+		this.userId = id;
 	}
 
 	public String getEMail() {
@@ -166,7 +169,7 @@ public class User {
 		this.activities = activities;
 	}
 
-	//@Transient
+	@Transient
 	public List<Category> getInterests() {
 		return interests;
 	}

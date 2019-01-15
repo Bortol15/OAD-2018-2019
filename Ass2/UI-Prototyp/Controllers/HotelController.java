@@ -43,7 +43,7 @@ public class HotelController {
 		List<Category> Activities = hotel.getActivities();
 		
 		for(Category elem : Activities)
-			elem.Value = 5;
+			elem.setValue(5);
 		HotelViewModel model = new HotelViewModel();
 		MainController.createCategorySlider(Activities, model.CategorySliders);
 		model.HotelName = hotel.getName();

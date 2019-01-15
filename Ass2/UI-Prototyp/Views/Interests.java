@@ -15,6 +15,7 @@ import java.util.Map;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import ViewModels.*;
+import java.awt.BorderLayout;
 
 public class Interests extends JFrame {
 

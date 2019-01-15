@@ -132,7 +132,7 @@ public class MaintainHotel extends JFrame {
 			activity.setLayout(new FlowLayout(FlowLayout.LEADING));
 			
 			Category temp_activity = hotel.getActivities().get(i);
-			JLabel temp_label = new JLabel(temp_activity.Name + ": " + temp_activity.Value);
+			JLabel temp_label = new JLabel(temp_activity.getName() + ": " + temp_activity.getValue());
 			JButton delete_activity = new JButton("X");
 			delete_activity.addMouseListener(new MouseAdapter() {
 				@Override
@@ -200,7 +200,7 @@ public class MaintainHotel extends JFrame {
     		{	
     			Category currentActivity = currentEval.getActivities().get(j);
     			
-    			rating += currentActivity.Name + " " + currentActivity.Value;
+    			rating += currentActivity.getName() + " " + currentActivity.getValue();
     			if(j < currentEval.getActivities().size()-1)
     				rating += ", ";
     			k++;

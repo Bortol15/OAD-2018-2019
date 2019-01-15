@@ -78,5 +78,8 @@ public class TestFrame extends JFrame {
 		JLabel lblNewLabel_5 = new JLabel("New label");
 		panel2.add(lblNewLabel_5);
 		
+		JButton btnNewButton = new JButton("oad");
+		getContentPane().add(btnNewButton);
+		
 	}
 }

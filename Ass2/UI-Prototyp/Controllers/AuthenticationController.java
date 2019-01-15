@@ -21,8 +21,6 @@ public class AuthenticationController {
 	{	
 		Login login = (Login) TREC.getInstance().Frames.get("Login");
 
-		
-		
 		TREC trec = TREC.getInstance();
 		
 		if(trec.getCurrentLoggedInUser() != null)
@@ -30,6 +28,7 @@ public class AuthenticationController {
 			trec.setCurrentLoggedInUser(null);
 			trec.Frames.get("Index").dispose();
 			Index index = new Index();
+			index.lbl_user_logged_in.setText("");
 			index.getLogin().setText("Login");
 			trec.Frames.put("Index", index);
 			index.setVisible(true);
@@ -45,24 +44,23 @@ public class AuthenticationController {
 	public static boolean checkLogin(String email, String password) {
 
 		TREC trec = TREC.getInstance();
-		Login login = (Login) trec.Frames.get("Login");
+		Index index = (Index) trec.Frames.get("Index");
+		trec.Frames.put("Index", index);
 				
 		User user = (User) Database.getSession().createCriteria(User.class)
-				.add(Restrictions.eq("email", login.getEmail().getText())).uniqueResult();
-		if (user != null && user.getPassword().equals(login.getPassword().getText())) {
+				.add(Restrictions.eq("EMail", email)).uniqueResult();
+		if (user != null && user.getPassword().equals(password)) {
 			Database.setLoggedIn(true);
+			trec.setCurrentLoggedInUser(user);
 		} else {
 			System.out.println("Something wrong");
-		}
+		}		
 		
-		
-		boolean user_in_db = true;
-		
-		if(user_in_db)
-		{
-			trec.setCurrentLoggedInUser(user);
+		if(trec.getCurrentLoggedInUser() != null)
+		{						
 			trec.Frames.get("Index").dispose();
-			Index index = new Index();
+			index = new Index();
+			index.lbl_user_logged_in.setText("user logged in: " + user.getEMail());
 			index.getLogin().setText("Logout");
 			trec.Frames.put("Index", index);
 			index.setVisible(true);

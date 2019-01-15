@@ -107,7 +107,7 @@ public class ShowHotel extends JFrame {
 			activity.setBorder(BorderFactory.createEmptyBorder(5, 1, 5, 5));
 			
 			Category temp_activity = hotel.getActivities().get(i);
-			JLabel temp_label = new JLabel(temp_activity.Name + ": " + temp_activity.Value);
+			JLabel temp_label = new JLabel(temp_activity.getName() + ": " + temp_activity.getValue());
 			activity.add(temp_label);
 			panel_activities.add(temp_label);
 		}
@@ -146,7 +146,7 @@ public class ShowHotel extends JFrame {
     		{	
     			Category currentActivity = currentEval.getActivities().get(j);
     			
-    			rating += currentActivity.Name + " " + currentActivity.Value;
+    			rating += currentActivity.getName() + " " + currentActivity.getValue();
     			if(j < currentEval.getActivities().size()-1)
     				rating += ", ";
     			k++;

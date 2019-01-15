@@ -28,6 +28,7 @@ public class Index extends JFrame {
 	private JPanel contentPane;
 	public boolean admin = false;
 	public boolean logged_in = false;
+	public JLabel lbl_user_logged_in = new JLabel("");
 	private JButton btn_interests = new JButton("Set Interests");
 	private JButton btn_aktivities = new JButton("Set Activities");
 	private JButton btn_Recommendations = new JButton("Get Recommendations");
@@ -38,6 +39,7 @@ public class Index extends JFrame {
 	public JButton getLogin() {return btn_Login;};
 
 	public Index() {
+		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 531, 299);
 		contentPane = new JPanel();
@@ -45,6 +47,9 @@ public class Index extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
+		lbl_user_logged_in.setBounds(12, 17, 180, 15);
+		contentPane.add(lbl_user_logged_in);
+				
 		btn_Login.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {	
@@ -149,6 +154,8 @@ public class Index extends JFrame {
 		});
 		btn_MaintainHotel.setBounds(297, 232, 151, 25);
 		contentPane.add(btn_MaintainHotel);
+		
+
 
 	}
 }

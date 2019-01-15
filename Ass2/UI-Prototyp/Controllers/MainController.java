@@ -56,13 +56,13 @@ public class MainController {
 		int i = 0;
 		for(Category cat: list)
 		{
-			JLabel name = new JLabel(cat.Name);
+			JLabel name = new JLabel(cat.getName());
 			name.setBounds(12, 53+i*20, 150, 15);
 			JSlider slider = new JSlider();
 			slider.setMaximum(10);
 			slider.setMinimum(0);
 			slider.setBounds(110, 53+i*20, 114, 16);
-			slider.setValue(cat.Value);
+			slider.setValue(cat.getValue());
 			JLabel value_label = new JLabel(String.valueOf(slider.getValue()));
 			value_label.setBounds(240, 53+i*20, 80, 15);
 			

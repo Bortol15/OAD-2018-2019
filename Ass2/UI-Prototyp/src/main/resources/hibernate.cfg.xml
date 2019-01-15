@@ -3,7 +3,7 @@
         "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 
 <hibernate-configuration>
-
+	
     <session-factory>
 
         <!-- JDBC Database connection settings -->
@@ -13,10 +13,13 @@
         <property name="connection.password">root</property>
 
         <!-- JDBC connection pool settings ... using built-in test pool -->
-        <property name="connection.pool_size">1</property>
+        <property name="connection.pool_size">30</property>
 
         <!-- Select our SQL dialect -->
         <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</property>
+        
+        <property name="hibernate.hbm2ddl.auto">update</property>
 
         <!-- Echo the SQL to stdout -->
         <property name="show_sql">true</property>
