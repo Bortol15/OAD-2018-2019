@@ -2,6 +2,7 @@ package Models;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -28,11 +29,11 @@ public class User {
 	
 	//@Column
     //@ElementCollection(targetClass=Category.class)
-	private List<Category> activities;
+	private Map<String, Integer> activities;
 
 	//@Column
 	//@ElementCollection(targetClass = Category.class)
-	private List<Category> interests;
+	private Map<String, Integer> interests;
 	
 	@Column(name = "email")
 	private String EMail;
@@ -86,7 +87,7 @@ public class User {
 	public User() {}
 	
 	@Transient
-	public List<Category> getActivities() {
+	public Map<String, Integer> getActivities() {
 		return activities;
 	}
 	public void setUserId(int id) {
@@ -165,16 +166,16 @@ public class User {
 		Country = country;
 	}
 
-	public void setActivities(List<Category> activities) {
+	public void setActivities(Map<String, Integer> activities) {
 		this.activities = activities;
 	}
 
 	@Transient
-	public List<Category> getInterests() {
+	public Map<String, Integer> getInterests() {
 		return interests;
 	}
 
-	public void setInterests(List<Category> interests) {
+	public void setInterests(Map<String, Integer> interests) {
 		this.interests = interests;
 	}
 }

@@ -1,15 +1,28 @@
 package Models;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Hotel {
 
-	private List<Category> Activities;
+	private Map<String, Integer> Activities;
+	private Map<String, Integer> Interests;
 	private String Name;
 	private String Destination;
 	private String Country;
 	private List<Evaluation> Evaluations;
 	private int Stars;
+	
+	
+	public Map<String, Integer> getInterests() {
+		return Interests;
+	}
+
+	public void setInterests(Map<String, Integer> interests) {
+		Interests = interests;
+	}
+
 	private String Address;
 	
 	public Hotel(String name, String destination, String country)
@@ -17,7 +30,7 @@ public class Hotel {
 		Name = name;
 		Destination = destination;
 		Country = country;
-		Activities = new ArrayList<Category>();
+		Activities = new HashMap();
 		Evaluations = new ArrayList<Evaluation>();
 	}
 	
@@ -26,7 +39,7 @@ public class Hotel {
 		Name = name;
 		Destination = destination;
 		Country = country;
-		Activities = new ArrayList<Category>();
+		Activities = new HashMap();
 		Evaluations = new ArrayList<Evaluation>();
 		Address = adress;
 		Stars = stars;
@@ -34,7 +47,7 @@ public class Hotel {
 	
 	public Hotel()
 	{
-		Activities = new ArrayList<Category>();
+		Activities = new HashMap();
 		Evaluations = new ArrayList<Evaluation>();
 	}
 
@@ -78,11 +91,11 @@ public class Hotel {
 		Evaluations = evaluations;
 	}
 
-	public List<Category> getActivities() {
+	public Map<String, Integer> getActivities() {
 		return Activities;
 	}
 
-	public void setActivities(List<Category> activities) {
+	public void setActivities(Map<String, Integer> activities) {
 		Activities = activities;
 	}
 	
