@@ -2,15 +2,22 @@ package Models;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Transient;
+
 public class Hotel {
 
-	private List<Category> Activities;
+	private int id;
 	private String Name;
 	private String Destination;
 	private String Country;
-	private List<Evaluation> Evaluations;
-	private int Stars;
 	private String Address;
+	private int Stars;
+
+	private List<Category> Activities;
+	private List<Evaluation> Evaluations;
 	
 	public Hotel(String name, String destination, String country)
 	{
@@ -37,7 +44,23 @@ public class Hotel {
 		Activities = new ArrayList<Category>();
 		Evaluations = new ArrayList<Evaluation>();
 	}
+	
+	@Id
+	@GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY )
+	@Column(name = "HOTEL_ID")
+	
+	public int getHotelId()
+	{
+		return this.id;
+	}
+	
+	public void setHotelId(int id )
+	{
+		this.id = id;
+	}
 
+	
+	@Column(name = "name")
 	public String getName()
 	{
 		return Name;
@@ -48,6 +71,8 @@ public class Hotel {
 		Name = name;
 	}
 
+	
+	@Column(name = "destination")
 	public String getDestination()
 	{
 		return Destination;
@@ -58,6 +83,8 @@ public class Hotel {
 		Destination = destination;
 	}
 
+	
+	@Column(name = "country")
 	public String getCountry()
 	{
 		return Country;
@@ -68,6 +95,7 @@ public class Hotel {
 		Country = country;
 	}
 
+	@Transient
 	public List<Evaluation> getEvaluations()
 	{
 		return Evaluations;
@@ -78,6 +106,7 @@ public class Hotel {
 		Evaluations = evaluations;
 	}
 
+	@Transient
 	public List<Category> getActivities() {
 		return Activities;
 	}
@@ -91,6 +120,8 @@ public class Hotel {
 		return this.Name;
 	}
 
+	
+	@Column(name = "stars")
 	public int getStars() {
 		return Stars;
 	}
@@ -99,6 +130,8 @@ public class Hotel {
 		Stars = stars;
 	}
 
+	
+	@Column(name = "address")
 	public String getAddress() {
 		return Address;
 	}

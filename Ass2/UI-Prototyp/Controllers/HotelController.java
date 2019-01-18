@@ -26,6 +26,8 @@ import Views.ShowHotel;
 public class HotelController {
 	
 	public static void showHotel(String whichHotel) {
+		
+
 		// Load right Hotel from DB
 		List<Hotel> Result = new ArrayList<Hotel>();
 		fillHotelListWithDummyData(Result);
