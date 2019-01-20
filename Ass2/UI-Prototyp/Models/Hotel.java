@@ -4,53 +4,79 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
+@Entity
+@Table(name = "hotel")
 public class Hotel {
 
-	private Map<String, Integer> Activities;
-	private Map<String, Integer> Interests;
+	private int Id;
 	private String Name;
-	private String Destination;
-	private String Country;
-	private List<Evaluation> Evaluations;
-	private int Stars;
-	
-	
-	public Map<String, Integer> getInterests() {
-		return Interests;
-	}
-
-	public void setInterests(Map<String, Integer> interests) {
-		Interests = interests;
-	}
-
+	private Destination Destination;
 	private String Address;
+	private int Stars;
+
+	private Map<String,Integer> Activities;
+	private List<Evaluation> Evaluations;
 	
-	public Hotel(String name, String destination, String country)
+	public Hotel(String name, Destination destination)
 	{
 		Name = name;
 		Destination = destination;
-		Country = country;
-		Activities = new HashMap();
+		Activities = new HashMap<String, Integer>();
 		Evaluations = new ArrayList<Evaluation>();
 	}
 	
-	public Hotel(String name, String destination, String country, String adress, int stars)
+	public Hotel(Integer id, String name, Destination destination, String address, int stars)
+	{
+		Id = id;
+		Name = name;
+		Destination = destination;
+		Activities = new HashMap<String, Integer>();
+		Evaluations = new ArrayList<Evaluation>();
+		Address = address;
+		Stars = stars;
+	}
+	
+	public Hotel( String name, Destination destination, String address, int stars)
 	{
 		Name = name;
 		Destination = destination;
-		Country = country;
-		Activities = new HashMap();
+		Activities = new HashMap<String, Integer>();
 		Evaluations = new ArrayList<Evaluation>();
-		Address = adress;
+		Address = address;
 		Stars = stars;
 	}
 	
 	public Hotel()
 	{
-		Activities = new HashMap();
+		Activities = new HashMap<String, Integer>();
 		Evaluations = new ArrayList<Evaluation>();
 	}
+	
+	@Id
+	@GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY )
+	@Column(name = "HOTEL_ID")
+	
+	public int getId()
+	{
+		return this.Id;
+	}
+	
+	public void setId(int id )
+	{
+		this.Id = id;
+	}
 
+	
+	@Column(name = "name")
 	public String getName()
 	{
 		return Name;
@@ -61,26 +87,21 @@ public class Hotel {
 		Name = name;
 	}
 
-	public String getDestination()
+	@ManyToOne(cascade = CascadeType.MERGE)
+	public Destination getDestination()
 	{
 		return Destination;
 	}
 
-	public void setDestination(String destination)
+	public void setDestination(Destination destination)
 	{
 		Destination = destination;
 	}
-
-	public String getCountry()
-	{
-		return Country;
+	public void setAddress(String address) {
+		Address = address;
 	}
 
-	public void setCountry(String country)
-	{
-		Country = country;
-	}
-
+	@Transient
 	public List<Evaluation> getEvaluations()
 	{
 		return Evaluations;
@@ -91,6 +112,7 @@ public class Hotel {
 		Evaluations = evaluations;
 	}
 
+	@Transient
 	public Map<String, Integer> getActivities() {
 		return Activities;
 	}
@@ -104,6 +126,8 @@ public class Hotel {
 		return this.Name;
 	}
 
+	
+	@Column(name = "stars")
 	public int getStars() {
 		return Stars;
 	}
@@ -112,11 +136,9 @@ public class Hotel {
 		Stars = stars;
 	}
 
+	
+	@Column(name = "address")
 	public String getAddress() {
 		return Address;
-	}
-
-	public void setAddress(String address) {
-		Address = address;
 	}
 }

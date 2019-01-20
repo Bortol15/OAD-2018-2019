@@ -2,7 +2,9 @@ package Controllers;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import javax.swing.JLabel;
@@ -11,6 +13,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import Models.Category;
+import Models.Destination;
 import Models.Evaluation;
 import Models.Hotel;
 import Models.TREC;
@@ -40,10 +43,12 @@ public class HotelController {
 
 	public static void rateHotel(Hotel hotel)
 	{
-		List<Category> Activities = hotel.getActivities();
+		Map<String,Integer> Activities = hotel.getActivities();
 		
-		for(Category elem : Activities)
-			elem.setValue(5);
+		for (int value: Activities.values())
+			value = 5;
+
+
 		HotelViewModel model = new HotelViewModel();
 		MainController.createCategorySlider(Activities, model.CategorySliders);
 		model.HotelName = hotel.getName();
@@ -82,7 +87,7 @@ public class HotelController {
 		for (int i = 0; i < Result.size(); i++) {
 			data[i][0] = Result.get(i).getName();
 			data[i][1] = Result.get(i).getDestination();
-			data[i][2] = Result.get(i).getCountry();
+			data[i][2] = Result.get(i).getDestination().getCountry();
 		}
 
 		Search search = new Search(data);
@@ -104,7 +109,8 @@ public class HotelController {
 	{
 		// Delete Evaluation from DB
 		// load User again
-		Hotel hotel = new Hotel("Schlossberg Hotel", "Graz", "Österreich", "Kaiser-Franz-Josef-Kai 30, 8010 Graz", 4);
+		Destination dest1 = new Destination(1, "Graz", "Austria");
+		Hotel hotel = new Hotel("Schlossberg Hotel", dest1, "Kaiser-Franz-Josef-Kai 30, 8010 Graz", 4);
 		fillHotelWithDummyData(hotel);
 		hotel.getEvaluations().remove(0);
 		TREC.getInstance().Frames.put("MaintainHotel", new MaintainHotel(hotel));
@@ -113,20 +119,22 @@ public class HotelController {
 	
 	public static void fillHotelListWithDummyData(List<Hotel> hotels) // for testing
 	{
-		hotels.add(new Hotel("Schlossberg Hotel", "Graz", "Österreich", "Kaiser-Franz-Josef-Kai 30, 8010 Graz", 4));
-		hotels.add(new Hotel("Hotel Alpina", "Breil-Brigels", "Schweiz", "Dorfplatz, 7165 Breil-Brigels", 3));
-		hotels.add(new Hotel("Hôtel Lavaux", "Genfer-See", "Schweiz", "Route Cantonale 51, 1096 Bourg-en-Lavaux", 4));
-		hotels.add(new Hotel("Apartment Sole di Pola", "Pula", "Kroatien","Rikarda Katalinića Jeretova 40, 52100 Pula", 3));
-		hotels.add(new Hotel("Palacio Ca Sa Galesa", "Palma de Mallorca", "Spanien", "Carrer de Miramar 8, 07001 Palma", 5));
+		Destination dest1 = new Destination(1, "Graz", "Austria");
+		hotels.add(new Hotel("Schlossberg Hotel", dest1, "Kaiser-Franz-Josef-Kai 30, 8010 Graz", 4));
+		hotels.add(new Hotel("Hotel Alpina", dest1, "Dorfplatz, 7165 Breil-Brigels", 3));
+		hotels.add(new Hotel("Hôtel Lavaux", dest1, "Route Cantonale 51, 1096 Bourg-en-Lavaux", 4));
+		hotels.add(new Hotel("Apartment Sole di Pola", dest1, "Rikarda Katalinića Jeretova 40, 52100 Pula", 3));
+		hotels.add(new Hotel("Palacio Ca Sa Galesa", dest1, "Carrer de Miramar 8, 07001 Palma", 5));
 	}
 	
 	public static void addActivity(String activity)
 	{
-		Hotel hotel = new Hotel("Schlossberg Hotel", "Graz", "Österreich", "Kaiser-Franz-Josef-Kai 30, 8010 Graz", 4);
+		Destination dest1 = new Destination(1, "Graz", "Austria");
+		Hotel hotel = new Hotel("Schlossberg Hotel",dest1, "Kaiser-Franz-Josef-Kai 30, 8010 Graz", 4);
 		hotel.getActivities().clear();
 		hotel.getEvaluations().clear();
 		fillHotelWithDummyData(hotel);
-		hotel.getActivities().add(new Category(activity, 5));
+		hotel.getActivities().put(activity, 5);
 		MaintainHotel maintainHotel = new MaintainHotel(hotel);
 		maintainHotel.setVisible(true);
 		TREC.getInstance().Frames.put("MaintainHotel", maintainHotel);
@@ -134,7 +142,8 @@ public class HotelController {
 	
 	public static void deleteActivity(Category activity)
 	{
-		Hotel hotel = new Hotel("Schlossberg Hotel", "Graz", "Österreich", "Kaiser-Franz-Josef-Kai 30, 8010 Graz", 4);
+		Destination dest1 = new Destination(1, "Graz", "Austria");
+		Hotel hotel = new Hotel("Schlossberg Hotel", dest1, "Kaiser-Franz-Josef-Kai 30, 8010 Graz", 4);
 		hotel.getActivities().clear();
 		hotel.getEvaluations().clear();
 		fillHotelWithDummyData(hotel);
@@ -147,22 +156,11 @@ public class HotelController {
 	
 	public static void fillHotelWithDummyData(Hotel hotel) // for testing
 	{
-		hotel.getActivities().add(new Category("Volleyball", 10));
-		hotel.getActivities().add(new Category("Swimming", 10));
-		hotel.getActivities().add(new Category("History", 8));
-		hotel.getActivities().add(new Category("Tennis", 7));
-//		hotel.getActivities().add(new Category("Tennis", 7));
-//		hotel.getActivities().add(new Category("Tennis", 7));
-//		hotel.getActivities().add(new Category("Tennis", 7));
-//		hotel.getActivities().add(new Category("Tennis", 7));
-//		hotel.getActivities().add(new Category("Tennis", 7));
-//		hotel.getActivities().add(new Category("Tennis", 7));
-//		hotel.getActivities().add(new Category("Tennis", 7));
-//		hotel.getActivities().add(new Category("Tennis", 7));
-//		hotel.getActivities().add(new Category("Tennis", 7));
-//		hotel.getActivities().add(new Category("Tennis", 7));
-//		hotel.getActivities().add(new Category("Tennis", 7));
-//		hotel.getActivities().add(new Category("Tennis", 7));
+		hotel.getActivities().put("Volleyball", 10);
+		hotel.getActivities().put("Swimming", 10);
+		hotel.getActivities().put("History", 8);
+		hotel.getActivities().put("Tennis", 7);
+
 		
 		
 		List<Category> reviewedActivities1 = new ArrayList<Category>();

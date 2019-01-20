@@ -1,6 +1,7 @@
 package Models;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -29,11 +30,11 @@ public class User {
 	
 	//@Column
     //@ElementCollection(targetClass=Category.class)
-	private Map<String, Integer> activities;
+	protected Map<String, Integer> activities;
 
 	//@Column
 	//@ElementCollection(targetClass = Category.class)
-	private Map<String, Integer> interests;
+	protected Map<String, Integer> interests;
 	
 	@Column(name = "email")
 	private String EMail;
@@ -84,7 +85,11 @@ public class User {
 		Password = password;
 	}
 	
-	public User() {}
+	public User()
+	{
+		this.activities = new HashMap<String,Integer>();
+		this.interests = new HashMap<String, Integer>();
+	}
 	
 	@Transient
 	public Map<String, Integer> getActivities() {

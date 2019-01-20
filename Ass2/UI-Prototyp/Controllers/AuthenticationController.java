@@ -46,7 +46,7 @@ public class AuthenticationController {
 		TREC trec = TREC.getInstance();
 		Index index = (Index) trec.Frames.get("Index");
 		trec.Frames.put("Index", index);
-				
+		
 		User user = (User) Database.getSession().createCriteria(User.class)
 				.add(Restrictions.eq("EMail", email)).uniqueResult();
 		if (user != null && user.getPassword().equals(password)) {

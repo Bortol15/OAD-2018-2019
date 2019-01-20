@@ -1,6 +1,7 @@
 package Controllers;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.JLabel;
 import javax.swing.JSlider;
@@ -51,18 +52,18 @@ public class MainController {
 		TREC.getInstance().Frames.get("Index").setVisible(true);
 	}
 	
-	public static void createCategorySlider(List<Category> list, List<CategorySlider> CategorySliders)
+	public static void createCategorySlider(Map<String, Integer> map, List<CategorySlider> CategorySliders)
 	{
 		int i = 0;
-		for(Category cat: list)
+		for(Map.Entry<String, Integer> entry : map.entrySet())
 		{
-			JLabel name = new JLabel(cat.getName());
+			JLabel name = new JLabel(entry.getKey());
 			name.setBounds(12, 53+i*20, 150, 15);
 			JSlider slider = new JSlider();
 			slider.setMaximum(10);
 			slider.setMinimum(0);
 			slider.setBounds(110, 53+i*20, 114, 16);
-			slider.setValue(cat.getValue());
+			slider.setValue(entry.getValue());
 			JLabel value_label = new JLabel(String.valueOf(slider.getValue()));
 			value_label.setBounds(240, 53+i*20, 80, 15);
 			
