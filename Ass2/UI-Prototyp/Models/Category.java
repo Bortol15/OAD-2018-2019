@@ -6,22 +6,18 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.ManyToOne;
+import javax.persistence.MappedSuperclass;
 import javax.persistence.Table;
 
-@Entity
-@Table(name = "category")
+@MappedSuperclass
 public class Category {
 	
-	private long CategoryId;
-	
-	private User User;
-	
-
-	private String Name;
-	
-
-	private int Value;
+	protected int Id;
+	protected String Name;
+	protected int Value;
 	
 	@Column(name = "name")
 	public String getName() {
@@ -45,23 +41,13 @@ public class Category {
 	@GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY )
 	@Column(name = "CATEGORY_ID")
 
-	public long getCategoryId() {
-	return this.CategoryId;
+	public int getId() {
+	return this.Id;
 
 	}
 	
-	public void setCategoryId(long categoryId) {
-		this.CategoryId = categoryId;
-	}
-	
-	@ManyToOne(cascade = CascadeType.ALL)
-
-	public User getUser() {
-		return this.User;
-	}
-	
-	public void setUser(User user) {
-		this.User = user;
+	public void setId(int Id) {
+		this.Id = Id;
 	}
 	
 	
@@ -75,7 +61,6 @@ public class Category {
 	{
 		this.Name = name;
 		this.Value = value;
-		this.User = user;
 	}
 	
 	

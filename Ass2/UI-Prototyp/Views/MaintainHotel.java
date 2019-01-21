@@ -13,6 +13,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Map;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -56,7 +57,7 @@ public class MaintainHotel extends JFrame {
 		lblDestination.setBounds(12, 45, 130, 15);
 		contentPane.add(lblDestination);
 		
-		JTextField txt_Destination = new JTextField(hotel.getDestination());
+		JTextField txt_Destination = new JTextField(hotel.getDestination().getName());
 		txt_Destination.setFont(new Font("Dialog", Font.BOLD, 12));
 		txt_Destination.setBounds(120, 45, 150, 20);
 		contentPane.add(txt_Destination);
@@ -66,7 +67,7 @@ public class MaintainHotel extends JFrame {
 		lblCountry.setBounds(12, 66, 86, 15);
 		contentPane.add(lblCountry);
 		
-		JTextField txt_Country = new JTextField(hotel.getCountry());
+		JTextField txt_Country = new JTextField(hotel.getDestination().getCountry());
 		txt_Country.setFont(new Font("Dialog", Font.BOLD, 12));
 		txt_Country.setBounds(120, 66, 150, 20);
 		contentPane.add(txt_Country);
@@ -126,12 +127,12 @@ public class MaintainHotel extends JFrame {
 		panel_activities.setAlignmentX(LEFT_ALIGNMENT);
 		panel_activities.setBounds(12, 190, 500, 100);
 		
-		for(int i = 0; i < hotel.getActivities().size(); i++)
+		for(Map.Entry<String, Integer> entry : hotel.getActivities().entrySet())
 		{
 			JPanel activity = new JPanel();
 			activity.setLayout(new FlowLayout(FlowLayout.LEADING));
 			
-			Category temp_activity = hotel.getActivities().get(i);
+			Category temp_activity = new Category(entry.getKey(), entry.getValue());
 			JLabel temp_label = new JLabel(temp_activity.getName() + ": " + temp_activity.getValue());
 			JButton delete_activity = new JButton("X");
 			delete_activity.addMouseListener(new MouseAdapter() {

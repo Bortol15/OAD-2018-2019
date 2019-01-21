@@ -22,15 +22,14 @@ public class UserController {
 	public void ShowInterests()
 	{	 	
 		List<CategorySlider> catSlider = new ArrayList<CategorySlider>();
-		customer1.Interests.clear();
 		//load from DB
-		customer1.Interests.add(new Category("Lifestyle",5));
-		customer1.Interests.add(new Category("Sport", 3));
-		customer1.Interests.add(new Category("Abenteuer", 4));
-		customer1.Interests.add(new Category("Familie", 7));
-		customer1.Interests.add(new Category("Kultur", 8));
+		customer1.getInterests().put("Lifestyle",5);
+		customer1.getInterests().put("Sport", 3);
+		customer1.getInterests().put("Abenteuer", 4);
+		customer1.getInterests().put("Familie", 7);
+		customer1.getInterests().put("Kultur", 8);
 		
-		MainController.createCategorySlider(customer1.Interests,catSlider);
+		MainController.createCategorySlider(customer1.getInterests(),catSlider);
 		
 		Interests newInterests = new Interests(catSlider);
 		newInterests.setVisible(true);
@@ -50,15 +49,15 @@ public class UserController {
 	public void ShowActivities()
 	{	
 		List<CategorySlider> catSlider = new ArrayList<CategorySlider>();
-		customer1.Activities.clear();
+		customer1.getActivities().clear();
 		//load from DB
-		customer1.Activities.add(new Category("Tennis",5));
-		customer1.Activities.add(new Category("Schwimmen", 3));
-		customer1.Activities.add(new Category("Sauna", 4));
-		customer1.Activities.add(new Category("Museum", 7));
-		customer1.Activities.add(new Category("Massage", 8));
+		customer1.getActivities().put("Tennis",5);
+		customer1.getActivities().put("Schwimmen", 3);
+		customer1.getActivities().put("Sauna", 4);
+		customer1.getActivities().put("Museum", 7);
+		customer1.getActivities().put("Massage", 8);
 		
-		MainController.createCategorySlider(customer1.Activities,catSlider);
+		MainController.createCategorySlider(customer1.getActivities(),catSlider);
 		
 		Activities newActivities = new Activities(catSlider);
 		newActivities.setVisible(true);

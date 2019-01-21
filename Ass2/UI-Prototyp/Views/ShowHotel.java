@@ -25,6 +25,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Map;
 
 public class ShowHotel extends JFrame {
 
@@ -50,7 +51,7 @@ public class ShowHotel extends JFrame {
 		lblDestination.setBounds(12, 45, 130, 15);
 		contentPane.add(lblDestination);
 		
-		JLabel lbl_Destination = new JLabel(hotel.getDestination());
+		JLabel lbl_Destination = new JLabel(hotel.getDestination().getName());
 		lbl_Destination.setFont(new Font("Dialog", Font.BOLD, 14));
 		lbl_Destination.setBounds(120, 45, 150, 15);
 		contentPane.add(lbl_Destination);
@@ -60,7 +61,7 @@ public class ShowHotel extends JFrame {
 		lblCountry.setBounds(12, 66, 86, 15);
 		contentPane.add(lblCountry);
 		
-		JLabel lbl_Country = new JLabel(hotel.getCountry());
+		JLabel lbl_Country = new JLabel(hotel.getDestination().getCountry());
 		lbl_Country.setFont(new Font("Dialog", Font.BOLD, 14));
 		lbl_Country.setBounds(120, 66, 150, 15);
 		contentPane.add(lbl_Country);
@@ -101,12 +102,12 @@ public class ShowHotel extends JFrame {
 		panel_activities.setLayout(new GridLayout(5,4));
 		panel_activities.setBounds(12, 167, 500, 100);
 		
-		for(int i = 0; i < hotel.getActivities().size(); i++)
+		for(Map.Entry<String, Integer> entry : hotel.getActivities().entrySet())
 		{
 			JPanel activity = new JPanel();
 			activity.setBorder(BorderFactory.createEmptyBorder(5, 1, 5, 5));
 			
-			Category temp_activity = hotel.getActivities().get(i);
+			Category temp_activity = new Category(entry.getKey(), entry.getValue());
 			JLabel temp_label = new JLabel(temp_activity.getName() + ": " + temp_activity.getValue());
 			activity.add(temp_label);
 			panel_activities.add(temp_label);

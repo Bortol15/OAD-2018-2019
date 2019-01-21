@@ -1,7 +1,9 @@
 package Models;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -28,11 +30,11 @@ public class User {
 	
 	//@Column
     //@ElementCollection(targetClass=Category.class)
-	private List<Category> activities;
+	protected Map<String, Integer> activities;
 
 	//@Column
 	//@ElementCollection(targetClass = Category.class)
-	private List<Category> interests;
+	protected Map<String, Integer> interests;
 	
 	@Column(name = "email")
 	private String EMail;
@@ -76,17 +78,22 @@ public class User {
 		Password = password;
 	}
 	
-	public User(String firstname, String email, String password) 
+	public User(String email, String password) 
 	{
-		Firstname = firstname;
 		EMail = email;
 		Password = password;
+		this.activities = new HashMap<String,Integer>();
+		this.interests = new HashMap<String, Integer>();
 	}
 	
-	public User() {}
+	public User()
+	{
+		this.activities = new HashMap<String,Integer>();
+		this.interests = new HashMap<String, Integer>();
+	}
 	
 	@Transient
-	public List<Category> getActivities() {
+	public Map<String, Integer> getActivities() {
 		return activities;
 	}
 	public void setUserId(int id) {
@@ -165,16 +172,16 @@ public class User {
 		Country = country;
 	}
 
-	public void setActivities(List<Category> activities) {
+	public void setActivities(Map<String, Integer> activities) {
 		this.activities = activities;
 	}
 
 	@Transient
-	public List<Category> getInterests() {
+	public Map<String, Integer> getInterests() {
 		return interests;
 	}
 
-	public void setInterests(List<Category> interests) {
+	public void setInterests(Map<String, Integer> interests) {
 		this.interests = interests;
 	}
 }
