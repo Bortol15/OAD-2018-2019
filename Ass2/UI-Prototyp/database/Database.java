@@ -1,6 +1,5 @@
 package database;
 
-import java.io.File;
 import java.util.List;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -11,7 +10,6 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
 import Models.Category;
-import Models.Customer;
 import Models.Destination;
 import Models.DestinationInterest;
 import Models.Hotel;
@@ -25,7 +23,6 @@ public class Database {
 	private static SessionFactory sf;
 	private static boolean loggedIn;
 	
-	private static Database singelton = new Database();
 	
 	private Database(){
     	Configuration conf = new Configuration();

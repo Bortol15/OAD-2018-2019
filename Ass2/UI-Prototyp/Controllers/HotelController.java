@@ -2,25 +2,14 @@ package Controllers;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
-
-import javax.swing.JLabel;
-import javax.swing.JSlider;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
-
 import Models.Category;
 import Models.Destination;
 import Models.Evaluation;
 import Models.Hotel;
 import Models.TREC;
-import Models.User;
-import ViewModels.CategorySlider;
 import ViewModels.HotelViewModel;
-import Views.Activities;
 import Views.MaintainHotel;
 import Views.RateHotel;
 import Views.Search;
@@ -29,16 +18,7 @@ import database.Database;
 
 public class HotelController {
 	
-<<<<<<< HEAD
-	public static void showHotel(String whichHotel) {
-		
-
-		// Load right Hotel from DB
-		List<Hotel> Result = new ArrayList<Hotel>();
-		fillHotelListWithDummyData(Result);
-=======
 	public static void showHotel(int id) {
->>>>>>> recommendation
 
 
 		Hotel hotel = Database.getSession().get(Hotel.class, id);

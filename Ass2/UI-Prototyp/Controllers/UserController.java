@@ -6,12 +6,6 @@ import Views.Interests;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JLabel;
-import javax.swing.JSlider;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
-
-import Models.Category;
 import Models.Customer;
 import Models.TREC;
 

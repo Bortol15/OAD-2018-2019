@@ -1,15 +1,11 @@
 package Models;
 
-import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -62,6 +58,9 @@ public class User {
 	
 	@Column(name = "country")
 	private String Country;
+
+	@Column(name = "is_admin")
+	private Boolean is_admin;
 	
 	public User(String firstname, String lastname, String email, String password,
 				String gender, String birthdate, String adress, String zip, String country)
@@ -183,5 +182,13 @@ public class User {
 
 	public void setInterests(Map<String, Integer> interests) {
 		this.interests = interests;
+	}
+
+	public Boolean getIs_admin() {
+		return is_admin;
+	}
+
+	public void setIs_admin(Boolean is_admin) {
+		this.is_admin = is_admin;
 	}
 }

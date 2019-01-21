@@ -2,24 +2,6 @@ package Models;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-<<<<<<< HEAD
-
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Transient;
-
-public class Hotel {
-
-	private int id;
-	private String Name;
-	private String Destination;
-	private String Country;
-	private String Address;
-	private int Stars;
-
-	private List<Category> Activities;
-=======
 import java.util.Map;
 
 import javax.persistence.CascadeType;
@@ -42,7 +24,6 @@ public class Hotel {
 	private int Stars;
 
 	private Map<String,Integer> Activities;
->>>>>>> recommendation
 	private List<Evaluation> Evaluations;
 	
 	public Hotel(String name, Destination destination)
@@ -73,16 +54,6 @@ public class Hotel {
 	@GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY )
 	@Column(name = "HOTEL_ID")
 	
-<<<<<<< HEAD
-	public int getHotelId()
-	{
-		return this.id;
-	}
-	
-	public void setHotelId(int id )
-	{
-		this.id = id;
-=======
 	public int getId()
 	{
 		return this.Id;
@@ -91,7 +62,6 @@ public class Hotel {
 	public void setId(int id )
 	{
 		this.Id = id;
->>>>>>> recommendation
 	}
 
 	
@@ -106,14 +76,8 @@ public class Hotel {
 		Name = name;
 	}
 
-<<<<<<< HEAD
-	
-	@Column(name = "destination")
-	public String getDestination()
-=======
 	@ManyToOne(cascade = CascadeType.MERGE)
 	public Destination getDestination()
->>>>>>> recommendation
 	{
 		return Destination;
 	}
@@ -122,22 +86,8 @@ public class Hotel {
 	{
 		Destination = destination;
 	}
-<<<<<<< HEAD
-
-	
-	@Column(name = "country")
-	public String getCountry()
-	{
-		return Country;
-	}
-
-	public void setCountry(String country)
-	{
-		Country = country;
-=======
 	public void setAddress(String address) {
 		Address = address;
->>>>>>> recommendation
 	}
 
 	@Transient
@@ -152,11 +102,7 @@ public class Hotel {
 	}
 
 	@Transient
-<<<<<<< HEAD
-	public List<Category> getActivities() {
-=======
 	public Map<String, Integer> getActivities() {
->>>>>>> recommendation
 		return Activities;
 	}
 

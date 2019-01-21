@@ -9,13 +9,10 @@ import javax.swing.JLabel;
 import javax.swing.JButton;
 
 import java.awt.Font;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import ViewModels.*;
-import java.awt.BorderLayout;
 
 public class Interests extends JFrame {
 

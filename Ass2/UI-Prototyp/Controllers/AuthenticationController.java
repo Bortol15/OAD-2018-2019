@@ -2,8 +2,6 @@ package Controllers;
 
 import java.util.Objects;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
 import javax.swing.JOptionPane;
 
 import org.hibernate.criterion.Restrictions;

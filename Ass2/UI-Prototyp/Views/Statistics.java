@@ -1,7 +1,4 @@
 package Views;
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -10,8 +7,6 @@ import java.awt.Font;
 
 import javax.swing.BorderFactory;
 import javax.swing.JComboBox;
-import java.awt.event.ItemListener;
-import java.awt.event.ItemEvent;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
@@ -34,7 +29,7 @@ public class Statistics extends JFrame {
 		lblStatistiken.setFont(new Font("Dialog", Font.BOLD, 16));
 		contentPane.add(lblStatistiken);
 		
-		JComboBox cbx_statistics = new JComboBox();
+		JComboBox<String> cbx_statistics = new JComboBox<String>();
 		cbx_statistics.setBounds(12, 51, 403, 24);
 		contentPane.add(cbx_statistics);
 		

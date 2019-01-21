@@ -1,20 +1,11 @@
 package Views;
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.border.EmptyBorder;
 
 import Controllers.AuthenticationController;
-import Models.TREC;
-import Models.User;
-
-import java.awt.FlowLayout;
 import javax.swing.JTextField;
-import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
