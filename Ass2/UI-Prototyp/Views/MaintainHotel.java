@@ -1,10 +1,8 @@
 package Views;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.EventQueue;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -159,7 +157,6 @@ public class MaintainHotel extends JFrame {
 		contentPane.add(lblComments);
 		
         JPanel comment_pane = new JPanel();
-        int nr = hotel.getEvaluations().size();
         comment_pane.setLayout(new GridLayout(hotel.getEvaluations().size(),1));
         
         for (int i = 0; i < hotel.getEvaluations().size(); i++)

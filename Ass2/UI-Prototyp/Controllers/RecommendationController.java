@@ -2,19 +2,14 @@ package Controllers;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import org.hibernate.Session;
-import org.hibernate.Transaction;
-
-import Models.Category;
 import Models.Destination;
 import Models.DestinationInterest;
 import Models.Hotel;
 import Models.HotelActivity;
-import Models.TREC;
 import Models.User;
 import Models.UserActivity;
 import Models.UserInterest;

@@ -1,9 +1,4 @@
 package Views;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -17,12 +12,8 @@ import javax.swing.JLabel;
 import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.sql.Date;
-
-import javax.swing.JSlider;
 import javax.swing.JTextArea;
 import Models.Category;
-import Models.Evaluation;
 import Models.TREC;
 import ViewModels.CategorySlider;
 import ViewModels.HotelViewModel;

@@ -1,5 +1,4 @@
 package Controllers;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -8,11 +7,8 @@ import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import Models.Category;
-import Models.Hotel;
 import Models.TREC;
 import ViewModels.CategorySlider;
-import ViewModels.RecommendationViewModel;
 import Views.*;
 
 public class MainController {
