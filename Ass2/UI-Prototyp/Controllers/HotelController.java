@@ -53,14 +53,19 @@ public class HotelController {
 		//Show Hotel
 	}
 
-	public static void searchHotels(String SearchString) {
-		// SELECT * FROM Hotels WHERE name = Searchstring OR destination = Searchstring
-		// or Country = Searchstring
-		// also name LIKE Searchstring% and name LIKE %Searchstring and name LIKE
-		// %Searchstring% ...
-
+	public static void searchHotels(String searchstring) {
+		
+		List<Hotel> all_hotels = Database.loadAllData(Hotel.class, Database.getSession());
 		List<Hotel> Result = new ArrayList<Hotel>();
-		fillHotelListWithDummyData(Result);
+		String regex = ".*" + searchstring.toLowerCase()+".*";
+		
+		for(Hotel hotel: all_hotels)
+		{
+			if(hotel.getName().toLowerCase().matches(regex) || 
+				hotel.getDestination().getName().toLowerCase().matches(regex) || 
+				hotel.getDestination().getCountry().toLowerCase().matches(regex))
+				Result.add(hotel);
+		}
 
 		if (Result.isEmpty()) {
 			Search search = new Search(null);
@@ -72,7 +77,7 @@ public class HotelController {
 		Object[][] data = new Object[Result.size()][3];
 		for (int i = 0; i < Result.size(); i++) {
 			data[i][0] = Result.get(i).getName();
-			data[i][1] = Result.get(i).getDestination();
+			data[i][1] = Result.get(i).getDestination().getName();
 			data[i][2] = Result.get(i).getDestination().getCountry();
 		}
 

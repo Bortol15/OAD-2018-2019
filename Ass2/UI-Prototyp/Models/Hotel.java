@@ -20,6 +20,7 @@ public class Hotel {
 	private int Id;
 	private String Name;
 	private Destination Destination;
+	private User Owner;
 	private String Address;
 	private int Stars;
 
@@ -42,6 +43,17 @@ public class Hotel {
 		Evaluations = new ArrayList<Evaluation>();
 		Address = address;
 		Stars = stars;
+	}
+	
+	public Hotel( String name, Destination destination, String address, int stars, User owner)
+	{
+		Name = name;
+		Destination = destination;
+		Activities = new HashMap<String, Integer>();
+		Evaluations = new ArrayList<Evaluation>();
+		Address = address;
+		Stars = stars;
+		Owner = owner;
 	}
 	
 	public Hotel()
@@ -129,5 +141,14 @@ public class Hotel {
 	@Column(name = "address")
 	public String getAddress() {
 		return Address;
+	}
+
+	@ManyToOne(cascade = CascadeType.MERGE)
+	public User getOwner() {
+		return Owner;
+	}
+
+	public void setOwner(User owner) {
+		Owner = owner;
 	}
 }

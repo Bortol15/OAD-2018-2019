@@ -22,8 +22,6 @@ import javax.swing.JComboBox;
 public class Index extends JFrame {
 
 	private JPanel contentPane;
-	public boolean admin = false;
-	public boolean logged_in = false;
 	public JLabel lbl_user_logged_in = new JLabel("");
 	private JButton btn_interests = new JButton("Set Interests");
 	private JButton btn_aktivities = new JButton("Set Activities");
@@ -69,10 +67,8 @@ public class Index extends JFrame {
 		txt_Search.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				txt_Search.setText("");
 			}
 		});
-		txt_Search.setText("Search ...");
 		txt_Search.setBounds(387, 87, 124, 19);
 		contentPane.add(txt_Search);
 		txt_Search.setColumns(10);
@@ -89,7 +85,7 @@ public class Index extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				
-				if(admin == true)
+				if(TREC.getInstance().getCurrentLoggedInUser().getIs_admin())
 					RecommendationController.showAdminRecommendation();
 				else
 					RecommendationController.showCustomerRecommendation();
@@ -110,50 +106,45 @@ public class Index extends JFrame {
 		contentPane.add(btn_Statistics);
 		
 
-		btn_interests.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				userController.ShowInterests();
-			}
-		});
-		btn_interests.setBounds(12, 56, 180, 25);
-		contentPane.add(btn_interests);
-		
-
-		btn_aktivities.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				userController.ShowActivities();
-			}
-		});
-		btn_aktivities.setBounds(12, 96, 180, 25);
-		contentPane.add(btn_aktivities);
-		
-
-		
-		JComboBox<Hotel> cbx_MaintainHotel = new JComboBox<Hotel>();
-		cbx_MaintainHotel.setBounds(297, 196, 151, 24);
-		contentPane.add(cbx_MaintainHotel);
-
-		Destination dest1 = new Destination("Graz", "Austria");
-		Hotel hotel1 = new Hotel("Schlossberg Hotel", dest1, "Kaiser-Franz-Josef-Kai 30, 8010 Graz", 4);
-		Hotel hotel2 = new Hotel("Schlossberg Hotel", dest1, "Kaiser-Franz-Josef-Kai 30, 8010 Graz", 4);
-		HotelController.fillHotelWithDummyData(hotel1);
-		HotelController.fillHotelWithDummyData(hotel2);
-		cbx_MaintainHotel.addItem(hotel1);
-		cbx_MaintainHotel.addItem(hotel2);
-		
-		JButton btn_MaintainHotel = new JButton("Maintain Hotel");
-		btn_MaintainHotel.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				HotelController.maintainHotel((Hotel)cbx_MaintainHotel.getSelectedItem());
-			}
-		});
-		btn_MaintainHotel.setBounds(297, 232, 151, 25);
-		contentPane.add(btn_MaintainHotel);
-		
-
-
+		if(TREC.getInstance().getCurrentLoggedInUser().getIs_admin())
+		{
+			JComboBox<Hotel> cbx_MaintainHotel = new JComboBox<Hotel>();
+			cbx_MaintainHotel.setBounds(12, 66, 151, 24);
+			contentPane.add(cbx_MaintainHotel);
+			for(Hotel hotel: TREC.getInstance().getCurrentLoggedInUser().getHotels())
+				cbx_MaintainHotel.addItem(hotel);
+			
+			JButton btn_MaintainHotel = new JButton("Maintain Hotel");
+			btn_MaintainHotel.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					HotelController.maintainHotel((Hotel)cbx_MaintainHotel.getSelectedItem());
+				}
+			});
+			btn_MaintainHotel.setBounds(12, 102, 151, 25);
+			contentPane.add(btn_MaintainHotel);
+			
+		}
+		else
+		{
+			btn_interests.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					userController.ShowInterests();
+				}
+			});
+			btn_interests.setBounds(12, 66, 180, 25);
+			contentPane.add(btn_interests);
+			
+	
+			btn_aktivities.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					userController.ShowActivities();
+				}
+			});
+			btn_aktivities.setBounds(12, 106, 180, 25);
+			contentPane.add(btn_aktivities);
+		}
 	}
 }

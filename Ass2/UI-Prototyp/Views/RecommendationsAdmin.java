@@ -2,15 +2,21 @@ package Views;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import Models.User;
+
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.util.List;
+
 import javax.swing.JComboBox;
 
 public class RecommendationsAdmin extends JFrame {
 
 	private JPanel contentPane;
 
-	public RecommendationsAdmin() {
+	public RecommendationsAdmin(List<User> users) {
+		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -18,17 +24,17 @@ public class RecommendationsAdmin extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblDeineEmpfohlenenKunden = new JLabel("Deine empfohlenen Kunden");
-		lblDeineEmpfohlenenKunden.setFont(new Font("Dialog", Font.BOLD, 16));
-		lblDeineEmpfohlenenKunden.setBounds(12, 12, 256, 15);
-		contentPane.add(lblDeineEmpfohlenenKunden);
+		JLabel lbl_destination_rec = new JLabel("Your recommendet Customers!");
+		lbl_destination_rec.setFont(new Font("Dialog", Font.BOLD, 16));
+		lbl_destination_rec.setBounds(12, 12, 396, 19);
+		contentPane.add(lbl_destination_rec);
 		
-		JLabel lblNewLabel = new JLabel("New label");
-		lblNewLabel.setBounds(12, 52, 66, 15);
-		contentPane.add(lblNewLabel);
-		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(96, 47, 108, 24);
-		contentPane.add(comboBox);
+		for(int i = 0; i < users.size(); i++)
+		{
+			String username = users.get(i).getFirstname() + " " + users.get(i).getLastName();
+			JLabel lblNewLabel = new JLabel(username);
+			lblNewLabel.setBounds(12, 47+i*20, 166, 15);
+			contentPane.add(lblNewLabel);
+		}		
 	}
 }

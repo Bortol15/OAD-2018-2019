@@ -44,7 +44,6 @@ public class RecommendationsCustomer extends JFrame {
 		lbl_back.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-//				RecommendationController.showCustomerRecommendation();
 				new RecommendationsCustomer(model).setVisible(true);
 				RecommendationsCustomer.this.dispose();
 			}

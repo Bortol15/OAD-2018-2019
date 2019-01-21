@@ -8,6 +8,7 @@ import javax.swing.event.ListSelectionListener;
 import Controllers.HotelController;
 
 import javax.swing.JLabel;
+
 import java.awt.Font;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
@@ -21,7 +22,7 @@ public class Search extends JFrame {
 
 	public Search(Object[][] data) {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 665, 478);
+		setBounds(100, 100, 550, 478);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -29,14 +30,13 @@ public class Search extends JFrame {
 		
 		JLabel lblNewLabel = new JLabel("Search Results");
 		lblNewLabel.setFont(new Font("Dialog", Font.BOLD, 16));
-		lblNewLabel.setBounds(12, 12, 165, 15);
+		lblNewLabel.setBounds(30, 12, 165, 15);
 		contentPane.add(lblNewLabel);
 		
 		if(data == null)
 			return;
 		
 		String[] columnNames = {"Hotel", "Destination", "Country"};
-		
 		tbl_search_results = new JTable(data,columnNames);
 		tbl_search_results.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 		String whichHotel;
@@ -53,13 +53,12 @@ public class Search extends JFrame {
 				}
 			}
 		});
+		JScrollPane jsp = new JScrollPane(tbl_search_results);
+		jsp.setBorder(BorderFactory.createEmptyBorder());
+		jsp.setBounds(30, 39, 450, 301);
+		contentPane.add(jsp);
 		
-		JScrollPane scrollPane = new JScrollPane(tbl_search_results);
-		scrollPane.setBorder(BorderFactory.createEmptyBorder());
-		scrollPane.setBounds(12, 39, 450, 301);
-		contentPane.add(scrollPane);
-		
-		scrollPane.setViewportView(tbl_search_results);
+		jsp.setViewportView(tbl_search_results);
 
 	}
 	public Search() {}

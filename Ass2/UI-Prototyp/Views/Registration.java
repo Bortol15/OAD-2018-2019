@@ -195,10 +195,10 @@ public class Registration extends JFrame {
 					JOptionPane.showMessageDialog(null, "Input not valid!");
 					return;
 				}
-
+				
 				AuthenticationController.register(new User(txt_Firstname.getText(), txt_Lastname.getText(), txt_EMail.getText(),
 												  txt_Password.getText(), gender, txt_Birthdate.getText(), txt_Adress.getText(),
-												  txt_ZIP.getText(), txt_Country.getText()));
+												  txt_ZIP.getText(), txt_Country.getText(),rbtn_admin.isSelected() ? true: false));
 				
 			}
 		});

@@ -33,6 +33,7 @@ public class Interests extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				userController.saveInterests(catSliders);
+				Interests.this.dispose();
 			}
 		});
 		btnSave.setBounds(12, 191, 114, 25);

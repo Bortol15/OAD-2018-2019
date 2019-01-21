@@ -22,7 +22,7 @@ public class UserInterest extends Category{
 	{
 	}
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.MERGE)
 	public User getUser()
 	{
 		return User;

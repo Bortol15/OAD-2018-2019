@@ -23,6 +23,8 @@ public class Database {
 	private static SessionFactory sf;
 	private static boolean loggedIn;
 	
+	private static Database singleton = new Database();
+	
 	
 	private Database(){
     	Configuration conf = new Configuration();

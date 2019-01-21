@@ -22,7 +22,6 @@ public class MainController {
 		Interests interests = new Interests();
 		Login login = new Login();
 		RateHotel rateHotel = new RateHotel(null);
-		RecommendationsAdmin recommendationsAdmin = new RecommendationsAdmin();
 		RecommendationsCustomer recommendationsCustomer = new RecommendationsCustomer(null);
 		Registration registration = new Registration();
 		Search search = new Search();
@@ -35,7 +34,6 @@ public class MainController {
 		TREC.getInstance().Frames.put("Interests", interests);
 		TREC.getInstance().Frames.put("Login", login);
 		TREC.getInstance().Frames.put("RateHotel", rateHotel);
-		TREC.getInstance().Frames.put("RecommendationsAdmin", recommendationsAdmin);
 		TREC.getInstance().Frames.put("RecommendationsCustomer", recommendationsCustomer);
 		TREC.getInstance().Frames.put("Registration", registration);
 		TREC.getInstance().Frames.put("Search", search);
@@ -55,14 +53,14 @@ public class MainController {
 		for(Map.Entry<String, Integer> entry : map.entrySet())
 		{
 			JLabel name = new JLabel(entry.getKey());
-			name.setBounds(12, 53+i*20, 150, 15);
+			name.setBounds(12, 53+i*20, 140, 15);
 			JSlider slider = new JSlider();
 			slider.setMaximum(10);
 			slider.setMinimum(0);
-			slider.setBounds(110, 53+i*20, 114, 16);
+			slider.setBounds(150, 53+i*20, 114, 16);
 			slider.setValue(entry.getValue());
 			JLabel value_label = new JLabel(String.valueOf(slider.getValue()));
-			value_label.setBounds(240, 53+i*20, 80, 15);
+			value_label.setBounds(280, 53+i*20, 80, 15);
 			
 			slider.addChangeListener(new ChangeListener() {
 				public void stateChanged(ChangeEvent arg0) {

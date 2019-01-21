@@ -10,10 +10,12 @@ import Models.Destination;
 import Models.DestinationInterest;
 import Models.Hotel;
 import Models.HotelActivity;
+import Models.TREC;
 import Models.User;
 import Models.UserActivity;
 import Models.UserInterest;
 import ViewModels.RecommendationViewModel;
+import Views.RecommendationsAdmin;
 import Views.RecommendationsCustomer;
 import database.Database;
 
@@ -30,7 +32,20 @@ public class RecommendationController
 	
 	public static void showAdminRecommendation()
 	{
-		
+		RecommendationsAdmin rec = new RecommendationsAdmin(calculateAdminRecommendation());
+		rec.setVisible(true);
+	}
+	
+	public static List<User> calculateAdminRecommendation()
+	{
+		List<User> users = new ArrayList<User>();
+		users.add(new User("Christof", "Gartner"));
+		users.add(new User("Christoph", "Proß"));
+		users.add(new User("Manuel", "Gussmagg"));
+		users.add(new User("Stefan", "Bortolas"));
+		users.add(new User("Tanja", "Tatschl"));
+		users.add(new User("Zdenek", "Zeman"));
+		return users;
 	}
 	
 	public static RecommendationViewModel calculateCustomerRecommendation()
@@ -49,8 +64,7 @@ public class RecommendationController
 	    
 
 	    
-//	    User user = TREC.getInstance().getCurrentLoggedInUser();
-	    User user = session.get(User.class, 1);
+	    User user = TREC.getInstance().getCurrentLoggedInUser();
 	    
 	    for(Hotel hotel: hotels) //convert hotels to map
 	    	hotels_map.put(hotel.getId(), hotel);
@@ -73,9 +87,7 @@ public class RecommendationController
 		
 		//Add the hotels to the Destinations
 	    for(Hotel hotel : hotels)
-	    {
 	    	destination_map.get(hotel.getDestination().getId()).getHotels().add(hotel);
-	    }
 		
 		
 		int sumInterests = 0;
@@ -154,8 +166,6 @@ public class RecommendationController
 			DestinationRatings.remove(maxEntry.getKey());
 			maxEntry = null;
 		}
-		
-		
 		
 		return new RecommendationViewModel(recommendetHotels, recommendetDestinations);		
 	}

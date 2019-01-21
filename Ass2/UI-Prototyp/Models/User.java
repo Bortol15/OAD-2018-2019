@@ -1,6 +1,8 @@
 package Models;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.persistence.Column;
@@ -42,7 +44,7 @@ public class User {
 	private String Firstname;
 	
 	@Column(name = "lastname")
-	private String LastName;
+	private String Lastname;
 	
 	@Column(name = "gender")
 	private String Gender;
@@ -59,15 +61,18 @@ public class User {
 	@Column(name = "country")
 	private String Country;
 
-	@Column(name = "is_admin")
-	private Boolean is_admin;
+	@Column(name = "is_admin", columnDefinition = "TINYINT(1)")
+	private Boolean IsAdmin = false;
+	
+
+	private List<Hotel> hotels;
 	
 	public User(String firstname, String lastname, String email, String password,
-				String gender, String birthdate, String adress, String zip, String country)
+				String gender, String birthdate, String adress, String zip, String country, boolean is_admin)
 	{
 		EMail = email;
 		Firstname = firstname;
-		LastName = lastname;
+		Lastname = lastname;
 		Gender = gender;
 		Birthdate = birthdate;
 		Adress = adress;
@@ -75,20 +80,31 @@ public class User {
 		Country = country;
 		EMail = email;
 		Password = password;
+		IsAdmin = is_admin;
+		this.activities = new HashMap<String,Integer>();
+		this.interests = new HashMap<String, Integer>();
+		this.hotels = new ArrayList<Hotel>();
 	}
 	
-	public User(String email, String password) 
+	public User(String email, String password, boolean is_admin) 
 	{
 		EMail = email;
 		Password = password;
-		this.activities = new HashMap<String,Integer>();
-		this.interests = new HashMap<String, Integer>();
+		IsAdmin = is_admin;
+		this.hotels = new ArrayList<Hotel>();
+	}
+	
+	public User(String firstname, String lastname)
+	{
+		this.Firstname = firstname;
+		this.Lastname = lastname;
 	}
 	
 	public User()
 	{
 		this.activities = new HashMap<String,Integer>();
 		this.interests = new HashMap<String, Integer>();
+		this.hotels = new ArrayList<Hotel>();
 	}
 	
 	@Transient
@@ -124,11 +140,11 @@ public class User {
 	}
 
 	public String getLastName() {
-		return LastName;
+		return Lastname;
 	}
 
 	public void setLastName(String lastName) {
-		LastName = lastName;
+		Lastname = lastName;
 	}
 
 	public String getGender() {
@@ -185,10 +201,19 @@ public class User {
 	}
 
 	public Boolean getIs_admin() {
-		return is_admin;
+		return IsAdmin;
 	}
 
 	public void setIs_admin(Boolean is_admin) {
-		this.is_admin = is_admin;
+		this.IsAdmin = is_admin;
+	}
+
+	@Transient
+	public List<Hotel> getHotels() {
+		return hotels;
+	}
+
+	public void setHotels(List<Hotel> hotels) {
+		this.hotels = hotels;
 	}
 }

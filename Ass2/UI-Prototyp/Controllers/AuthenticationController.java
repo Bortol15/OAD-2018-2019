@@ -1,11 +1,15 @@
 package Controllers;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import javax.swing.JOptionPane;
 
+import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 
+import Models.Hotel;
 import Models.TREC;
 import Models.User;
 import Views.Index;
@@ -45,12 +49,24 @@ public class AuthenticationController {
 		Index index = (Index) trec.Frames.get("Index");
 		trec.Frames.put("Index", index);
 		
+		@SuppressWarnings("deprecation")
 		User user = (User) Database.getSession().createCriteria(User.class)
 				.add(Restrictions.eq("EMail", email)).uniqueResult();
-		if (user != null && user.getPassword().equals(password)) {
+		
+		if (user != null && user.getPassword().equals(password))
+		{
 			Database.setLoggedIn(true);
+			Session session = Database.getSession();
+			List<Hotel> all_hotels = Database.loadAllData(Hotel.class, session);
+			for(Hotel hotel : all_hotels)
+			{
+				if(hotel.getOwner() != null && hotel.getOwner().getUserId() == user.getUserId())
+					user.getHotels().add(hotel);
+			}
 			trec.setCurrentLoggedInUser(user);
-		} else {
+		} 
+		else
+		{
 			System.out.println("Something wrong");
 		}		
 		
@@ -94,7 +110,8 @@ public class AuthenticationController {
 	
 	public static void register(User user)
 	{
-		org.hibernate.Session sess = Database.getSession();
+		
+		Session sess = Database.getSession();
 		sess.save(user);
 		sess.close();
 		

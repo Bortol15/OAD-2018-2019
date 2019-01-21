@@ -36,6 +36,7 @@ public class Activities extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				userController.saveActivities(catSliders);
+				Activities.this.dispose();
 			}
 		});
 		btnSave.setBounds(12, 191, 114, 25);

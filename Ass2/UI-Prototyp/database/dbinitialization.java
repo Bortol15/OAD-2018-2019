@@ -2,6 +2,9 @@ package database;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import org.hibernate.Session;
+
 import Models.Destination;
 import Models.DestinationInterest;
 import Models.Hotel;
@@ -22,14 +25,20 @@ public class dbinitialization {
 		List<DestinationInterest> destinationinterests = new ArrayList<DestinationInterest>();
 		List<UserInterest> userinterests = new ArrayList<UserInterest>();
 
+		
+		User admin = new User("admin", "admin",true);
+		User user1 = new User("root","root", false);
+		users.add(user1);
+		users.add(admin);
+		
 		Destination linz = new Destination("Linz", "Austria");
 		Destination graz = new Destination("Graz", "Austria");
 		destinations.add(linz);
 		destinations.add(graz);
 		
-		Hotel hotel_park_inn = new Hotel("Hotel Park Inn", linz, "Hessenplatz", 4);
-		Hotel arcotel_nike = new Hotel("Arcotel Nike", linz, "Rathausviertel", 4);
-		Hotel hotel_donauwelle = new Hotel("Hotel Donauwelle", linz, "Hafenviertel", 4);
+		Hotel hotel_park_inn = new Hotel("Hotel Park Inn", linz, "Hessenplatz", 4, admin);
+		Hotel arcotel_nike = new Hotel("Arcotel Nike", linz, "Rathausviertel", 4, admin);
+		Hotel hotel_donauwelle = new Hotel("Hotel Donauwelle", linz, "Hafenviertel", 4, admin);
 		Hotel hotel_schillerpark = new Hotel("Hotel Schillerpark", linz, "Schillerpark", 4);
 		Hotel prielmayerhof = new Hotel("Prielmayerhof", linz, "Kaplanhofviertel", 4);
 		Hotel domhotel = new Hotel("Domhotel", linz, "Altstadtviertel", 4);
@@ -64,7 +73,6 @@ public class dbinitialization {
 		hotelactivities.add(new HotelActivity("Klettern",6, hotel_park_inn));
 		hotelactivities.add(new HotelActivity("Museen",8, hotel_park_inn));
 		hotelactivities.add(new HotelActivity("Tierpark",5, hotel_park_inn));
-		hotelactivities.add(new HotelActivity("Einkaufszentrum", 8, hotel_park_inn));
 		
 		hotelactivities.add(new HotelActivity("Schwimmen", 3, arcotel_nike));
 		hotelactivities.add(new HotelActivity("Klettern",8, arcotel_nike));
@@ -72,7 +80,7 @@ public class dbinitialization {
 		hotelactivities.add(new HotelActivity("Tierpark",2, arcotel_nike));
 		hotelactivities.add(new HotelActivity("Einkaufszentrum", 8, arcotel_nike));
 		
-		User user1 = new User("root","root");
+
 		useractivities.add(new UserActivity("Einkaufszentrum", 9, user1));
 		useractivities.add(new UserActivity("Schwimmen",3, user1));
 		useractivities.add(new UserActivity("Klettern",4, user1));
@@ -85,16 +93,18 @@ public class dbinitialization {
 		userinterests.add(new UserInterest("Familie",3, user1));
 		userinterests.add(new UserInterest("Kultur",7, user1));
 		
-		org.hibernate.Session sess = Database.getSession();	
+
+		
+		Session sess = Database.getSession();	
+		
+		for(User user: users)
+			sess.save(user);
 		
 		for(Destination destination: destinations)
 			sess.save(destination);	
 		
 		for(Hotel hotel: hotels)
 			sess.save(hotel);
-		
-		for(User user: users)
-			sess.save(user);
 		
 		for(DestinationInterest destinationinterest: destinationinterests)
 			sess.save(destinationinterest);
