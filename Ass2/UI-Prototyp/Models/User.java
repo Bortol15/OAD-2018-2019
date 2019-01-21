@@ -78,11 +78,12 @@ public class User {
 		Password = password;
 	}
 	
-	public User(String firstname, String email, String password) 
+	public User(String email, String password) 
 	{
-		Firstname = firstname;
 		EMail = email;
 		Password = password;
+		this.activities = new HashMap<String,Integer>();
+		this.interests = new HashMap<String, Integer>();
 	}
 	
 	public User()

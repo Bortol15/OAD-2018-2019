@@ -9,6 +9,7 @@ import javax.swing.border.EmptyBorder;
 
 import Controllers.AuthenticationController;
 import Controllers.HotelController;
+import Controllers.RecommendationController;
 import Controllers.UserController;
 import Models.Destination;
 import Models.Hotel;
@@ -95,9 +96,9 @@ public class Index extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				
 				if(admin == true)
-					new RecommendationsCustomer().setVisible(true);
+					RecommendationController.showAdminRecommendation();
 				else
-					new RecommendationsCustomer().setVisible(true);
+					RecommendationController.showCustomerRecommendation();
 			}
 		});
 		btn_Recommendations.setBounds(12, 232, 196, 25);
@@ -140,7 +141,7 @@ public class Index extends JFrame {
 		cbx_MaintainHotel.setBounds(297, 196, 151, 24);
 		contentPane.add(cbx_MaintainHotel);
 
-		Destination dest1 = new Destination(1, "Graz", "Austria");
+		Destination dest1 = new Destination("Graz", "Austria");
 		Hotel hotel1 = new Hotel("Schlossberg Hotel", dest1, "Kaiser-Franz-Josef-Kai 30, 8010 Graz", 4);
 		Hotel hotel2 = new Hotel("Schlossberg Hotel", dest1, "Kaiser-Franz-Josef-Kai 30, 8010 Graz", 4);
 		HotelController.fillHotelWithDummyData(hotel1);

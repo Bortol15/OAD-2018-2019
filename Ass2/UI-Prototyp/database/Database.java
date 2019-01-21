@@ -13,9 +13,12 @@ import org.hibernate.cfg.Configuration;
 import Models.Category;
 import Models.Customer;
 import Models.Destination;
+import Models.DestinationInterest;
 import Models.Hotel;
 import Models.HotelActivity;
 import Models.User;
+import Models.UserActivity;
+import Models.UserInterest;
 
 public class Database {
 
@@ -32,6 +35,9 @@ public class Database {
     	conf.addAnnotatedClass(Hotel.class);
     	conf.addAnnotatedClass(Destination.class);
     	conf.addAnnotatedClass(HotelActivity.class);
+    	conf.addAnnotatedClass(UserActivity.class);
+    	conf.addAnnotatedClass(DestinationInterest.class);
+    	conf.addAnnotatedClass(UserInterest.class);
     	Database.sf = conf.buildSessionFactory();
 	}
 	

@@ -2,8 +2,6 @@ package Models;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -19,11 +17,8 @@ public class HotelActivity extends Category{
 		this.Value = value;
 		this.hotel = hotel;
 	}
-	
-	public HotelActivity(String name, int value) 
+	public HotelActivity() 
 	{
-		this.Name = name;
-		this.Value = value;
 	}
 
 	@ManyToOne(cascade = CascadeType.ALL)

@@ -24,14 +24,19 @@ public class Destination {
 	private List<Hotel> Hotels;
 	private Map<String, Integer> Interests;
 	
-	public Destination(int id, String name, String country)
+	public Destination(String name, String country)
 	{
-		this.Id = id;
 		this.Name = name;
 		this.Country = country;
+		Interests = new HashMap<String, Integer>();
+		Hotels = new ArrayList<Hotel>();
 	}
 	
-	public Destination() {}
+	public Destination() 
+	{
+		Interests = new HashMap<String, Integer>();
+		Hotels = new ArrayList<Hotel>();
+	}
 	
 	@Id
 	@GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY )

@@ -25,17 +25,14 @@ import Views.MaintainHotel;
 import Views.RateHotel;
 import Views.Search;
 import Views.ShowHotel;
+import database.Database;
 
 public class HotelController {
 	
-	public static void showHotel(String whichHotel) {
-		// Load right Hotel from DB
-		List<Hotel> Result = new ArrayList<Hotel>();
-		fillHotelListWithDummyData(Result);
+	public static void showHotel(int id) {
 
-		Hotel hotel = Result.stream().filter(p -> p.getName().equals(whichHotel)).findAny().get();
-		fillHotelWithDummyData(hotel);
-		
+
+		Hotel hotel = Database.getSession().get(Hotel.class, id);
 		ShowHotel showHotel = new ShowHotel(hotel);
 		showHotel.setVisible(true);
 		TREC.getInstance().Frames.put("ShowHotel", showHotel);
@@ -109,7 +106,7 @@ public class HotelController {
 	{
 		// Delete Evaluation from DB
 		// load User again
-		Destination dest1 = new Destination(1, "Graz", "Austria");
+		Destination dest1 = new Destination("Graz", "Austria");
 		Hotel hotel = new Hotel("Schlossberg Hotel", dest1, "Kaiser-Franz-Josef-Kai 30, 8010 Graz", 4);
 		fillHotelWithDummyData(hotel);
 		hotel.getEvaluations().remove(0);
@@ -119,7 +116,7 @@ public class HotelController {
 	
 	public static void fillHotelListWithDummyData(List<Hotel> hotels) // for testing
 	{
-		Destination dest1 = new Destination(1, "Graz", "Austria");
+		Destination dest1 = new Destination("Graz", "Austria");
 		hotels.add(new Hotel("Schlossberg Hotel", dest1, "Kaiser-Franz-Josef-Kai 30, 8010 Graz", 4));
 		hotels.add(new Hotel("Hotel Alpina", dest1, "Dorfplatz, 7165 Breil-Brigels", 3));
 		hotels.add(new Hotel("Hôtel Lavaux", dest1, "Route Cantonale 51, 1096 Bourg-en-Lavaux", 4));
@@ -129,7 +126,7 @@ public class HotelController {
 	
 	public static void addActivity(String activity)
 	{
-		Destination dest1 = new Destination(1, "Graz", "Austria");
+		Destination dest1 = new Destination("Graz", "Austria");
 		Hotel hotel = new Hotel("Schlossberg Hotel",dest1, "Kaiser-Franz-Josef-Kai 30, 8010 Graz", 4);
 		hotel.getActivities().clear();
 		hotel.getEvaluations().clear();
@@ -142,7 +139,7 @@ public class HotelController {
 	
 	public static void deleteActivity(Category activity)
 	{
-		Destination dest1 = new Destination(1, "Graz", "Austria");
+		Destination dest1 = new Destination("Graz", "Austria");
 		Hotel hotel = new Hotel("Schlossberg Hotel", dest1, "Kaiser-Franz-Josef-Kai 30, 8010 Graz", 4);
 		hotel.getActivities().clear();
 		hotel.getEvaluations().clear();

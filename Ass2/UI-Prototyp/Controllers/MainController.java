@@ -12,6 +12,7 @@ import Models.Category;
 import Models.Hotel;
 import Models.TREC;
 import ViewModels.CategorySlider;
+import ViewModels.RecommendationViewModel;
 import Views.*;
 
 public class MainController {
@@ -26,7 +27,7 @@ public class MainController {
 		Login login = new Login();
 		RateHotel rateHotel = new RateHotel(null);
 		RecommendationsAdmin recommendationsAdmin = new RecommendationsAdmin();
-		RecommendationsCustomer recommendationsCustomer = new RecommendationsCustomer();
+		RecommendationsCustomer recommendationsCustomer = new RecommendationsCustomer(null);
 		Registration registration = new Registration();
 		Search search = new Search();
 		ShowHotel showHotel = new ShowHotel();

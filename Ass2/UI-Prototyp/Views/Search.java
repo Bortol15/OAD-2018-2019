@@ -51,7 +51,7 @@ public class Search extends JFrame {
 				if(arg0.getValueIsAdjusting()) // otherwise showHotel() is called twice!
 				{
 					whichHotel = tbl_search_results.getValueAt(tbl_search_results.getSelectedRow(), 0).toString();
-					HotelController.showHotel(whichHotel);
+					HotelController.showHotel(3);
 				}
 				else
 				{

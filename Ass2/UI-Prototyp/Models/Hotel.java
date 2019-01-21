@@ -34,17 +34,6 @@ public class Hotel {
 		Evaluations = new ArrayList<Evaluation>();
 	}
 	
-	public Hotel(Integer id, String name, Destination destination, String address, int stars)
-	{
-		Id = id;
-		Name = name;
-		Destination = destination;
-		Activities = new HashMap<String, Integer>();
-		Evaluations = new ArrayList<Evaluation>();
-		Address = address;
-		Stars = stars;
-	}
-	
 	public Hotel( String name, Destination destination, String address, int stars)
 	{
 		Name = name;
