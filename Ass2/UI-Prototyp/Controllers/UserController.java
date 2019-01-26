@@ -28,6 +28,7 @@ public class UserController {
 
 		Session session = Database.getSession();
 		List<UserInterest> all_interests = Database.loadAllData(UserInterest.class, session);
+		session.close();
 		
 		for(UserInterest ui : all_interests)
 		{
@@ -59,6 +60,7 @@ public class UserController {
 			session.update(ui);
 		}
 		trans.commit();	
+		session.close();
 	}
 	
 	public void saveActivities(List<CategorySlider> catSlider)
@@ -69,7 +71,8 @@ public class UserController {
 		Map<String, UserActivity> activity_map = new HashMap<String, UserActivity>();
 		
 		for(UserActivity ua : all_activities)
-			activity_map.put(ua.getName(), ua);
+			if(ua.getUser().getUserId() == user1.getUserId())
+				activity_map.put(ua.getName(), ua);
 		
 		for(CategorySlider cat : catSlider)
 		{
@@ -78,6 +81,7 @@ public class UserController {
 			session.update(ua);
 		}
 		trans.commit();	
+		session.close();
 	}
 	
 	public void ShowActivities()
@@ -86,6 +90,7 @@ public class UserController {
 		
 		Session session = Database.getSession();
 		List<UserActivity> all_activities = Database.loadAllData(UserActivity.class, session);
+		session.close();
 		
 		for(UserActivity ua : all_activities)
 		{
@@ -98,5 +103,53 @@ public class UserController {
 		Activities newActivities = new Activities(catSlider);
 		newActivities.setVisible(true);
 		TREC.getInstance().Frames.put("Activities", newActivities);
+	}
+	
+	public static void updateAllUserActivities()
+	{
+		Session session = Database.getSession();
+		List<User> users = Database.loadAllData(User.class, session);
+		List<User> customers = new ArrayList<User>();
+		
+		for(User user : users)
+		{
+			if(!user.getIs_admin())
+				updateUserActivities(user.getUserId());
+		}
+	}
+	
+	public static void updateUserActivities(int user_id)
+	{
+		Session session = Database.getSession();
+		User user = session.get(User.class, user_id);
+		List<UserActivity> all_useractivities= Database.loadAllData(UserActivity.class, session);
+		Map<String,UserActivity> specific_useractivities = new HashMap<String,UserActivity>();
+		Map<String, String> unique_activities = new HashMap<String, String>();
+		for(UserActivity ua : all_useractivities)
+		{
+			if(ua.getUser().getUserId() == user_id)
+				specific_useractivities.put(ua.getName(), ua);
+		}
+		
+		for(String activity : Database.loadAllUniqueActivities())
+			unique_activities.put(activity, activity);
+		
+		for(String activity_which_should_exist : unique_activities.keySet())
+		{
+			if(!specific_useractivities.containsKey(activity_which_should_exist))
+				session.save(new UserActivity(activity_which_should_exist, 5, user));
+		}
+		
+		for(String activity_which_exists : specific_useractivities.keySet())
+		{
+			if(!unique_activities.containsKey(activity_which_exists))
+			{
+				Transaction trans = session.beginTransaction();
+				session.delete(specific_useractivities.get(activity_which_exists));
+				trans.commit();
+			}
+		}
+		
+		session.close();
 	}
 }

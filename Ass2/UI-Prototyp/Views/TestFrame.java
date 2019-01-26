@@ -7,6 +7,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import java.awt.Component;
+import javax.swing.JComboBox;
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
 
 public class TestFrame extends JFrame {
 
@@ -58,6 +61,13 @@ public class TestFrame extends JFrame {
 		
 		JButton btnNewButton = new JButton("oad");
 		getContentPane().add(btnNewButton);
+		
+		JComboBox comboBox = new JComboBox();
+		comboBox.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent arg0) {
+			}
+		});
+		getContentPane().add(comboBox);
 		
 	}
 }

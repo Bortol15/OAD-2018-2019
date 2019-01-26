@@ -6,6 +6,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import Controllers.HotelController;
+import ViewModels.SearchViewModel;
 
 import javax.swing.JLabel;
 
@@ -20,7 +21,7 @@ public class Search extends JFrame {
 	private JTable tbl_search_results;
 
 
-	public Search(Object[][] data) {
+	public Search(SearchViewModel model) {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 550, 478);
 		contentPane = new JPanel();
@@ -28,24 +29,25 @@ public class Search extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("Search Results");
+		JLabel lblNewLabel = new JLabel("Search Results for \"" + model.searchstring + "\"");
 		lblNewLabel.setFont(new Font("Dialog", Font.BOLD, 16));
-		lblNewLabel.setBounds(30, 12, 165, 15);
+		lblNewLabel.setBounds(30, 12, 250, 15);
 		contentPane.add(lblNewLabel);
 		
-		if(data == null)
+		if(model.data == null)
 			return;
 		
-		String[] columnNames = {"Hotel", "Destination", "Country"};
-		tbl_search_results = new JTable(data,columnNames);
+		String[] columnNames = {"Hotel", "Destination", "Country", "id"};
+		
+		tbl_search_results = new JTable(model.data,columnNames);
+		tbl_search_results.removeColumn(tbl_search_results.getColumnModel().getColumn(3));
 		tbl_search_results.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-		String whichHotel;
 			@Override
 			public void valueChanged(ListSelectionEvent arg0) {
 				if(arg0.getValueIsAdjusting()) // otherwise showHotel() is called twice!
 				{
-					whichHotel = tbl_search_results.getValueAt(tbl_search_results.getSelectedRow(), 0).toString();
-					HotelController.showHotel(3);
+					int id = Integer.parseInt(tbl_search_results.getModel().getValueAt(tbl_search_results.getSelectedRow(), 3).toString());
+					HotelController.showHotel(id);
 				}
 				else
 				{

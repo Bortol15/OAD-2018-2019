@@ -9,6 +9,8 @@ import Controllers.HotelController;
 import Models.Category;
 import Models.Evaluation;
 import Models.Hotel;
+import Models.TREC;
+import Models.User;
 
 import javax.swing.JLabel;
 import java.awt.Font;
@@ -30,14 +32,18 @@ import java.util.Map;
 public class ShowHotel extends JFrame {
 
 	private JPanel contentPane;
+	public JButton btnRate = new JButton("Rate Hotel");
 
 	public ShowHotel(Hotel hotel) {
+		
+		if(TREC.getInstance().getCurrentLoggedInUser() == null || TREC.getInstance().getCurrentLoggedInUser().getIs_admin())
+			btnRate.setVisible(false);
 		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 354);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-        contentPane.setPreferredSize(new Dimension(500, 620));
+        contentPane.setPreferredSize(new Dimension(450, 620));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
@@ -114,7 +120,7 @@ public class ShowHotel extends JFrame {
 		}
 		contentPane.add(panel_activities);
 				
-		JButton btnRate = new JButton("Rate Hotel");
+		
 		btnRate.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -137,7 +143,10 @@ public class ShowHotel extends JFrame {
         {
     		JPanel evaluation = new JPanel();
     		Evaluation currentEval = hotel.getEvaluations().get(i);
-    		evaluation.add(new JLabel("<html><u>Name:</u> " + currentEval.getCustomerName() +
+    		User user = currentEval.getUser();
+    		String customername = user.getFirstname() == null || user.getLastName() == null ? user.getEMail().toString()
+			  : user.getFirstname() + " " + user.getLastName();
+    		evaluation.add(new JLabel("<html><u>Name:</u> " + customername +
     								  "&emsp;&emsp;<u>Nights:</u> "+ currentEval.getNightsSpend() + "</html>"));
     		evaluation.add(Box.createRigidArea(new Dimension(0, 15)));
     		String rating = "<html><u>Rating:</u> </br>";
@@ -164,7 +173,7 @@ public class ShowHotel extends JFrame {
     		evaluation.add(new JLabel("<html><u>Comment:</u> " + currentEval.getComment()+"</html>"));
     		evaluation.add(Box.createRigidArea(new Dimension(0, 15)));
     		DateFormat df = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
-    		String date = df.format(currentEval.getDate());
+    		String date = currentEval.getDate();
     		evaluation.add(new JLabel("<html><i>"+date+"</i></html>"));
     		evaluation.setLayout(new BoxLayout(evaluation, BoxLayout.Y_AXIS));
     		evaluation.setBounds(5, 5, 30, 30);
@@ -175,6 +184,7 @@ public class ShowHotel extends JFrame {
         }
         
         JScrollPane scrollPane = new JScrollPane(comment_pane);
+        scrollPane.getVerticalScrollBar().setUnitIncrement(16);
         scrollPane.setBounds(12, 300, 400, 300);
         
         contentPane.add(scrollPane);

@@ -14,6 +14,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JTextArea;
 import Models.Category;
+import Models.HotelActivity;
 import Models.TREC;
 import ViewModels.CategorySlider;
 import ViewModels.HotelViewModel;
@@ -40,7 +41,7 @@ public class RateHotel extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		lblNewLabel = new JLabel(model.HotelName);
+		lblNewLabel = new JLabel(model.hotel.getName());
 		lblNewLabel.setFont(new Font("Dialog", Font.BOLD, 18));
 		lblNewLabel.setBounds(12, 12, 251, 25);
 		contentPane.add(lblNewLabel);
@@ -55,7 +56,7 @@ public class RateHotel extends JFrame {
 		getContentPane().setLayout(null);
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(12, 60 + model.CategorySliders.size()*20, 316, 292);
+		panel.setBounds(12, 60 + model.CategorySliders.size() * 20, 316, 292);
 		contentPane.add(panel);
 		panel.setLayout(null);
 
@@ -87,9 +88,8 @@ public class RateHotel extends JFrame {
 				model.evaluation.setComment(comment.getText());
 				int nights_spend = txt_NightsSpend.getText().isEmpty() ? 0 : Integer.parseInt(txt_NightsSpend.getText());
 				model.evaluation.setNightsSpend(nights_spend);
-				model.evaluation.setCustomerName(TREC.getInstance().getCurrentLoggedInUser().getFirstname());
 				for(CategorySlider cat : model.CategorySliders)
-					model.evaluation.getActivities().add(new Category(cat.Name.getText(), cat.Slider.getValue()));
+					model.evaluation.getActivities().add(new HotelActivity(cat.Name.getText(), cat.Slider.getValue(),model.hotel, model.evaluation));
 				HotelController.submitEvaluation(model);
 				RateHotel.this.dispose();
 			}

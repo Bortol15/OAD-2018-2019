@@ -65,7 +65,6 @@ public class Hotel {
 	@Id
 	@GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY )
 	@Column(name = "HOTEL_ID")
-	
 	public int getId()
 	{
 		return this.Id;

@@ -38,6 +38,11 @@ public class Destination {
 		Hotels = new ArrayList<Hotel>();
 	}
 	
+	public String toString()
+	{
+		return this.Name;
+	}
+	
 	@Id
 	@GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY )
 	@Column(name = "ID")

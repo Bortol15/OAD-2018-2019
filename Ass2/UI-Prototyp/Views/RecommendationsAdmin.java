@@ -31,9 +31,9 @@ public class RecommendationsAdmin extends JFrame {
 		
 		for(int i = 0; i < users.size(); i++)
 		{
-			String username = users.get(i).getFirstname() + " " + users.get(i).getLastName();
+			String username = users.get(i).getEMail() + " --> " + users.get(i).getHotels().get(0).getName();
 			JLabel lblNewLabel = new JLabel(username);
-			lblNewLabel.setBounds(12, 47+i*20, 166, 15);
+			lblNewLabel.setBounds(12, 47+i*20, 366, 15);
 			contentPane.add(lblNewLabel);
 		}		
 	}

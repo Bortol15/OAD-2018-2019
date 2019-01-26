@@ -24,8 +24,9 @@ public class Activities extends JFrame {
 
 	public Activities(List<CategorySlider> catSliders) {
 
+		int offset = (catSliders.size() - 5) * 20;
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(10, -13, 320, 258);
+		setBounds(10, -13, 320, 258+offset);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -39,7 +40,7 @@ public class Activities extends JFrame {
 				Activities.this.dispose();
 			}
 		});
-		btnSave.setBounds(12, 191, 114, 25);
+		btnSave.setBounds(12, 191+offset, 114, 25);
 		contentPane.add(btnSave);
 		
 		

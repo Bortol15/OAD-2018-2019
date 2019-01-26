@@ -23,7 +23,7 @@ public class UserActivity extends Category{
 		
 	}
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.DETACH)
 	public User getUser() {
 		return User;
 	}

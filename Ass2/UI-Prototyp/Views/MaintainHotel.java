@@ -7,6 +7,9 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.DateFormat;
@@ -28,14 +31,23 @@ import javax.swing.border.EmptyBorder;
 
 import Controllers.HotelController;
 import Models.Category;
+import Models.Destination;
 import Models.Evaluation;
 import Models.Hotel;
+import Models.HotelActivity;
+import Models.User;
+import ViewModels.MaintainHotelModel;
+
+import java.awt.BorderLayout;
 
 public class MaintainHotel extends JFrame {
 
 	private JPanel contentPane;
+	private JComboBox<String> cbx_activities = new JComboBox<String>();
+	private JComboBox<Destination> cbx_Destinations = new JComboBox<Destination>();
+	private JTextField txt_Country;
 
-	public MaintainHotel(Hotel hotel) {
+	public MaintainHotel(MaintainHotelModel model) {
 		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 354);
@@ -45,29 +57,39 @@ public class MaintainHotel extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lbl_Name = new JLabel(hotel.getName());
-		lbl_Name.setFont(new Font("Dialog", Font.BOLD, 18));
-		lbl_Name.setBounds(12, 12, 234, 25);
-		contentPane.add(lbl_Name);
+		JTextField txt_name = new JTextField(model.hotel.getName());
+		txt_name.setFont(new Font("Dialog", Font.BOLD, 18));
+		txt_name.setBounds(12, 12, 258, 25);
+		contentPane.add(txt_name);
 		
 		JLabel lblDestination = new JLabel("Destination:");
 		lblDestination.setFont(new Font("Dialog", Font.BOLD, 14));
 		lblDestination.setBounds(12, 45, 130, 15);
 		contentPane.add(lblDestination);
 		
-		JTextField txt_Destination = new JTextField(hotel.getDestination().getName());
-		txt_Destination.setFont(new Font("Dialog", Font.BOLD, 12));
-		txt_Destination.setBounds(120, 45, 150, 20);
-		contentPane.add(txt_Destination);
+
+		cbx_Destinations.setBounds(120, 45, 150, 20);
+		contentPane.add(cbx_Destinations);
+		for(Destination dest : model.destinations.values())
+			cbx_Destinations.addItem(dest);
 		
+		cbx_Destinations.setSelectedItem(model.destinations.get(model.hotel.getDestination().getId()));
+		
+		cbx_Destinations.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent arg0) {
+				Destination dest = (Destination) arg0.getItem();
+				txt_Country.setText(dest.getCountry());
+			}
+		});
 		JLabel lblCountry = new JLabel("Country:");
 		lblCountry.setFont(new Font("Dialog", Font.BOLD, 14));
 		lblCountry.setBounds(12, 66, 86, 15);
 		contentPane.add(lblCountry);
 		
-		JTextField txt_Country = new JTextField(hotel.getDestination().getCountry());
+		txt_Country = new JTextField(model.hotel.getDestination().getCountry());
 		txt_Country.setFont(new Font("Dialog", Font.BOLD, 12));
 		txt_Country.setBounds(120, 66, 150, 20);
+		txt_Country.setEditable(false);
 		contentPane.add(txt_Country);
 		
 		JLabel lblAdddress = new JLabel("Address:");
@@ -75,9 +97,9 @@ public class MaintainHotel extends JFrame {
 		lblAdddress.setBounds(12, 87, 86, 15);
 		contentPane.add(lblAdddress);
 		
-		JTextField txt_Address = new JTextField(hotel.getAddress());
+		JTextField txt_Address = new JTextField(model.hotel.getAddress());
 		txt_Address.setFont(new Font("Dialog", Font.BOLD, 12));
-		txt_Address.setBounds(120, 87, 350, 20);
+		txt_Address.setBounds(120, 87, 342, 20);
 		contentPane.add(txt_Address);
 		
 		JLabel lblStars = new JLabel("Stars:");
@@ -85,37 +107,70 @@ public class MaintainHotel extends JFrame {
 		lblStars.setBounds(12, 108, 86, 15);
 		contentPane.add(lblStars);
 		
-		JTextField txt_Stars = new JTextField(Integer.toString(hotel.getStars()));
+		JTextField txt_Stars = new JTextField(Integer.toString(model.hotel.getStars()));
 		txt_Stars.setFont(new Font("Dialog", Font.BOLD, 12));
 		txt_Stars.setBounds(120, 108, 150, 20);
 		contentPane.add(txt_Stars);
 		
+		JButton btnSubmit = new JButton("Save Changes");
+		btnSubmit.setBounds(330, 12, 132, 25);
+		contentPane.add(btnSubmit);
+		btnSubmit.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				model.hotel.setDestination((Destination)cbx_Destinations.getSelectedItem());
+				model.hotel.setName(txt_name.getText());
+				model.hotel.setStars(Integer.parseInt(txt_Stars.getText()));
+				model.hotel.setAddress(txt_Address.getText());
+				HotelController.saveHotelData(model.hotel);
+				MaintainHotel.this.dispose();
+			}
+		});
 		
+		JTextField txt_activity = new JTextField();
+		txt_activity.setPreferredSize(new Dimension(80, 25));
+		txt_activity.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				cbx_activities.setSelectedIndex(0);
+			}
+		});		
+
 		JLabel lblActivities = new JLabel("Activities:");
 		lblActivities.setFont(new Font("Dialog", Font.BOLD, 16));
 		contentPane.add(lblActivities);
 		JPanel activity_header = new JPanel();
-		activity_header.setBounds(12, 150, 400, 35);
+		activity_header.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		activity_header.setBounds(12, 150, 450, 35);
 		activity_header.setLayout(new FlowLayout(FlowLayout.LEFT));
-		JComboBox<String> cbx_activities = new JComboBox<String>();
-		cbx_activities.setBounds(12, 51, 403, 24);
 		
+		
+		cbx_activities.addMouseListener(new MouseAdapter()
+		{
+			@Override
+			public void mouseEntered(MouseEvent e) 
+			{
+				txt_activity.setText("");
+			}
+		});
+		cbx_activities.setBounds(12, 51, 403, 24);
 		cbx_activities.addItem(" ");
-		cbx_activities.addItem("Sauna");
-		cbx_activities.addItem("Climbing");
-		cbx_activities.addItem("Surfing");
-		JButton add_activity = new JButton("Add Activity");
+		for(String key : model.activities_suggestions)
+			cbx_activities.addItem(key);
+		JButton add_activity = new JButton("Add");
 		add_activity.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				HotelController.addActivity(cbx_activities.getSelectedItem().toString());
+				HotelController.addActivity(cbx_activities.getSelectedItem().toString(), txt_activity.getText(), model.hotel);
 				MaintainHotel.this.dispose();
 			}
 		});
 		activity_header.add(lblActivities);
-		activity_header.add(Box.createRigidArea(new Dimension(50,0)));
+		activity_header.add(Box.createRigidArea(new Dimension(30,0)));
 		activity_header.add(cbx_activities);
+		activity_header.add(txt_activity);
 		activity_header.add(add_activity);
+		activity_header.setBorder(BorderFactory.createEmptyBorder());
 		contentPane.add(activity_header);
 		
 		JPanel panel_activities = new JPanel();
@@ -125,18 +180,17 @@ public class MaintainHotel extends JFrame {
 		panel_activities.setAlignmentX(LEFT_ALIGNMENT);
 		panel_activities.setBounds(12, 190, 500, 100);
 		
-		for(Map.Entry<String, Integer> entry : hotel.getActivities().entrySet())
+		for(Map.Entry<String, Integer> entry : model.hotel.getActivities().entrySet())
 		{
 			JPanel activity = new JPanel();
 			activity.setLayout(new FlowLayout(FlowLayout.LEADING));
 			
-			Category temp_activity = new Category(entry.getKey(), entry.getValue());
-			JLabel temp_label = new JLabel(temp_activity.getName() + ": " + temp_activity.getValue());
+			JLabel temp_label = new JLabel(entry.getKey());
 			JButton delete_activity = new JButton("X");
 			delete_activity.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
-					HotelController.deleteActivity(temp_activity);
+					HotelController.deleteActivity(entry.getKey(), model.hotel);
 					MaintainHotel.this.dispose();
 				}
 			});
@@ -157,11 +211,11 @@ public class MaintainHotel extends JFrame {
 		contentPane.add(lblComments);
 		
         JPanel comment_pane = new JPanel();
-        comment_pane.setLayout(new GridLayout(hotel.getEvaluations().size(),1));
+        comment_pane.setLayout(new GridLayout(model.hotel.getEvaluations().size(),1));
         
-        for (int i = 0; i < hotel.getEvaluations().size(); i++)
+        for (int i = 0; i < model.hotel.getEvaluations().size(); i++)
         {
-    		Evaluation currentEval = hotel.getEvaluations().get(i);
+    		Evaluation currentEval = model.hotel.getEvaluations().get(i);
     		JPanel evaluation = new JPanel();
     		evaluation.setLayout(new BoxLayout(evaluation, BoxLayout.Y_AXIS));
     		evaluation.setAlignmentX(LEFT_ALIGNMENT);
@@ -175,9 +229,10 @@ public class MaintainHotel extends JFrame {
     		rest_pane.setAlignmentX(Component.LEFT_ALIGNMENT);
     		evaluation.add(rest_pane);
     		rest_pane.setLayout(new BoxLayout(rest_pane, BoxLayout.Y_AXIS));
-    		
-  		
-    		firstLine_pane.add(new JLabel("<html>Name: " + currentEval.getCustomerName() +
+    		User user = currentEval.getUser();
+    		String customername = user.getFirstname() == null || user.getLastName() == null ? user.getEMail().toString()
+			  : user.getFirstname() + " " + user.getLastName();
+    		firstLine_pane.add(new JLabel("<html>Name: " + customername +
    								  "&emsp;&emsp;Nights: "+ currentEval.getNightsSpend() + "</html>"));
     		JLabel deleteEval = new JLabel("Delete Evaluation");
     		deleteEval.addMouseListener(new MouseAdapter() {
@@ -214,8 +269,7 @@ public class MaintainHotel extends JFrame {
     		rest_pane.add(Box.createRigidArea(new Dimension(0, 15)));
     		rest_pane.add(new JLabel("<html><u>Comment:</u> " + currentEval.getComment()+"</html>"));
     		rest_pane.add(Box.createRigidArea(new Dimension(0, 15)));
-    		DateFormat df = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
-    		String date = df.format(currentEval.getDate());
+    		String date = currentEval.getDate();
     		rest_pane.add(new JLabel("<html><i>"+date+"</i></html>"));
     		rest_pane.setLayout(new BoxLayout(rest_pane, BoxLayout.Y_AXIS));
     		rest_pane.setBounds(5, 5, 30, 30);
@@ -229,15 +283,13 @@ public class MaintainHotel extends JFrame {
         }
         
         JScrollPane scrollPane = new JScrollPane(comment_pane);
-        scrollPane.setBounds(12, 340, 400, 300);
+        scrollPane.setBounds(12, 340, 450, 300);
+        scrollPane.getVerticalScrollBar().setUnitIncrement(16);
         
         contentPane.add(scrollPane);
         pack();
         setVisible(true);
 		
 	}
-	public MaintainHotel() {
-		
-
-		}
+	public MaintainHotel() {}
 }

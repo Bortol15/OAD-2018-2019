@@ -4,6 +4,7 @@ import java.util.Map;
 
 import javax.swing.JLabel;
 import javax.swing.JSlider;
+import javax.swing.JTable;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
@@ -26,7 +27,7 @@ public class MainController {
 		Registration registration = new Registration();
 		Search search = new Search();
 		ShowHotel showHotel = new ShowHotel();
-		Statistics statistics = new Statistics();
+		Statistics statistics = new Statistics(null);
 		MaintainHotel maintainHotel = new MaintainHotel();
 		
 		TREC.getInstance().Frames.put("Activities", activities);
@@ -71,4 +72,33 @@ public class MainController {
 			CategorySliders.add(new CategorySlider(name, slider, value_label));
 		}
 	}
+	
+	public static void showStatistics(String query)
+	{
+		query = "asldfksaldf";
+		String[] columnNames = new String[1];
+		Object[][] data = new Object[1][1];
+		
+		if(query == "asldfksaldf")
+		{
+			columnNames = new String[]{"Vorname",
+	                "Nachname",
+	                "Anzahl Evaluierungen"
+	                };
+			
+			 data = new Object[][]{
+					{"Max","Mustermann", 5},
+					{"Susi","Sonnenschein", 4},
+					{"Christoph","Proß", 3},
+				};
+		}
+		
+		new Statistics(new JTable(data,columnNames)).setVisible(true);
+	}
 }
+
+
+
+
+
+

@@ -1,6 +1,9 @@
 package database;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -12,6 +15,7 @@ import org.hibernate.cfg.Configuration;
 import Models.Category;
 import Models.Destination;
 import Models.DestinationInterest;
+import Models.Evaluation;
 import Models.Hotel;
 import Models.HotelActivity;
 import Models.User;
@@ -37,6 +41,7 @@ public class Database {
     	conf.addAnnotatedClass(UserActivity.class);
     	conf.addAnnotatedClass(DestinationInterest.class);
     	conf.addAnnotatedClass(UserInterest.class);
+    	conf.addAnnotatedClass(Evaluation.class);
     	Database.sf = conf.buildSessionFactory();
 	}
 	
@@ -47,6 +52,25 @@ public class Database {
 	    criteria.from(type);
 	    List<T> data = session.createQuery(criteria).getResultList();
 	    return data;
+	}
+	
+	public static List<String> loadAllUniqueActivities()
+	{
+		Session session = Database.getSession();
+		List<HotelActivity> all_activities = Database.loadAllData(HotelActivity.class, session);
+		Map<String, String> activity_map = new HashMap<String, String>();
+		for(HotelActivity ha : all_activities)
+		{
+			if(!ha.isActivityEntry())
+				continue;
+			if(!activity_map.containsKey(ha.getName()));
+				activity_map.put(ha.getName(), ha.getName());
+		}
+		session.close();
+		List<String> uniqueactivities = new ArrayList<String>();
+		for(String activity : activity_map.keySet())
+			uniqueactivities.add(activity);
+		return uniqueactivities;
 	}
 	
 	public static Session getSession() {

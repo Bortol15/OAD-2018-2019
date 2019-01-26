@@ -1,16 +1,35 @@
 package Controllers;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import javax.xml.crypto.Data;
+
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+
 import Models.Category;
 import Models.Destination;
 import Models.Evaluation;
 import Models.Hotel;
+import Models.HotelActivity;
 import Models.TREC;
+import Models.User;
+import Models.UserActivity;
 import ViewModels.HotelViewModel;
+import ViewModels.MaintainHotelModel;
+import ViewModels.NewHotelModel;
+import ViewModels.SearchViewModel;
+import Views.Index;
 import Views.MaintainHotel;
+import Views.NewHotel;
 import Views.RateHotel;
 import Views.Search;
 import Views.ShowHotel;
@@ -18,44 +37,121 @@ import database.Database;
 
 public class HotelController {
 	
-	public static void showHotel(int id) {
-
-
-		Hotel hotel = Database.getSession().get(Hotel.class, id);
+	public static void showNewHotel()
+	{
+		NewHotelModel model = new NewHotelModel();
+		Session session = Database.getSession();
+		List<Destination> all_destinations = Database.loadAllData(Destination.class, session);
+		for(Destination dest : all_destinations)
+			model.destinations.put(dest.getId(), dest);
+		
+		session.close();
+		new NewHotel(model).setVisible(true);
+	}
+	
+	public static void saveNewHotel(Hotel hotel)
+	{
+		User user = TREC.getInstance().getCurrentLoggedInUser();
+		Index index = (Index) TREC.getInstance().Frames.get("Index");
+		index.cbx_MaintainHotel.addItem(hotel);
+		user.getHotels().add(hotel);
+		
+		hotel.setOwner(user);
+		Session session = Database.getSession();
+		session.save(hotel);
+		session.close();
+	}
+	
+	public static void showHotel(int id)
+	{
+		Hotel hotel = loadHotel(id);
+		Map<String, Integer> rated_activities = RecommendationController.calculateHotelRating(hotel.getEvaluations());
+		for(Map.Entry<String, Integer> entry : rated_activities.entrySet())
+		{
+			if(hotel.getActivities().containsKey(entry.getKey()))
+				hotel.getActivities().put(entry.getKey(), entry.getValue());
+		}
+		
 		ShowHotel showHotel = new ShowHotel(hotel);
 		showHotel.setVisible(true);
+		if(TREC.getInstance().getCurrentLoggedInUser() == null)
+			showHotel.btnRate.setVisible(false);
 		TREC.getInstance().Frames.put("ShowHotel", showHotel);
+	}
+	
+	public static Hotel loadHotel(int id)
+	{	
+		Session session = Database.getSession();
+		Hotel hotel = session.get(Hotel.class, id);
+	    List<HotelActivity> hotelactivities = Database.loadAllData(HotelActivity.class, session);
+	    Map<Integer, Evaluation> eval_map = new HashMap<Integer, Evaluation>();
+		List<Evaluation> evaluations = Database.loadAllData(Evaluation.class, session);
+		session.close();
+		
+	    for(Evaluation eva : evaluations) // select evaluations which belong to the hotel
+	    {
+	    	if(eva.getHotel().getId() == hotel.getId())
+	    		eval_map.put(eva.getId(), eva);
+	    }
+	    
+	    for(HotelActivity ha: hotelactivities) // feed the evaluations with activities
+	    {
+	    	if(ha.getHotel().getId() == hotel.getId())
+	    	{
+	    		if(!ha.isActivityEntry())
+		    		eval_map.get(ha.getEvaluation().getId()).getActivities().add(ha);
+	    		else
+	    			hotel.getActivities().put(ha.getName(), ha.getValue());
+	    	}
+	    }
+	    
+	    for(Evaluation eva : eval_map.values()) // convert evaluations back to list
+	    	hotel.getEvaluations().add(eva);
+	    
+	    return hotel;
+	}
+	
+	public static void deleteHotel(Hotel hotel)
+	{
+		Session session = Database.getSession();
+		Transaction trans = session.beginTransaction();
+		session.delete(hotel);
+		trans.commit();
+		session.close();
+		
+		Index index = (Index) TREC.getInstance().Frames.get("Index");
 	}
 
 	public static void rateHotel(Hotel hotel)
 	{
-		Map<String,Integer> Activities = hotel.getActivities();
-		
-		for (int value: Activities.values())
-			value = 5;
-
-
 		HotelViewModel model = new HotelViewModel();
-		MainController.createCategorySlider(Activities, model.CategorySliders);
-		model.HotelName = hotel.getName();
-		model.evaluation = new Evaluation();
-		RateHotel rate_hotel = new RateHotel(model);
-		
-		rate_hotel.setVisible(true);
-		TREC.getInstance().Frames.put("RateHotel", rate_hotel);
+		model.hotel = hotel;
+		for(Map.Entry<String, Integer> entry : model.hotel.getActivities().entrySet())
+			entry.setValue(5);
+		MainController.createCategorySlider(model.hotel.getActivities(), model.CategorySliders);
+		new RateHotel(model).setVisible(true);
 	}
 	
 	public static void submitEvaluation(HotelViewModel model)
 	{
-		//Save Evaluation in DB
-		//Add Evaluation to Hotel
-		//Adjust Hotel Rating
-		//Show Hotel
+		model.evaluation.setHotel(model.hotel);
+		User user = TREC.getInstance().getCurrentLoggedInUser();
+		model.evaluation.setUser(user);
+		model.evaluation.setDate(new SimpleDateFormat("dd.MM.yyyy - HH:mm:ss").format(Calendar.getInstance().getTime()).toString());
+		Session session = Database.getSession();
+		session.save(model.evaluation);
+		for(HotelActivity ua: model.evaluation.getActivities())
+			session.save(ua);
+		
+		session.close();
+		showHotel(model.hotel.getId());
 	}
 
-	public static void searchHotels(String searchstring) {
-		
-		List<Hotel> all_hotels = Database.loadAllData(Hotel.class, Database.getSession());
+	public static void searchHotels(String searchstring)
+	{
+		Session session = Database.getSession();
+		List<Hotel> all_hotels = Database.loadAllData(Hotel.class, session);
+		session.close();
 		List<Hotel> Result = new ArrayList<Hotel>();
 		String regex = ".*" + searchstring.toLowerCase()+".*";
 		
@@ -67,141 +163,137 @@ public class HotelController {
 				Result.add(hotel);
 		}
 
-		if (Result.isEmpty()) {
+		if (Result.isEmpty())
+		{
 			Search search = new Search(null);
 			search.setVisible(true);
 			TREC.getInstance().Frames.put("Search", search);
 			return;
 		}
 
-		Object[][] data = new Object[Result.size()][3];
-		for (int i = 0; i < Result.size(); i++) {
+		Object[][] data = new Object[Result.size()][4];
+		for (int i = 0; i < Result.size(); i++)
+		{
 			data[i][0] = Result.get(i).getName();
 			data[i][1] = Result.get(i).getDestination().getName();
 			data[i][2] = Result.get(i).getDestination().getCountry();
+			data[i][3] = Result.get(i).getId();
 		}
 
-		Search search = new Search(data);
+		Search search = new Search(new SearchViewModel(data, searchstring));
 		search.setVisible(true);
 		TREC.getInstance().Frames.put("Search", search);
 	}
 	
 	public static void maintainHotel(Hotel hotel)
 	{
-		hotel.getActivities().clear();
-		hotel.getEvaluations().clear();
-		fillHotelWithDummyData(hotel);
-		MaintainHotel maintainHotel = new MaintainHotel(hotel);
-		maintainHotel.setVisible(true);
-		TREC.getInstance().Frames.put("MaintainHotel", maintainHotel);
+		MaintainHotelModel model = new MaintainHotelModel();
+		model.hotel = loadHotel(hotel.getId());
+		Session session = Database.getSession();
+		List<Destination> all_destinations = Database.loadAllData(Destination.class, session);
+		for(Destination dest : all_destinations)
+			model.destinations.put(dest.getId(), dest);
+		model.activities_suggestions = Database.loadAllUniqueActivities();
+		session.close();
+		new MaintainHotel(model).setVisible(true);
+	}
+	
+	public static void saveHotelData(Hotel hotel)
+	{
+		Session session = Database.getSession();
+		Transaction trans = session.beginTransaction();
+		session.update(hotel);
+		trans.commit();
+		session.close();
+//		maintainHotel(hotel);
 	}
 	
 	public static void deleteEvaluation(Evaluation evaluation)
 	{
-		// Delete Evaluation from DB
-		// load User again
-		Destination dest1 = new Destination("Graz", "Austria");
-		Hotel hotel = new Hotel("Schlossberg Hotel", dest1, "Kaiser-Franz-Josef-Kai 30, 8010 Graz", 4);
-		fillHotelWithDummyData(hotel);
-		hotel.getEvaluations().remove(0);
-		TREC.getInstance().Frames.put("MaintainHotel", new MaintainHotel(hotel));
-		TREC.getInstance().Frames.get("MaintainHotel").setVisible(true);
-	}
-	
-	public static void fillHotelListWithDummyData(List<Hotel> hotels) // for testing
-	{
-		Destination dest1 = new Destination("Graz", "Austria");
-		hotels.add(new Hotel("Schlossberg Hotel", dest1, "Kaiser-Franz-Josef-Kai 30, 8010 Graz", 4));
-		hotels.add(new Hotel("Hotel Alpina", dest1, "Dorfplatz, 7165 Breil-Brigels", 3));
-		hotels.add(new Hotel("Hôtel Lavaux", dest1, "Route Cantonale 51, 1096 Bourg-en-Lavaux", 4));
-		hotels.add(new Hotel("Apartment Sole di Pola", dest1, "Rikarda Katalinića Jeretova 40, 52100 Pula", 3));
-		hotels.add(new Hotel("Palacio Ca Sa Galesa", dest1, "Carrer de Miramar 8, 07001 Palma", 5));
-	}
-	
-	public static void addActivity(String activity)
-	{
-		Destination dest1 = new Destination("Graz", "Austria");
-		Hotel hotel = new Hotel("Schlossberg Hotel",dest1, "Kaiser-Franz-Josef-Kai 30, 8010 Graz", 4);
-		hotel.getActivities().clear();
-		hotel.getEvaluations().clear();
-		fillHotelWithDummyData(hotel);
-		hotel.getActivities().put(activity, 5);
-		MaintainHotel maintainHotel = new MaintainHotel(hotel);
-		maintainHotel.setVisible(true);
-		TREC.getInstance().Frames.put("MaintainHotel", maintainHotel);
-	}
-	
-	public static void deleteActivity(Category activity)
-	{
-		Destination dest1 = new Destination("Graz", "Austria");
-		Hotel hotel = new Hotel("Schlossberg Hotel", dest1, "Kaiser-Franz-Josef-Kai 30, 8010 Graz", 4);
-		hotel.getActivities().clear();
-		hotel.getEvaluations().clear();
-		fillHotelWithDummyData(hotel);
-		hotel.getActivities().remove(0);
-		MaintainHotel maintainHotel = new MaintainHotel(hotel);
-		maintainHotel.setVisible(true);
-		TREC.getInstance().Frames.put("MaintainHotel", maintainHotel);
+		int hotelid = evaluation.getHotel().getId();
+		Session session = Database.getSession();
+		Transaction trans = session.beginTransaction();
+		for(HotelActivity ha: evaluation.getActivities())
+			session.delete(ha);
+		session.delete(evaluation);
+		trans.commit();
+		Hotel hotel = session.load(Hotel.class, hotelid);
+		session.close();
+		maintainHotel(hotel);
 	}
 	
 	
-	public static void fillHotelWithDummyData(Hotel hotel) // for testing
+	public static void addActivity(String combobox_text, String textbox_text, Hotel hotel)
 	{
-		hotel.getActivities().put("Volleyball", 10);
-		hotel.getActivities().put("Swimming", 10);
-		hotel.getActivities().put("History", 8);
-		hotel.getActivities().put("Tennis", 7);
-
+		String add_activity = "";
+		boolean update_user_activities_necessary = false;
 		
+		Pattern pattern = Pattern.compile("[a-zA-Z]+");
+		Matcher matcher_combobox = pattern.matcher(combobox_text);
+		Matcher matcher_textbox = pattern.matcher(textbox_text);
+		boolean combobox_valid = matcher_combobox.find();
+		boolean textbox_valid = matcher_textbox.find();
 		
-		List<Category> reviewedActivities1 = new ArrayList<Category>();
-		reviewedActivities1.add(new Category("Volleyball", 8));
-		reviewedActivities1.add(new Category("Swimming", 9));
-		reviewedActivities1.add(new Category("History", 9));
-		reviewedActivities1.add(new Category("Tennis", 4));
-		reviewedActivities1.add(new Category("Sauna", 8));
-		reviewedActivities1.add(new Category("Hiking", 4));
+		if(hotel.getActivities().size() >= 12)
+		{
+			maintainHotel(hotel);
+			return;
+		}
+			
+		if(combobox_valid) 
+		{
+			add_activity = combobox_text;
+		}
+		else if(textbox_valid)
+		{
+			add_activity = textbox_text;
+			update_user_activities_necessary = true;
+		}
+		else
+		{
+			maintainHotel(hotel);
+			return;
+		}
 		
-		Evaluation eva1 = new Evaluation();
-		eva1.setCustomerName("Eva");
-		eva1.setActivities(reviewedActivities1);
-		eva1.setNightsSpend(4);
-		eva1.setComment("blablabal..now comes a long long text\n");
-		eva1.setDate(new Date());
+		for(String key : hotel.getActivities().keySet())
+		{
+			if(key.equals(add_activity))
+			{
+				maintainHotel(hotel);
+				return;
+			}
+		}
 		
-		List<Category> reviewedActivities2 = new ArrayList<Category>();
-		reviewedActivities2.add(new Category("Volleyball", 6));
-		reviewedActivities2.add(new Category("Swimming", 6));
-		reviewedActivities2.add(new Category("History", 9));
-		reviewedActivities2.add(new Category("Tennis", 8));
-		reviewedActivities1.add(new Category("Sauna", 7));
-		reviewedActivities1.add(new Category("Hiking", 7));
+		HotelActivity ha = new HotelActivity(add_activity, true, hotel);
+		Session session = Database.getSession();
+		session.save(ha);
+		session.close();
+		if(update_user_activities_necessary == true)
+			UserController.updateAllUserActivities();
 		
-		Evaluation eva2 = new Evaluation();
-		eva2.setCustomerName("Adam");
-		eva2.setActivities(reviewedActivities1);
-		eva2.setNightsSpend(4);
-		eva2.setComment("asdfasdfölkjölkjasdfasdfölkjölk\njasdfasdf");
-		eva2.setDate(new Date());
+		TREC.getInstance().Frames.get("MaintainHotel").dispose();
+		maintainHotel(hotel);
+	}
+	
+	public static void deleteActivity(String key, Hotel hotel)
+	{
+		Session session = Database.getSession();
+		Transaction trans = session.beginTransaction();
 		
-		List<Category> reviewedActivities3 = new ArrayList<Category>();
-		reviewedActivities3.add(new Category("Volleyball", 8));
-		reviewedActivities3.add(new Category("Swimming", 9));
-		reviewedActivities3.add(new Category("History", 9));
-		reviewedActivities3.add(new Category("Tennis", 4));
-		reviewedActivities3.add(new Category("Sauna", 8));
-		reviewedActivities3.add(new Category("Hiking", 4));
+		List<HotelActivity> activities = Database.loadAllData(HotelActivity.class, session);
+		for(HotelActivity ha : activities)
+		{
+			if(ha.getName().equals(key) && ha.getHotel().getId()==(hotel.getId()))
+			{
+				session.delete(ha);
+				break;
+			}
+		}
 		
-		Evaluation eva3 = new Evaluation();
-		eva3.setCustomerName("Eva");
-		eva3.setActivities(reviewedActivities1);
-		eva3.setNightsSpend(4);
-		eva3.setComment("blablabal..now comes a long long text\n");
-		eva3.setDate(new Date());
-		
-		hotel.getEvaluations().add(eva1);
-		hotel.getEvaluations().add(eva2);
-		hotel.getEvaluations().add(eva3);
+		trans.commit();
+		session.close();
+		UserController.updateAllUserActivities();
+		maintainHotel(hotel);
 	}
 }
 

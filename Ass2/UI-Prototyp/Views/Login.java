@@ -23,7 +23,7 @@ public class Login extends JFrame {
 	
 	public Login() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 309, 301);
+		setBounds(100, 100, 296, 228);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -58,10 +58,6 @@ public class Login extends JFrame {
 		btn_login.setBounds(12, 164, 114, 25);
 		contentPane.add(btn_login);
 		
-		JLabel lblForgotPassword = new JLabel("Forgot Password?");
-		lblForgotPassword.setBounds(12, 204, 159, 19);
-		contentPane.add(lblForgotPassword);
-		
 		JLabel lblRegistrieren = new JLabel("Register");
 		lblRegistrieren.addMouseListener(new MouseAdapter() {
 
@@ -70,7 +66,7 @@ public class Login extends JFrame {
 			}
 			
 		});
-		lblRegistrieren.setBounds(12, 235, 159, 19);
+		lblRegistrieren.setBounds(209, 19, 65, 19);
 		contentPane.add(lblRegistrieren);
 		
 		JLabel lblNewLabel = new JLabel("Login");

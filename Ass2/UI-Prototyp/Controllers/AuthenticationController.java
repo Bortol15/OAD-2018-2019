@@ -1,6 +1,5 @@
 package Controllers;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -9,9 +8,12 @@ import javax.swing.JOptionPane;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 
+import Models.DestinationInterest;
 import Models.Hotel;
 import Models.TREC;
 import Models.User;
+import Models.UserActivity;
+import Models.UserInterest;
 import Views.Index;
 import Views.Login;
 import Views.Registration;
@@ -48,22 +50,26 @@ public class AuthenticationController {
 		TREC trec = TREC.getInstance();
 		Index index = (Index) trec.Frames.get("Index");
 		trec.Frames.put("Index", index);
+		Session session = Database.getSession();
 		
 		@SuppressWarnings("deprecation")
-		User user = (User) Database.getSession().createCriteria(User.class)
+		User user = (User) session.createCriteria(User.class)
 				.add(Restrictions.eq("EMail", email)).uniqueResult();
 		
+
+		session.close();
 		if (user != null && user.getPassword().equals(password))
 		{
+			Session session2 = Database.getSession();
 			Database.setLoggedIn(true);
-			Session session = Database.getSession();
-			List<Hotel> all_hotels = Database.loadAllData(Hotel.class, session);
+			List<Hotel> all_hotels = Database.loadAllData(Hotel.class, session2);
 			for(Hotel hotel : all_hotels)
 			{
 				if(hotel.getOwner() != null && hotel.getOwner().getUserId() == user.getUserId())
 					user.getHotels().add(hotel);
 			}
 			trec.setCurrentLoggedInUser(user);
+			session2.close();
 		} 
 		else
 		{
@@ -74,7 +80,7 @@ public class AuthenticationController {
 		{						
 			trec.Frames.get("Index").dispose();
 			index = new Index();
-			index.lbl_user_logged_in.setText("user logged in: " + user.getEMail());
+			index.lbl_user_logged_in.setText(user.getFirstname() == null || user.getFirstname().isEmpty() ? "Welcome " + user.getEMail()+"!":"Welcome " + user.getFirstname()+"!");
 			index.getLogin().setText("Logout");
 			trec.Frames.put("Index", index);
 			index.setVisible(true);
@@ -84,23 +90,14 @@ public class AuthenticationController {
 		else
 		{
 			return false;
-		}			
+		}
 	}
 	
 	public static void showRegistration()
 	{
-		TREC trec = TREC.getInstance();
-		Registration registration = (Registration) trec.Frames.get("Registration");
-		registration.getEmail().setText("");
-		registration.getFirstname().setText("");
-		registration.getLastname().setText("");
-		registration.getBirthdate().setText("");
-		registration.getAdress().setText("");
-		registration.getCountry().setText("");
-		registration.getZIP().setText("");
-		registration.setVisible(true);
-		trec.Frames.get("Login").setVisible(false);
+		new Registration().setVisible(true);
 	}
+	
 	
 	public static boolean checkValidity(String email, String password, String repeat_password, String user_type)
 	{
@@ -110,17 +107,23 @@ public class AuthenticationController {
 	
 	public static void register(User user)
 	{
-		
 		Session sess = Database.getSession();
 		sess.save(user);
+		List<String> activities = Database.loadAllUniqueActivities();
+		for(String activity : activities)
+		{
+			sess.save(new UserActivity(activity, 5, user));
+		}
+		sess.save(new UserInterest("Lifestyle", 5, user));
+		sess.save(new UserInterest("Sport", 5, user));
+		sess.save(new UserInterest("Abenteuer", 5, user));
+		sess.save(new UserInterest("Familie", 5, user));
+		sess.save(new UserInterest("Kultur", 5, user));
+		
 		sess.close();
 		
 		JOptionPane.showMessageDialog(null, "Registration successfull!");
-		TREC.getInstance().Frames.get("Registration").setVisible(false);
 	}
 }
-
-
-
 
 
