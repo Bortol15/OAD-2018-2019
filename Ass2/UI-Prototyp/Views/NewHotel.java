@@ -43,6 +43,8 @@ public class NewHotel extends JFrame{
 
 	public NewHotel(NewHotelModel model) {
 		
+
+		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 354);
 		contentPane = new JPanel();
@@ -72,6 +74,8 @@ public class NewHotel extends JFrame{
 		contentPane.add(cbx_Destinations);
 		for(Destination dest : model.destinations.values())
 			cbx_Destinations.addItem(dest);
+		
+//		txt_Country.setText(cbx_Destinations.getSelectedItem().toString());
 		
 		
 		cbx_Destinations.addItemListener(new ItemListener() {

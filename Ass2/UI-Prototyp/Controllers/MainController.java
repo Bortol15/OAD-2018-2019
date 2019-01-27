@@ -1,4 +1,7 @@
 package Controllers;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -7,10 +10,19 @@ import javax.swing.JSlider;
 import javax.swing.JTable;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
+import javax.swing.table.TableModel;
 
+import org.hibernate.Session;
+
+import Models.Evaluation;
+import Models.Hotel;
+import Models.HotelActivity;
 import Models.TREC;
 import ViewModels.CategorySlider;
 import Views.*;
+import database.Database;
 
 public class MainController {
 
@@ -75,25 +87,152 @@ public class MainController {
 	
 	public static void showStatistics(String query)
 	{
-		query = "asldfksaldf";
-		String[] columnNames = new String[1];
-		Object[][] data = new Object[1][1];
+		JTable table = new JTable();
+		Session session = Database.getSession();
+		String[] header = new String[1];
+		DefaultTableModel table_model = new DefaultTableModel(header, 0);
 		
-		if(query == "asldfksaldf")
+		List<Evaluation> evas = Database.loadAllData(Evaluation.class, session);
+		List<HotelActivity> hotelactivities = Database.loadAllData(HotelActivity.class, session);
+		
+		if(query == "5 hotels with the highest number of customer evaluations")
 		{
-			columnNames = new String[]{"Vorname",
-	                "Nachname",
-	                "Anzahl Evaluierungen"
-	                };
+			header = new String[2];
+			header[0] = "Hotelname";
+			header[1] = "Nr. of Evaluations";
+			table_model = new DefaultTableModel(header, 0);
 			
-			 data = new Object[][]{
-					{"Max","Mustermann", 5},
-					{"Susi","Sonnenschein", 4},
-					{"Christoph","Proß", 3},
-				};
+			Map<String, Integer> hotel_map = new HashMap<String,Integer>();
+			for(Evaluation eva : evas)
+			{
+				String hotelname = eva.getHotel().getName();
+				if(hotel_map.containsKey(hotelname))
+					hotel_map.put(hotelname, hotel_map.get(hotelname) + 1);
+				else
+					hotel_map.put(hotelname, 1);
+			}
+			
+			int map_size = hotel_map.size();
+			
+			for(int i = 0; i < map_size && i < 5; i++)
+			{
+				Map.Entry<String, Integer> maxEntry = null;
+		
+				for (Map.Entry<String, Integer> entry : hotel_map.entrySet())
+				{
+				    if (maxEntry == null || entry.getValue().compareTo(maxEntry.getValue()) > 0)
+				    {
+				        maxEntry = entry;
+				    }
+				}
+				
+				Object[] row = { maxEntry.getKey(), maxEntry.getValue()};
+				table_model.addRow(row);
+				hotel_map.remove(maxEntry.getKey());
+			}
 		}
 		
-		new Statistics(new JTable(data,columnNames)).setVisible(true);
+		if(query == "5 hotels with the worst overall evaluations")
+		{
+			header = new String[2];
+			header[0] = "Hotelname";
+			header[1] = "Average Rating";
+			table_model = new DefaultTableModel(header, 0);
+			
+			Map<String, Integer> hotel_evaluation_map = new HashMap<String, Integer>();
+			Map<String, Integer> hotel_map_counter = new HashMap<String, Integer>();
+			Map<String, Double> hotel_map_result = new HashMap<String, Double>();
+			for(HotelActivity ha : hotelactivities)
+			{
+				String hotelname = ha.getHotel().getName();
+				if(hotel_evaluation_map.containsKey(hotelname))
+				{
+					hotel_evaluation_map.put(hotelname, hotel_evaluation_map.get(hotelname) + ha.getValue());
+					hotel_map_counter.put(hotelname, hotel_map_counter.get(hotelname) + 1);
+				}
+				else
+				{
+					hotel_evaluation_map.put(hotelname, ha.getValue());
+					hotel_map_counter.put(hotelname, 1);
+				}
+			}
+			
+			for (Map.Entry<String, Integer> entry : hotel_evaluation_map.entrySet())
+				hotel_map_result.put(entry.getKey(), (double) hotel_evaluation_map.get(entry.getKey()) / (double) hotel_map_counter.get(entry.getKey()));
+			
+			
+			int map_size = hotel_map_result.size();
+			for(int i = 0; i < map_size && i < 5; i++)
+			{
+				Map.Entry<String, Double> maxEntry = null;
+				
+				for (Map.Entry<String, Double> entry : hotel_map_result.entrySet())
+				{
+					if (maxEntry == null || entry.getValue().compareTo(maxEntry.getValue()) < 0)
+					{
+						maxEntry = entry;
+					}
+				}
+				
+				Object[] row = { maxEntry.getKey(), maxEntry.getValue()};
+				table_model.addRow(row);
+				hotel_map_result.remove(maxEntry.getKey());
+				
+			}
+		}
+		
+		if(query == "5 hotels with the best overall evaluations")
+		{
+			header = new String[2];
+			header[0] = "Hotelname";
+			header[1] = "Average Rating";
+			table_model = new DefaultTableModel(header, 0);
+			
+			Map<String, Integer> hotel_evaluation_map = new HashMap<String, Integer>();
+			Map<String, Integer> hotel_map_counter = new HashMap<String, Integer>();
+			Map<String, Double> hotel_map_result = new HashMap<String, Double>();
+			for(HotelActivity ha : hotelactivities)
+			{
+				String hotelname = ha.getHotel().getName();
+				if(hotel_evaluation_map.containsKey(hotelname))
+				{
+					hotel_evaluation_map.put(hotelname, hotel_evaluation_map.get(hotelname) + ha.getValue());
+					hotel_map_counter.put(hotelname, hotel_map_counter.get(hotelname) + 1);
+				}
+				else
+				{
+					hotel_evaluation_map.put(hotelname, ha.getValue());
+					hotel_map_counter.put(hotelname, 1);
+				}
+			}
+			
+			for (Map.Entry<String, Integer> entry : hotel_evaluation_map.entrySet())
+				hotel_map_result.put(entry.getKey(), (double) hotel_evaluation_map.get(entry.getKey()) / (double) hotel_map_counter.get(entry.getKey()));
+			
+			
+			int map_size = hotel_map_result.size();
+			for(int i = 0; i < map_size; i++)
+			{
+				Map.Entry<String, Double> maxEntry = null;
+		
+				for (Map.Entry<String, Double> entry : hotel_map_result.entrySet())
+				{
+				    if (maxEntry == null || entry.getValue().compareTo(maxEntry.getValue()) > 0)
+				    {
+				        maxEntry = entry;
+				    }
+				}
+				
+				Object[] row = { maxEntry.getKey(), maxEntry.getValue()};
+				table_model.addRow(row);
+				hotel_map_result.remove(maxEntry.getKey());
+				
+			}
+		}
+		
+		table = new JTable(table_model);
+		
+		new Statistics(table).setVisible(true);
 	}
 }
 

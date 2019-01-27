@@ -52,7 +52,7 @@ public class Evaluation {
 		this.id = id;
 	}
 	
-	@ManyToOne(cascade = CascadeType.DETACH)
+	@ManyToOne(cascade = CascadeType.MERGE)
 	public Hotel getHotel() {
 		return hotel;
 	}

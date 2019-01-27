@@ -6,6 +6,7 @@ import javax.swing.border.EmptyBorder;
 import Controllers.HotelController;
 import Controllers.MainController;
 import Models.HotelActivity;
+import Models.TREC;
 import ViewModels.CategorySlider;
 
 import javax.swing.JLabel;
@@ -26,6 +27,8 @@ public class Statistics extends JFrame {
 
 	
 	public Statistics(JTable table) {
+		if(TREC.getInstance().getCurrentLoggedInUser() == null)
+			return;
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 532, 284);
 		contentPane = new JPanel();
@@ -42,9 +45,13 @@ public class Statistics extends JFrame {
 		cbx_statistics.setBounds(12, 51, 403, 24);
 		contentPane.add(cbx_statistics);
 		
-		cbx_statistics.addItem("3 Kunden mit der höchsten Zahl an Evaluierungen");
-		cbx_statistics.addItem("5 Hotels mit den besten Evaluierungen");
-		cbx_statistics.addItem("5 Hotels mit der höchsten Zahl an Kundenevaluierungen");
+		
+		cbx_statistics.addItem("5 hotels with the best overall evaluations");
+		if(TREC.getInstance().getCurrentLoggedInUser().getIs_admin())
+		{
+			cbx_statistics.addItem("5 hotels with the highest number of customer evaluations");
+			cbx_statistics.addItem("5 hotels with the worst overall evaluations");
+		}
 				
 		JButton btnShowStatistics = new JButton("Go");
 		btnShowStatistics.setBounds(427, 51, 52, 25);

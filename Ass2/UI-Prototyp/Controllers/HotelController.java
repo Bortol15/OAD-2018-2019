@@ -115,6 +115,24 @@ public class HotelController {
 	{
 		Session session = Database.getSession();
 		Transaction trans = session.beginTransaction();
+		List<HotelActivity> has = Database.loadAllData(HotelActivity.class, session);
+		List<Evaluation> evas = Database.loadAllData(Evaluation.class, session);
+		
+		for(HotelActivity ha : has)
+		{
+			if(ha.getHotel().getId() == hotel.getId())
+				session.delete(ha);
+		}
+		
+		for(Evaluation eva : evas)
+		{
+			if(eva.getHotel().getId() == hotel.getId())
+				session.delete(eva);
+		}
+		
+		trans.commit();
+		session.clear();
+		trans = session.beginTransaction();
 		session.delete(hotel);
 		trans.commit();
 		session.close();
