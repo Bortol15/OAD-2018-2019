@@ -304,7 +304,6 @@ public class HotelController {
 			if(ha.getName().equals(key) && ha.getHotel().getId()==(hotel.getId()))
 			{
 				session.delete(ha);
-				break;
 			}
 		}
 		

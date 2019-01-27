@@ -23,6 +23,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
@@ -190,8 +191,11 @@ public class MaintainHotel extends JFrame {
 			delete_activity.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
-					HotelController.deleteActivity(entry.getKey(), model.hotel);
-					MaintainHotel.this.dispose();
+					if(JOptionPane.showConfirmDialog(null, "Are you sure, you want delete this item?") == 0)
+					{
+						HotelController.deleteActivity(entry.getKey(), model.hotel);
+						MaintainHotel.this.dispose();
+					}
 				}
 			});
 			delete_activity.setFont(new Font("X", Font.BOLD, 8));
@@ -238,8 +242,11 @@ public class MaintainHotel extends JFrame {
     		deleteEval.addMouseListener(new MouseAdapter() {
     			@Override
     			public void mouseClicked(MouseEvent e) {
-    				HotelController.deleteEvaluation(currentEval);
-    				MaintainHotel.this.dispose();
+					if(JOptionPane.showConfirmDialog(null, "Are you sure, you want delete this item?") == 0)
+					{
+	    				HotelController.deleteEvaluation(currentEval);
+	    				MaintainHotel.this.dispose();
+					}
     			}
     		});
     		deleteEval.setForeground(Color.red);

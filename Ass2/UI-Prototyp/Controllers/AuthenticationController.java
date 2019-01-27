@@ -73,7 +73,7 @@ public class AuthenticationController {
 		} 
 		else
 		{
-			System.out.println("Something wrong");
+			JOptionPane.showMessageDialog(null, "Username or Password false");
 		}		
 		
 		if(trec.getCurrentLoggedInUser() != null)

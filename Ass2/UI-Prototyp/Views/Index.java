@@ -147,8 +147,6 @@ public class Index extends JFrame {
 			JButton button = new JButton("-");
 			button.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
-//					int input = JOptionPane.showConfirmDialog(null, "Do you like bacon?");
-//					int dialogButton = JOptionPane.YES_NO_OPTION;
 					if(JOptionPane.showConfirmDialog(null, "Are you sure, you want delete this item?") == 0)
 					{
 						HotelController.deleteHotel((Hotel)cbx_MaintainHotel.getSelectedItem());
