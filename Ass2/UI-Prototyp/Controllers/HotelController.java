@@ -213,6 +213,7 @@ public class HotelController {
 			model.destinations.put(dest.getId(), dest);
 		model.activities_suggestions = Database.loadAllUniqueActivities();
 		session.close();
+		
 		new MaintainHotel(model).setVisible(true);
 	}
 	
@@ -223,7 +224,12 @@ public class HotelController {
 		session.update(hotel);
 		trans.commit();
 		session.close();
-//		maintainHotel(hotel);
+
+		MainController.updateHotelDropdown();
+		TREC.getInstance().Frames.get("Index").dispose();
+		Index index = new Index();
+		index.setVisible(true);
+		TREC.getInstance().Frames.put("Index", index);
 	}
 	
 	public static void deleteEvaluation(Evaluation evaluation)

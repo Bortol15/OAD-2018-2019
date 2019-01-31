@@ -20,6 +20,7 @@ import Models.Evaluation;
 import Models.Hotel;
 import Models.HotelActivity;
 import Models.TREC;
+import Models.User;
 import ViewModels.CategorySlider;
 import Views.*;
 import database.Database;
@@ -58,6 +59,19 @@ public class MainController {
 	public static void showIndex()
 	{
 		TREC.getInstance().Frames.get("Index").setVisible(true);
+	}
+	
+	public static void updateHotelDropdown()
+	{
+		User current_user = TREC.getInstance().getCurrentLoggedInUser();
+		Session session = Database.getSession();
+		List<Hotel> hotels = Database.loadAllData(Hotel.class, session);
+		current_user.getHotels().clear();
+		for(Hotel hotel : hotels)
+		{
+			if(hotel.getOwner().getUserId() == current_user.getUserId())
+				current_user.getHotels().add(hotel);
+		}
 	}
 	
 	public static void createCategorySlider(Map<String, Integer> map, List<CategorySlider> CategorySliders)
