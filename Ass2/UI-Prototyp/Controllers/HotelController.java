@@ -228,6 +228,7 @@ public class HotelController {
 		MainController.updateHotelDropdown();
 		TREC.getInstance().Frames.get("Index").dispose();
 		Index index = new Index();
+		index.getLogin().setText("Logout");
 		index.setVisible(true);
 		TREC.getInstance().Frames.put("Index", index);
 	}
