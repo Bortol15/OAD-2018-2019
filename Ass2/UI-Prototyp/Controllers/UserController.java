@@ -63,6 +63,20 @@ public class UserController {
 		session.close();
 	}
 	
+	public static void initializeUserInterests()
+	{
+		Session session = Database.getSession();
+		List<User> users = Database.loadAllData(User.class, session);
+		for(User user : users)
+		{
+			session.save(new UserInterest("Lifestyle", 5, user));
+			session.save(new UserInterest("Sport", 5, user));
+			session.save(new UserInterest("Abenteuer", 5, user));
+			session.save(new UserInterest("Familie", 5, user));
+			session.save(new UserInterest("Kultur", 5, user));
+		}
+	}
+	
 	public void saveActivities(List<CategorySlider> catSlider)
 	{
 		Session session = Database.getSession();
@@ -117,6 +131,7 @@ public class UserController {
 				updateUserActivities(user.getUserId());
 		}
 	}
+	
 	
 	public static void updateUserActivities(int user_id)
 	{
