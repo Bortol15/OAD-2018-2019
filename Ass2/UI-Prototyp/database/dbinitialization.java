@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.hibernate.Session;
 
+import Controllers.UserController;
 import Models.Destination;
 import Models.DestinationInterest;
 import Models.Evaluation;
@@ -35,9 +36,11 @@ public class dbinitialization {
 		User user1 = new User("root","root", false);
 		User user2 = new User("root2","root2", false);
 		User user3 = new User("root3","root3", false);
+		User user4 = new User("test", "test", false);
 		users.add(user1);
 		users.add(user2);
 		users.add(user3);
+		users.add(user4);
 		users.add(admin);
 		users.add(admin2);
 		
@@ -97,25 +100,6 @@ public class dbinitialization {
 		hotelactivities.add(new HotelActivity("Tierpark",true, hotel_donauwelle));
 		hotelactivities.add(new HotelActivity("Einkaufszentrum", true, hotel_donauwelle));
 		
-		
-		useractivities.add(new UserActivity("Einkaufszentrum", 9, user1));
-		useractivities.add(new UserActivity("Schwimmen",3, user1));
-		useractivities.add(new UserActivity("Klettern",4, user1));
-		useractivities.add(new UserActivity("Tierpark",3, user1));
-		useractivities.add(new UserActivity("Museen",4, user1));
-		
-		useractivities.add(new UserActivity("Einkaufszentrum", 4, user2));
-		useractivities.add(new UserActivity("Schwimmen",4, user2));
-		useractivities.add(new UserActivity("Klettern",5, user2));
-		useractivities.add(new UserActivity("Tierpark",6, user2));
-		useractivities.add(new UserActivity("Museen",6, user2));
-
-		useractivities.add(new UserActivity("Einkaufszentrum", 7, user3));
-		useractivities.add(new UserActivity("Schwimmen",7, user3));
-		useractivities.add(new UserActivity("Klettern",1, user3));
-		useractivities.add(new UserActivity("Tierpark",8, user3));
-		useractivities.add(new UserActivity("Museen",9, user3));
-		
 		userinterests.add(new UserInterest("Lifestyle",4, user1));
 		userinterests.add(new UserInterest("Sport",7, user1));
 		userinterests.add(new UserInterest("Abenteuer",8, user1));
@@ -129,6 +113,7 @@ public class dbinitialization {
 		hotelactivities.add(new HotelActivity("Museen",5, hotel_park_inn, eval1));
 		hotelactivities.add(new HotelActivity("Tierpark",6, hotel_park_inn, eval1));
 		hotelactivities.add(new HotelActivity("Einkaufszentrum", 8, hotel_park_inn, eval1));
+
 		evaluations.add(eval1);
 
 		
@@ -157,6 +142,8 @@ public class dbinitialization {
 		
 		for(UserActivity useractivity: useractivities)
 			sess.save(useractivity);
+		
+		UserController.updateAllUserActivities();
 		
 		sess.close();
 	}
